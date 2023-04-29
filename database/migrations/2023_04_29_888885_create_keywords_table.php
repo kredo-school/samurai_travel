@@ -19,7 +19,7 @@ class CreateKeywordsTable extends Migration
             $table->string('name', 50)->unique();
             $table->timestamps();
 
-            $table->foreign('genre_id')->references('id')->on('genre_id')->onDelete('cascade');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
         });
     }
 

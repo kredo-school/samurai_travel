@@ -20,7 +20,7 @@ class CreateInterestsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('keyword')->references('id')->on('keywords')->onDelete('cascade');
+            $table->foreign('keyword_id')->references('id')->on('keywords')->onDelete('cascade');
         });
     }
 
