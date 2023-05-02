@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('gender')->length(1)->nullable()
                     ->comment('1:male 2:female 3:other');
             $table->string('email')->unique();
+            $table->string('password');
             $table->integer('status')->length(1)->nullable()
                     ->comment('1:active o:inactive');
             $table->unsignedBigInteger('role_id')
