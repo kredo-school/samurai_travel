@@ -1,0 +1,186 @@
+/* FOR HEADER */
+.logo{
+    width: 2 rem;
+    height: 2 rem;
+    object-fit: cover;
+    position: absolute;
+}
+
+/* FONT */
+
+/* .h1{
+    font-size: 4 rem;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    color: red;  
+}
+
+.h2{
+    font-size: 3 rem;
+    font-weight: normal;
+    font-family: "poppins", sans-serif
+} */
+
+.h3{
+    font-size: 2 rem;
+    font-weight: light;
+    font-family: "poppins",sans-serif;  
+}
+
+.h4{
+    font-size: 1.5 rem;
+    font-weight: bold;
+    font-family: "poppins",sans-serif;  
+}
+
+.h5{
+    font-size: 1.125 rem;
+    font-weight: bold;
+    font-family: "poppins",sans-serif;  
+}
+
+.h6{
+    font-size: 1 rem;
+    font-weight: normal;
+    font-family: "poppins",sans-serif;  
+}
+
+.p{
+    font-size: 1 rem;
+    font-weight: regular;
+    font-family: "Raleway", sans-serif;
+}
+
+/* BUTTON */
+
+/* Search button on Top Page (Search by your destination, Search by category, Search by what to do)*/
+.btn-lg{
+    font-family: "poppins";
+    width: 25 rem;
+    height: 10 rem;
+    margin:auto;
+    padding: 1 rem, 4 rem;
+    color: white;
+    background: rgba(255,215,0,0.05);
+    border:0.1px solid white;
+    
+}
+
+/* Button for Top page ("See More", "Search More" ,  etc...) */
+.btn-md{
+    width: 14 rem;
+    height: 1.5 rem;
+    margin:auto;
+    padding: 1 rem, 4 rem;
+    border-radius: 50%;
+    color:black;
+    background: transparent;
+    border:0.1px solid black;
+}
+
+/* Button for Search page ("genres, keywords, location, search ,edit, delete etc...") */
+.btn-sm{
+    height: 1.5 rem;
+    margin:auto;
+    padding: 1 rem 4 rem;
+    border-radius: 50px;
+    color:black;
+    background: white;
+    border:0.1px solid black;
+}
+
+/* Dropdown button (Search page, Profile page) */
+.btn-dropdown-search {
+    width: 80%;
+    height: 1.5 rem;
+    border-radius: 0 0 10px 10px ;
+}
+
+.btn-dropdown-profile {
+    width: 80%;
+    height: 2 rem;
+    color: white;
+    background:rgba(255,255,255,0.5);
+    border: 0.1px solid white;
+}
+
+/* ICON */
+
+.icon-sm{
+    height: 1.5 rem;
+}
+
+.icom-md{
+    height: 2 rem;
+}
+
+.icon-lg{
+    height: 3 rem;
+}
+
+/* Avatar */
+.avatar-lg{
+    width: 15 rem;
+}
+
+.avatar-sm{
+    width: 4 rem;
+    height: 4 rem;
+    border-radius: 50%;
+}
+
+/* Back Flame (Plan on top page, Search page, Login page, Plan details page, How to create page, Question page etc... ) */
+
+.back-frame {
+    background-color: white;
+    font: black;
+    margin:auto;
+    padding: 1 rem 4 rem;
+    box-shadow: 1 px;
+}
+
+/* Back Flame for plans on My Page */
+.back-frame-for-plan {
+    background-color: white;
+    font: black;
+    margin:auto;
+    padding: 1 rem 4 rem;
+    box-shadow: 1 px;
+    border: black;
+}
+
+
+/* Image */
+
+/* Image for Top page */
+.img-lg{
+    width: 100% ;
+    margin: 0;
+}
+
+/* Image for Top page on Individual location page */
+.img-md{
+    width: 30%;
+    margin: auto;
+    border: 0;
+
+}
+
+/* Image for Bigger photo on pick-up page, photos on indevidual location page */
+.img-sm{
+    width: 30%;
+    margin:1 rem;
+}
+
+/* Image for other small photo () */
+.image-xs{
+    width: 20%;
+    margin: 1 rem;
+}
+
+.image-circle{
+    width: 15%;
+    height: 15%;
+    border-color: black;
+    border-radius: 50%;
+}
