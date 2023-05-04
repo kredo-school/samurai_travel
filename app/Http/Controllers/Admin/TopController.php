@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class TopController extends Controller
 {
-    public function __construct()
-    {
-    }
-
     public function top()
     {
         return view('admin.top');
