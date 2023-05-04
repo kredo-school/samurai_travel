@@ -19,17 +19,17 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->integer('age')->length(3)->nullable();
-            $table->integer('gender')->length(1)->nullable()
-                    ->comment('1:male 2:female 3:other');
+            $table->enum('gender', ['Male', 'Female', 'Other'])->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('status')->length(1)->nullable()
-                    ->comment('1:active o:inactive');
-            $table->unsignedBigInteger('role_id')
+            $table->enum('status', ['active', 'inactive'])->nullable();
+            $table->integer('role_id')
                     ->default(1)
                     ->comment('1:user 2:admin');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

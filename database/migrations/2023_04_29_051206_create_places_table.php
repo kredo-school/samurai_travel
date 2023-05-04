@@ -15,23 +15,23 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->integer('place_div')->length(1)
-                    ->comment('1:spot 2:activity 3:restaurant 4:hotel');
+            $table->enum('place_category', ['spot', 'activity', 'restaurant', 'hotel']);
             $table->string('name_en')->nullable();
             $table->string('name_jp')->nullable();
             $table->timestamp('opening_time')->nullable();
             $table->timestamp('ending_time')->nullable();
             $table->text('url')->nullable();
-            $table->string('area_code', 2)->nullable();
-            $table->string('prefecture_code', 2)->nullable();
-            $table->string('city_code', 6)->nullable();
+            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('prefecture_id');
+            $table->unsignedBigInteger('city_id');
             $table->string('address');
             $table->integer('spend_time')->length(4);
             $table->timestamps();
 
-            $table->foreign('area_code')->references('code')->on('areas');
-            $table->foreign('prefecture_code')->references('code')->on('prefectures');
-            $table->foreign('city_code')->references('code')->on('cities');
+            $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('prefecture_id')->references('id')->on('prefectures');
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->softDeletes();
         });
     }
 

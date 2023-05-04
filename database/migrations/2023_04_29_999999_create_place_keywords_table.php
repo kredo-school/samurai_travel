@@ -18,7 +18,7 @@ class CreatePlaceKeywordsTable extends Migration
             $table->unsignedBigInteger('keyword_id');
             $table->timestamps();
 
-            $table->primary(['place_id', 'keyword_id']);
+            // $table->primary(['place_id', 'keyword_id']);
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');;
             $table->foreign('keyword_id')->references('id')->on('keywords')->onDelete('cascade');;
         });

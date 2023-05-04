@@ -16,12 +16,12 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('user_div')->length(1)
-                    ->comment('1:user, 2:admin');
+            $table->enum('user_type', ['user', 'admin'])->nullable();
             $table->string('title');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 
