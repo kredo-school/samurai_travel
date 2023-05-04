@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -76,6 +77,7 @@
         </nav>
 
         <main class="py-4">
+            @include('admin.shared.message')
             <div class="container">
                 @yield('content')
             </div>

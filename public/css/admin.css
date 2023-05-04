@@ -1,0 +1,23 @@
+.success {
+    height: 40px;
+    width: 100%;
+    padding: 8px 16px;
+    background-color: aquamarine;
+    border-radius: 8px;
+}
+
+.notice {
+    height: 40px;
+    width: 100%;
+    padding: 8px 16px;
+    background-color: lemonchiffon;
+    border-radius: 8px;
+}
+
+.fail {
+    height: 40px;
+    width: 100%;
+    padding: 8px 16px;
+    background-color: mistyrose;
+    border-radius: 8px;
+}
