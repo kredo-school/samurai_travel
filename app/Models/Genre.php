@@ -9,6 +9,10 @@ class Genre extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function keyword(){
         return $this->hasMany(Keyword::class);
         // ->withTrashed(); 

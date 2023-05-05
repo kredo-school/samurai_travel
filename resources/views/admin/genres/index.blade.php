@@ -35,8 +35,8 @@
             
             @forelse ($all_genres as $genre)
                 <tr>
-                    <td class="text-center">{{ $genre->id }}</td>
-                    <td class="text-center">{{ $genre->name }}</td>
+                    <td class="text-start">{{ $genre->id }}</td>
+                    <td class="text-start">{{ $genre->name }}</td>
                     <td>{{ $genre->created_at }}</td>
                     <td>{{ $genre->updated_at }}</td>
                     <td>

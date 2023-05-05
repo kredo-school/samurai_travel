@@ -7,49 +7,43 @@ use Illuminate\Http\Request;
 use App\Models\Genre;
 
 
-
-
 class GenreController extends Controller
 {
-    private $genre;
+    
 
 
-    public function __construct(Genre $genre)
-    {
-        $this->genre = Genre::all();
-    }
+    
 
     public function index(){
-        $all_genres = $this->genre;
+        $all_genres = Genre::all();
         return view('admin.genres.index', compact('all_genres'));
     }
 
     public function store(Request $request){
         $request->validate
         ([
-
-            'name' => 'required|min:1|max:15|unique:genres,name'
+            'name' => 'required|max:15|unique:genres'
         ]);
-            
-            $this->genre->name = ucwords(strtolower($request->name)); 
-            $this->genre->save();
-    
+
+        Genre::create([
+            'name' => $request->name
+        ]);
+        
             return redirect()->back();
     }
 
-    public function update($id, Request $request){
+    public function update(Request $request, Genre $genre){
         $request->validate([
-            'new_name'  => 'required|min:1|max:50|unique:genres,name,' . $id
+            'new_name'  => 'required|min:1|max:50'
         ]);
 
-        $genre           = $this->genre->findOrFail($id);
         $genre->name     = ucwords(strtolower($request->new_name));
         $genre->save();
         return redirect()->back();
     }
 
-    public function destroy($id){
-        $this->genre->destroy($id);
+    public function destroy(Genre $genre){
+        $genre->delete();
         return redirect()->back();
     }
 }
