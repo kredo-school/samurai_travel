@@ -18,15 +18,18 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/style.css') }}" rel="stylesheet">
     <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/admin/top') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <img src="{{ asset('assets/logo.png')}}" alt="logo" class="logo position-static">
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -34,24 +37,41 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <!-- Authentication Links -->
+                        @guest
 
+                        @else
+                            <li class="nav-item mx-3">
+                                <a class="nav-link" href="{{ route('admin.register') }}">Administrator</a>
+                            </li>
+
+                            <li class="nav-item mx-3">
+                                <a class="nav-link" href="#">Place</a>
+                            </li>
+
+                            <li class="nav-item mx-3">
+                                <a class="nav-link" href="#">Genre</a>
+                            </li>
+
+                            <li class="nav-item mx-3">
+                                <a class="nav-link" href="#">Keyword</a>
+                            </li>
+
+                            <li class="nav-item mx-3">
+                                <a class="nav-link" href="#">Recommended Plan</a>
+                            </li>
+
+                            <li class="nav-item mx-3">
+                                <a class="nav-link" href="#">Question</a>
+                            </li>
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

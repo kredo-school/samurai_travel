@@ -24,7 +24,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+
+    # For Admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
         # Admin Top
         Route::get('/top', [TopController::class, 'top'])->name('top');
         # Admin User Register
