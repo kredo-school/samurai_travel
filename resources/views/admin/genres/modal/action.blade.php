@@ -14,7 +14,7 @@
                     <input type="text" name="new_name" class="form-control" placeholder="Genre name" value="{{ $genre->name }}">
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-outline-warning btn-sm" data-bs-dismiss>Cancel</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-warning btn-sm">Update</button>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <p class="fw-light">This action will affect all the post under this genre. Post without genre, will fall un un-categorized.</p>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss>Cancel</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </div>
             </div>
