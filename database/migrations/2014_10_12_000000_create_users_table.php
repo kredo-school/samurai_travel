@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['Male', 'Female', 'Other'])->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('status', ['active', 'inactive'])->nullable();
+            $table->enum('status', ['active', 'inactive']);
             $table->integer('role_id')
                     ->default(1)
                     ->comment('1:user 2:admin');

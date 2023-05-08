@@ -18,8 +18,8 @@ class CreateAnswersTable extends Migration
             $table->unsignedBigInteger('question_id');
             $table->integer('answer_no')->length(3);
             $table->text('answer');
-            $table->unsignedBigInteger('genre_id');
-            $table->unsignedBigInteger('keyword_id');
+            $table->unsignedBigInteger('genre_id')->nullable();
+            $table->unsignedBigInteger('keyword_id')->nullable();
             $table->timestamps();
 
             // $table->primary(['question_id', 'answer_no']);

@@ -17,7 +17,7 @@ class CreatePlansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->enum('user_type', ['user', 'admin'])->nullable();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

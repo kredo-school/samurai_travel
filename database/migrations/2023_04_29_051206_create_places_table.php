@@ -24,8 +24,8 @@ class CreatePlacesTable extends Migration
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('prefecture_id');
             $table->unsignedBigInteger('city_id');
-            $table->string('address');
-            $table->integer('spend_time')->length(4);
+            $table->string('address')->nullable();
+            $table->integer('spend_time')->nullable();
             $table->timestamps();
 
             $table->foreign('area_id')->references('id')->on('areas');

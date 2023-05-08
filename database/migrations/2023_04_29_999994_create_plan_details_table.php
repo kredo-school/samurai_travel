@@ -18,7 +18,7 @@ class CreatePlanDetailsTable extends Migration
             $table->unsignedBigInteger('plan_id');
             $table->integer('day')->length(3);
             $table->unsignedBigInteger('place_id');
-            $table->integer('sort_no')->length(3);
+            $table->integer('sort_no')->length(3)->nullable();
             $table->timestamps();
 
             // $table->primary(['plan_id', 'day', 'place_id']);
