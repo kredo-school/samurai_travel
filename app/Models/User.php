@@ -41,4 +41,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    # Use this to get all plans that Auth user have
+    public function plan(){
+        return $this->hasMany(Plan::class);
+
+    }
+
+    #Use this to get all favorite places of Auth user
+    public function placeFavorite(){
+        return $this->hasMany(PlaceFavorite::class);
+    }
 }
