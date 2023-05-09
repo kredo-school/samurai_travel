@@ -3,7 +3,7 @@
         <div class="col">
             <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-lg" alt="#">
         </div>
-        <div class="col">
+        <div class="col col-white">
             <h4 class="p-3 pt-5 text-capitalize">{{ $category }}</h4>
             <p class="place-desc px-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa sint similique nemo expedita sequi quasi, possimus sit, ab voluptas, deleniti nihil nesciunt! A illum veniam obcaecati magni, quibusdam dicta accusantium.</p>
             <div class="d-flex justify-content-end p-3">

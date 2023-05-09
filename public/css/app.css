@@ -683,6 +683,10 @@ progress {
   flex: 1 0 0%;
 }
 
+.col-white{
+  background: white;
+}
+
 .row-cols-auto > * {
   flex: 0 0 auto;
   width: auto;
@@ -6981,6 +6985,7 @@ textarea.form-control-lg {
 
 .shadow {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  background: white;
 }
 
 .shadow-sm {

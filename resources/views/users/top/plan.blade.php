@@ -74,10 +74,10 @@
     <form class="" action="#" method="post">
         <div class="d-flex text-center mt-4 row">
             <div class="col">
-                <button class="btn btn-outline-dark rounded-pill h6">Let's create your plan!</button>
+                <button class="btn btn-light btn-outline-dark rounded-pill h6">Let's create your plan!</button>
             </div>
             <div class="col">
-                <button class="btn btn-outline-dark rounded-pill h6">How to create?</button>
+                <button class="btn btn-light btn-outline-dark rounded-pill h6">How to create?</button>
             </div>
         </div>
     </form>
