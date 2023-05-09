@@ -18,7 +18,7 @@ class CreatePlanKeywordsTable extends Migration
             $table->unsignedBigInteger('keyword_id');
             $table->timestamps();
 
-            $table->primary(['plan_id', 'keyword_id']);
+            // $table->primary(['plan_id', 'keyword_id']);
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
             $table->foreign('keyword_id')->references('id')->on('keywords')->onDelete('cascade');
         });

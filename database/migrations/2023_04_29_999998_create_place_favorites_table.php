@@ -17,8 +17,8 @@ class CreatePlaceFavoritesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('place_id');
             $table->timestamps();
-
-            $table->primary(['user_id', 'place_id']);
+            
+            // $table->primary(['user_id', 'place_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
         });

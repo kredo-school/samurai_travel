@@ -14,14 +14,14 @@ class CreatePrefecturesTable extends Migration
     public function up()
     {
         Schema::create('prefectures', function (Blueprint $table) {
+            $table->id();
             $table->string('code',2);
-            $table->string('area_code',2);
+            $table->unsignedBigInteger('area_id');
             $table->string('name_en', 20)->nullable();
             $table->string('name_jp', 20)->nullable();
             $table->timestamps();
 
-            $table->foreign('area_code')->references('code')->on('areas');
-            $table->primary('code');
+            $table->foreign('area_id')->references('id')->on('areas');
         });
     }
 

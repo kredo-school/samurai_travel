@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\GenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +21,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// for displaying ADMIN/ GENRE MANAGEMENT
-Route::get('/genres', [GenreController::class, 'index'])->name('genres');
-Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
-Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
-Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
-
-

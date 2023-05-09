@@ -14,11 +14,12 @@ class CreatePlanFavoritesTable extends Migration
     public function up()
     {
         Schema::create('plan_favorites', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('plan_id');
             $table->timestamps();
 
-            $table->primary(['user_id', 'plan_id']);
+            // $table->primary(['user_id', 'plan_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
         });
