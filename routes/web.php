@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\TopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +24,23 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'], function(){
+
+    # For Admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
+        # Admin Top
+        Route::get('/top', [TopController::class, 'top'])->name('top');
+        # Admin User Register
+        Route::get('/register', [RegisterController::class, 'register'])->name('register');
+        Route::post('/store', [RegisterController::class, 'store'])->name('store');
+
+        
+    });
+
+    // for displaying ADMIN/ GENRE MANAGEMENT
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
+    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
+});
