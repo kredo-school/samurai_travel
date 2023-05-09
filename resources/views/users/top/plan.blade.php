@@ -2,7 +2,7 @@
     <div class="shadow p-5 rounded">
         <h4 class="h4 text-capitalize">#Planname</h4>
         <div class="row">
-            <div class="col">
+            <div class="col ">
                 <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>

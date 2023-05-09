@@ -3,7 +3,7 @@
 @section('title', 'Top')
 
 @section('content')
-    <div class="container">
+    <div class="container body-top">
         <div class="top d-flex align-items-center">
             <img src="{{ asset('/assets/top-image.png')}}" alt="top-image" class="top-image">
             <div class="top-nav d-flex">
