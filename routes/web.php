@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\TopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // for displaying PLAN DETAILS
 Route::get('/plans', [PlanController::class, 'index']);
+Route::group(['middleware' => 'auth'], function(){
+
+    # For Admin
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
+        # Admin Top
+        Route::get('/top', [TopController::class, 'top'])->name('top');
+        # Admin User Register
+        Route::get('/register', [RegisterController::class, 'register'])->name('register');
+        Route::post('/store', [RegisterController::class, 'store'])->name('store');
+    });
+});

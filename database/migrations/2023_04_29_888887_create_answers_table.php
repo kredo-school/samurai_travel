@@ -14,6 +14,7 @@ class CreateAnswersTable extends Migration
     public function up()
     {
         Schema::create('answers', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('question_id');
             $table->integer('answer_no')->length(3);
             $table->text('answer');
@@ -21,10 +22,11 @@ class CreateAnswersTable extends Migration
             $table->unsignedBigInteger('keyword_id')->nullable();
             $table->timestamps();
 
-            $table->primary(['question_id', 'answer_no']);
+            // $table->primary(['question_id', 'answer_no']);
             $table->foreign('question_id')->references('id')->on('questions');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
             $table->foreign('keyword_id')->references('id')->on('keywords')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 
