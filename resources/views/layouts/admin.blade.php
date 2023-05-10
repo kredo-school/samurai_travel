@@ -18,17 +18,15 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/style.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <img src="{{ asset('assets/logo_red.png')}}" alt="logo" style="width: 50px; height: 50px;">
                 <a class="navbar-brand" href="{{ url('/admin/top') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <img src="{{ asset('assets/logo.png')}}" alt="logo" class="logo position-static">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
