@@ -34,7 +34,7 @@ class GenreController extends Controller
 
     public function update(Request $request, Genre $genre){
         $request->validate([
-            'new_name'  => 'required|min:1|max:50'
+            'new_name'  => 'required|max:50'
         ]);
 
         $genre->name     = ucwords(strtolower($request->new_name));
