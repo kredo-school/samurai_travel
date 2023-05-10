@@ -22,11 +22,7 @@
         position:absolute;
         }
 
-    .card{
-        margin-right:0;
-        margin-left:0;
-    }
-    .googlemap {
+        .googlemap {
         position: relative; 
         padding-bottom: 100%; 
         height: 0;
@@ -209,6 +205,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col">
                     <div class="d-flex text-end mt-1 mb-4 row">
                         {{-- Edit button --}}
