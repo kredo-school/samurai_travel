@@ -3,12 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenreController;
-<<<<<<< HEAD
 use App\Http\Controllers\Admin\KeywordController;
-=======
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController;
->>>>>>> main
 
 /*
 |--------------------------------------------------------------------------
