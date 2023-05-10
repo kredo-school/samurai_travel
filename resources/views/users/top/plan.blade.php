@@ -1,6 +1,6 @@
 <div>
-    <div class="shadow p-5 rounded">
-        <h4 class="h4 text-capitalize">#Planname</h4>
+    <div class="shadow p-5 rounded bg-white">
+        <h4 class="h4 text-capitalize">#PlanName</h4>
         <div class="row">
             <div class="col ">
                 <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
