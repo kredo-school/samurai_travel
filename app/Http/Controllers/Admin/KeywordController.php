@@ -14,7 +14,7 @@ class KeywordController extends Controller
 
     public function index()
     {
-        $all_keywords = Keyword::get()->toQuery()->paginate(10);
+        $all_keywords = Keyword::paginate(10);
         $all_genres = Genre::all();
 
         return view('admin.keywords.index', compact('all_keywords'), compact('all_genres'));
