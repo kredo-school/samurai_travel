@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController;
+use App\Http\Controllers\Admin\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 });
+
+#PLACE
+Route::get('/places',[PlaceController::class, 'index'])->name('place.index');
+Route::get('/places/create',[PlaceController::class, 'create'])->name('place.create');
+Route::post('/places/store',[PlaceController::class, 'store'])->name('place.store');
+Route::get('/places/{id}/edit', [PlaceController::class, 'edit'])->name('place.edit');
+Route::patch('/places/{id}/update', [PlaceController::class, 'update'])->name('place.update');
+Route::delete('/places/{id}/destroy', [PlaceController::class, 'destroy'])->name('place.destroy');
+
+#PLACE IMAGES
