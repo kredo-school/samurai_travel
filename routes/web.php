@@ -26,16 +26,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// // for displaying ADMIN/ GENRE MANAGEMENT
-// Route::get('/genres', [GenreController::class, 'index'])->name('genres');
-// Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
-// Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
-// Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
-
-
-
-// for displaying PLAN DETAILS
-Route::get('/plans', [PlanController::class, 'index']);
 Route::group(['middleware' => 'auth'], function(){
 
     # For Admin
@@ -45,5 +35,18 @@ Route::group(['middleware' => 'auth'], function(){
         # Admin User Register
         Route::get('/register', [RegisterController::class, 'register'])->name('register');
         Route::post('/store', [RegisterController::class, 'store'])->name('store');
+
+        
     });
+
+    // for displaying ADMIN/ GENRE MANAGEMENT
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
+    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
+
+
 });
+    // for displaying PLAN DETAILS
+    Route::get('/plans', [PlanController::class, 'showPlanInfo'])->name('plans');
+    

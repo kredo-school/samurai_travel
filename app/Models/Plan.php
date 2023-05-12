@@ -14,5 +14,11 @@ class Plan extends Model
         return $this->belongsTo(User::class);
     }
 
+    # Use this to get the place info in each plan
+    public function place(){
+        return $this->hasMany(Place::class);
+    }
+        
+
     
 }

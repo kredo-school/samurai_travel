@@ -12,11 +12,11 @@ class Place extends Model
 {
     use HasFactory;
 
-    protected $table = 'place'; //specify the table to use
+    protected $table = 'places'; //specify the table to use
 
     #Use this to get the image of the place
     public function placeImage(){
-        return $this->hasOne(Image::class);
+        return $this->hasMany(PlaceImage::class);
     }
 
     #Use this to get all the keywords under the place
@@ -45,12 +45,12 @@ class Place extends Model
     }
 
     # To get the likes of the place
-    public function likes(){
-        return $this->hasMany(Like::class);
+    public function favorite(){
+        return $this->hasMany(PlaceFavorite::class);
     }
 
     # Return TRUE if the Auth user already liked the place
-    public function isLiked(){
+    public function unfavorite(){
         return $this->likes()->where('id' , Auth::user()->id)->exists();
     } 
 }

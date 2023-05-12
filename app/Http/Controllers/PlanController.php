@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\User;
 use App\Models\Keyword;
+use App\Models\PlaceImage;
+use App\Models\PlaceKeyword;
+
+
 
 class PlanController extends Controller
 
@@ -13,56 +17,44 @@ class PlanController extends Controller
 {
     // define private properties
     const LOCAL_STORAGE_FOLDER =  'public/images/';
+    
     private $place;
     private $user;
     private $keyword;
+    private $place_image;
+    private $place_keyword;
 
     // define the constructor
-
-    public function __construct(Place $place, User $user, Keyword $keyword)
+    public function __construct(Place $place, User $user, Keyword $keyword, PlaceImage $place_image, PlaceKeyword $place_keyword)
     {
         $this->place = $place;
         $this->user = $user;
         $this->keyword = $keyword;
+        $this->place_image = $place_image;
+        $this->place_keyword = $place_keyword;
+        
     }
 
-    // Show the plan dashboard
+    public function ShowPlanInfo()
+    {   
+        # get the data from table
+        $all_places = Place::all();  //to get location name, adress
+        $all_place_image = PlaceImage::all();   //to get image and description
+        $all_place_keyword = PlaceKeyword::all(); //to get the keyword
+    
+        $place_for_plan = [];
+
+        foreach($all_places as $place){
+            if($this->place->favorite()){
+                $place_for_plan[] = $place;
+            }
+        }
+            
+        return view('users.plans.show')->with('place', $place);
+        // ->with('place_image', $place_image);
+        
+    }
 
     
 
-    public function index()
-    {
-        // $all_places = $this->place->get(5);
-        // $suggested_plan = $this->getSuggestedPlaces();
-
-        // $home_plans = [];
-
-        // foreach($all_places as $place){
-        //     if($place->$keyword->isLiked())
-        //     $home_places[] = $place;{
-
-        //     }
-        // }
-        
-        return view('users.plans.contents.show');
-        // ->with('home_places', $home_places)
-        // ->with('suggested_places', $suggested_places);
-    }
-
-        
-
-    // public function getSuggestedPlaces(){
-    //     $all_places = $this->place->all();
-    //     $suggested_plans = [];
-
-
-    // }
-
-    
-
-    public function showLocation($id){
-        $place = $this->place->findOrFail($id);
-        return view('users.plans.contents.show')
-        ->with('place', $place);
-    }
 }
