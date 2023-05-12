@@ -12,6 +12,12 @@ class Keyword extends Model
     use HasFactory;
 
     # Use this to get genre of keyword
+    protected $table = 'keywords';
+    protected $fillable = [
+        'name',
+        'genre_id'
+    ];
+
     public function genre(){
         return $this->belongsTo(Genre::class);
         // ->withTrashed();
