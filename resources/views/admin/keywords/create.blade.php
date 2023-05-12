@@ -25,7 +25,7 @@
                 <div class="mx-5 mb-5">
                     <label for="genre" class="form-label">Genre</label>
                     <select name="genre_id" id="genre" class="form-select">
-                        <option value="hidden">Select Genre</option>
+                        <option selected hidden disabled>Select Genre</option>
                         @foreach ($all_genres as $genre)
                             <option value="{{$genre->id}}" key={{$genre->id}}>{{$genre->name}}</option>
                         @endforeach
