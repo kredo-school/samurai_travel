@@ -1,7 +1,11 @@
 <div class="">
     <div class="main-content row">
         <div class="col">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-lg" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-lg" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-lg" alt="#">
+            @endif
         </div>
         <div class="col col-white">
             <h4 class="p-3 pt-5 text-capitalize">{{ $category }}</h4>
@@ -18,7 +22,11 @@
     </div>
     <div class="sub-content row">
         <div class="col-4">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-lg" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-lg" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-lg" alt="#">
+            @endif
             <div class="d-flex mt-1">
                 <h6 class="h6">#Place Name</h6>
                 <div class="ms-auto d-flex">
@@ -28,7 +36,11 @@
             </div>
         </div>
         <div class="col-4">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-lg" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-lg" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-lg" alt="#">
+            @endif
             <div class="d-flex mt-1">
                 <h6 class="h6">#Place Name</h6>
                 <div class="ms-auto d-flex">
@@ -38,7 +50,11 @@
             </div>
         </div>
         <div class="col-4">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-lg" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-lg" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-lg" alt="#">
+            @endif
             <div class="d-flex mt-1">
                 <h6 class="h6">#Place Name</h6>
                 <div class="ms-auto d-flex">

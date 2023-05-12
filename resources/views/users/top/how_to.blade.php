@@ -1,7 +1,11 @@
 <div class="row align-items-center">
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+            @endif
         </div>
         <h5 class="h5 text-center my-4">Search</h5>
         <div class="mb-2">&#9312; Search by your destination and what you would like to do on your trip.</div>
@@ -12,7 +16,11 @@
     </div>
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+            @endif
         </div>
         <h5 class="h5 text-center my-4">Press this button</h5>
         <div class="mb-2">&#9312; Click on the button at the bottom of each page that says "Let's create a plan with this plan".</div>
@@ -23,7 +31,11 @@
     </div>
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+            @endif
         </div>
         <h5 class="h5 text-center my-4">Login</h5>
         <div class="mb-2">&#9312; Please login with your account from Facebook, Instagram or Google.</div>
@@ -34,7 +46,11 @@
     </div>
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(asset('/storage/xxx.jpg')))
+                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @else
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+            @endif
         </div>
         <h5 class="h5 text-center my-4">You can see plans in your page</h5>
         <div class="mb-2">&#9312; After logging in, you will see My Page, where you can view and edit other user's plans and recommendations.</div>

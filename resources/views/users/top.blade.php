@@ -5,7 +5,7 @@
 @section('content')
     <div class="container body-top">
         <div class="top d-flex align-items-center">
-            <img src="{{ asset('/assets/top-image.png')}}" alt="top-image" class="top-image">
+            <img src="{{ asset('/images/top-image.png') }}" alt="top-image" class="top-image">
             <div class="top-nav d-flex">
                 <a href="#" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
                     <div class="">Search by your destination

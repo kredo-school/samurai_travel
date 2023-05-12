@@ -21,7 +21,11 @@
                             </div>
                             <div class="d-flex">
                                 <div class="px-2">
-                                    <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-sm" alt="#">
+                                    @if (file_exists(asset('/storage/xxx.jpg')))
+                                        <img src="{{ asset('/storage/xxx.jpg') }}" class="img-sm" alt="#">
+                                    @else
+                                        <img src="{{ asset('/images/no-image.png') }}" class="img-sm" alt="#">
+                                    @endif
                                 </div>
                                 <p class="place-desc px-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa sint similique nemo expedita sequi quasi, possimus sit, ab voluptas, deleniti nihil nesciunt! A illum veniam obcaecati magni, quibusdam dicta accusantium.</p>
                             </div>
@@ -37,7 +41,11 @@
                             </div>
                             <div class="d-flex">
                                 <div class="px-2">
-                                    <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-sm" alt="#">
+                                    @if (file_exists(asset('/storage/xxx.jpg')))
+                                        <img src="{{ asset('/storage/xxx.jpg') }}" class="img-sm" alt="#">
+                                    @else
+                                        <img src="{{ asset('/images/no-image.png') }}" class="img-sm" alt="#">
+                                    @endif
                                 </div>
                                 <p class="place-desc px-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa sint similique nemo expedita sequi quasi, possimus sit, ab voluptas, deleniti nihil nesciunt! A illum veniam obcaecati magni, quibusdam dicta accusantium.</p>
                             </div>
@@ -55,7 +63,11 @@
                             </div>
                             <div class="d-flex">
                                 <div class="px-2">
-                                    <img src="{{ asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg') }}" class="img-sm" alt="#">
+                                    @if (file_exists(asset('/storage/xxx.jpg')))
+                                        <img src="{{ asset('/storage/xxx.jpg') }}" class="img-sm" alt="#">
+                                    @else
+                                        <img src="{{ asset('/images/no-image.png') }}" class="img-sm" alt="#">
+                                    @endif
                                 </div>
                                 <p class="place-desc px-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa sint similique nemo expedita sequi quasi, possimus sit, ab voluptas, deleniti nihil nesciunt! A illum veniam obcaecati magni, quibusdam dicta accusantium.</p>
                             </div>
