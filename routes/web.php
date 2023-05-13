@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\RegisterController;
-use App\Http\Controllers\Admin\TopController;
+use App\Http\Controllers\Admin\TopController as AdminTopController;
+use App\Http\Controllers\TopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,20 +19,16 @@ use App\Http\Controllers\Admin\TopController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
 
 Route::group(['middleware' => 'auth'], function(){
 
     # For Admin
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
         # Admin Top
-        Route::get('/top', [TopController::class, 'top'])->name('top');
+        Route::get('/top', [AdminTopController::class, 'top'])->name('top');
         # Admin User Register
         Route::get('/register', [RegisterController::class, 'register'])->name('register');
         Route::post('/store', [RegisterController::class, 'store'])->name('store');
