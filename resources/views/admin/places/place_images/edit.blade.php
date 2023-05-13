@@ -47,7 +47,7 @@
                     <div class="row text-center mt-5 mb-3">
                         <div class="col-2"></div>
                         <div class="col-3">
-                            <a href="#" class="btn btn-outline-secondary form-control p-3">Cancel</a>
+                            <a href="{{ route('place_image.show', $place_image->place_id) }}" class="btn btn-outline-secondary form-control p-3">Cancel</a>
                         </div>
                         <div class="col-5">
                             <button type="submit" class="btn btn-warning p-3 form-control">Save</button>
