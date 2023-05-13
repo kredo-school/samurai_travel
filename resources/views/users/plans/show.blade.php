@@ -4,14 +4,28 @@
 
 @section('content')
 <style>
-    .container{
+    .container-plan{
         margin: 3rem auto auto auto ;
         padding: auto;
         position:relative;
         background: transparent;
+        max-height: 600px;
+        overflow: auto;
         }
-
-    .back-img{
+  
+    .back-img1{
+        /* margin-top:0;
+        width: 100%;
+        height:  100%;
+        background-position:center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        position:absolute; */
+        background-image: url('storage\images\plan details back(resized).jpg');
+        }
+    
+    .back-img2{
         margin-top:0;
         width: 100%;
         height:  100%;
@@ -21,21 +35,25 @@
         background-size: cover;
         position:absolute;
         }
+    
 
-        .googlemap {
-        position: relative; 
-        padding-bottom: 100%; 
-        height: 0;
-        overflow: hidden;
-    }
     .googlemap iframe {
         position: absolute;
         margin: 2rem;
         padding: 2rem;
         top: 0; 
         left: 0; 
-        width: 100%; 
-        height: 100%;
+        width: 300px; 
+        height: 500px;
+    }
+    
+    .container-recommend-plan{
+        width: 100%;
+        position:absolute; 
+        background: transparent; 
+        text-align: center;
+        padding:auto;
+        margin:10% auto auto auto ;
     }
 
     /* Tomo-san 分 */
@@ -133,130 +151,65 @@
 
     </style>
 
-    <img class="back-img" src="{{ asset('storage\images\plan details back(resized).jpg') }}" alt="">
+    <img class="back-img1" >
+    {{-- src="{{ asset('storage\images\plan details back(resized).jpg') }}" alt="">  --}}
     
-    <div>
-        <div class="container bg-white shadow p-5 rounded">
+    <div class="container bg-light shadow p-5 rounded">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="container-plan bg-white shadow p-5 rounded">
             <h4 class="h4 text-capitalize">#Planname</h4>
-            <div class="row">
-                <div class="col">
-                    <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
-                        </li>
-                    </ul>
-                    {{-- <div class="tab-content" id="plan_id-tabContent">
-                        <div class="tab-pane fade show active" id="plan_id_day1" role="tabpanel" aria-labelledby="plan_id_day1-tab" tabindex="0">
-                            <div class="float-start"><i class="fa-solid fa-arrow-down-long"></i></div> --}}
-                            {{-- <div class="bg-plan p-2">
-                                <div class="p-2">
-                                    <i class="fa-regular fa-clock"></i> ### 9:00
-                                    <i class="fa-solid fa-location-dot"></i> ### location name here
-                                    @if (isset( $place_favorite->place->name_en )) <p>{{ $place->name_en }}</p>
-                                    @endif
-                                </div>
-                                <div class="d-flex">
-                                    <div class="px-2">
-                                    @if (isset($place_image->image))
-                                        <img src="{{ asset('storage/images/' . $place_image->image) }}" class="img-sm" alt="#">
-                                    @endif
-                                    </div>
-                                    <p class="place-desc px-2">description</p>
-                                </div>
-                            </div> --}}
-                            @include('users.plans.contents.place')
-
-                            <div class="">
-                                <i class="fa-solid fa-car"></i> 30 min
-                            </div>
-                            <div class="float-start"><i class="fa-solid fa-arrow-down-long"></i></div>
-                            {{-- <div class="bg-plan p-2">
-                                <div class="p-2">
-                                    <i class="fa-regular fa-clock"></i> ### 9:00
-                                    <i class="fa-solid fa-location-dot"></i> ### location name here
-                                </div>
-                                <div class="d-flex">
-                                    <div class="px-2">
-                                        <img src="{{ asset('storage\images\japan-g262fdae5b_1920.jpg') }}" class="img-sm" alt="#">
-                                    </div>
-                                    <p class="place-desc px-2">description</p>
-                                </div>
-                            </div> --}}
-                            <div class="">
-                                <i class="fa-solid fa-car"></i> 30 min
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="plan_id_day2" role="tabpanel" aria-labelledby="plan_id_day2-tab" tabindex="0">
-                            <div class="float-start"><i class="fa-solid fa-arrow-down-long"></i></div>
-                            {{-- <div class="bg-plan p-2">
-                                <div class="p-2">
-                                    <i class="fa-regular fa-clock"></i> ### 9:00
-                                    <i class="fa-regular fa-location-pin"></i> ### location name here
-                                </div>
-                                <div class="d-flex">
-                                    <div class="px-2">
-                                        <img src="{{ asset('storage\images\sushi-balls-5878894_1920.jpg') }}" class="img-sm" alt="#">
-                                    </div>
-                                    <p class="place-desc px-2">description</p>
-                                </div>
-                            </div> --}}
-                            <div class="">
-                                <i class="fa-solid fa-car"></i> 30 min
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+              <div class="col">                                 
+                <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
+                    </li>
+                </ul>
+            
+                  @foreach($place_for_plan as $place)
+                  @include('users.plans.contents.place')
+                  @endforeach
+              </div>
                 
-                <div class="col">
-                    <div class="d-flex text-end mt-1 mb-4 row">
-                        {{-- Edit button --}}
-                        <div class="col-5"></div>
-                        <div class="col">
-                            <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-genre-#" title="Edit">
-                            <i class="fa-solid fa-pen text-warning"></i> EDIT
-                            </button>
-                        </div>
-                        
-                        {{-- Delete button --}}
-                        <div class ="col-auto  ">
-                            <button class="btn btn-outline-danger btn-sm text-dark" data-bs-toggle="modal" data-bs-target="#delete-genre-#" title="Delete">
-                            <i class="fa-solid fa-trash-can text-danger"></i> DELETE
-                            </button>
-                        </div>
-                        {{-- Like button --}}
-                        <div class="col-auto">
-                            {{-- @if ($place->isLiked())
-                                <form action="#" method="post">
-                                @csrf
-                                @method('DELETE')
-                                    <button type="submit" class="btn btn-sm shadow-none p-0">
-                                    <i class="fa-solid fa-heart text-danger" style="font-size: 1.5rem"></i></button>
-                                </form>
-                            @else
-                                <form action="#" method="post">
-                            @csrf
-                                <button type="submit" class="btn btn-sm shadow-none p-0">
-                                    <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i></button>
-                                </form>
-                            @endif  --}}
-                            <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
-                        </div>
-                        <div class="col-auto">
-                            <span># count</span>
-                        </div>
-                    </div>
-                    <div>
-                    <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030689856!2d139.76454987550272!3d35.68123617258717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1683548732190!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
-                    </div>
+                    
+            
+            
                 </div>
-            </div>
         </div>
-    </div>
+        
+        <div class="col-md-6"><div class="row">
+          <div class="d-flex text-end mt-1 mb-4">
+              {{-- Edit button --}}
+              <div class="col">
+                  <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-genre-#" title="Edit">
+                  <i class="fa-solid fa-pen text-warning"></i> EDIT
+                  </button>
+              </div>
+              
+              {{-- Delete button --}}
+              <div class ="col">
+                  <button class="btn btn-outline-danger btn-sm text-dark" data-bs-toggle="modal" data-bs-target="#delete-genre-#" title="Delete">
+                  <i class="fa-solid fa-trash-can text-danger"></i> DELETE
+                  </button>
+              </div>
+              {{-- Like button --}}
+              <div class="col">
+                  
+                  <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
+              </div>
+              <div class="col">
+                  <span># count</span>
+              </div>
+          </div>
+      </div>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030689856!2d139.76454987550272!3d35.68123617258717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1683548732190!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+        </div>
 
-
-
-
+        @include('users.plans.contents.recommend')
 @endsection

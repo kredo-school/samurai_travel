@@ -15,7 +15,7 @@ class Place extends Model
     protected $table = 'places'; //specify the table to use
 
     #Use this to get the image of the place
-    public function placeImage(){
+    public function placeImages(){
         return $this->hasMany(PlaceImage::class);
     }
 
@@ -31,17 +31,17 @@ class Place extends Model
 
     #Use this to get all the areas under the place
     public function area(){
-        return $this->hasMany(Area::class);
+        return $this->hasOne(Area::class);
     }
 
     #Use this to get all the prefectures under the place
     public function prefecture(){
-        return $this->hasMany(Prefecture::class);
+        return $this->hasOne(Prefecture::class);
     }
 
     #Use this to get all the cities under the place
     public function city(){
-        return $this->hasMany(City::class);
+        return $this->hasOne(City::class);
     }
 
     # To get the likes of the place
