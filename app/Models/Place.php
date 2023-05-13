@@ -11,6 +11,20 @@ class Place extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'place_category',
+        'name_en',
+        'name_jp',
+        'opening_time',
+        'ending_time',
+        'url',
+        'area_id',
+        'prefecture_id',
+        'city_id',
+        'address',
+        'spend_time'
+    ];
+
     public function area()
     {
         return $this->belongsTo(Area::class);

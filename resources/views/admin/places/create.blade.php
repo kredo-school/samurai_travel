@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title','Place Create')
 
@@ -15,7 +15,7 @@
                     <div class="form-group mb-3">
                         <label for="place_category" class="form-label text-muted mb-2">Place Category</label>
                         <select class="form-select" name="place_category" style="width: 25%">
-                            <option selected hidden>Place-Category</option>
+                            <option selected hidden disabled>Place-Category</option>
                             <option value="spot">spot</option>
                             <option value="activity">activity</option>
                             <option value="restaurant">restaurant</option>
@@ -51,7 +51,7 @@
                         <div class="col">
                             <label for="area_id" name="area_id" class="form-label">Area</label>
                             <select class="form-select" id="area_id" name="area_id">
-                                    <option selected hidden>Select the area</option>
+                                    <option selected hidden disabled>Select the area</option>
                                 @foreach ($all_areas as $area)
                                     <option value="{{ $area->id }}">{{ $area->name_en }}</option>
                                 @endforeach
@@ -64,7 +64,7 @@
                         <div class="col">
                             <label for="prefecture_id" name="prefecture_id" class="form-label">Prefecture</label>
                             <select class="form-select" id="prefecture_id" name="prefecture_id">
-                                    <option selected hidden>Select the prefecture</option>
+                                    <option selected hidden disabled>Select the prefecture</option>
                                 @foreach ($all_prefectures as $prefecture)
                                     <option value="{{ $prefecture->id }}">{{ $prefecture->name_en }}</option>
                                 @endforeach
@@ -77,7 +77,7 @@
                         <div class="col">
                             <label for="city_id" name="city_id" class="form-label">City</label>
                             <select class="form-select" id="city_id" name="city_id">
-                                    <option selected hidden>Select the city</option>
+                                    <option selected hidden disabled>Select the city</option>
                                 @foreach ($all_cities as $city)
                                     <option value="{{ $city->id }}">{{ $city->name_en }}</option>
                                 @endforeach

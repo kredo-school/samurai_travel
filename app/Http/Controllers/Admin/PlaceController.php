@@ -14,32 +14,18 @@ use Illuminate\Support\Carbon;
 class PlaceController extends Controller
 {
     //
-    private $place;
-    private $area;
-    private $prefecture;
-    private $city;
-    private $keyword;
-
-    public function __construct(Place $place, Area $area, Prefecture $prefecture, City $city, Keyword $keyword)
-    {
-        $this->place = $place;
-        $this->area = $area;
-        $this->prefecture = $prefecture;
-        $this->city = $city;
-        $this->keyword = $keyword;
-    }
-
     public function index()
     {
-        $all_places = $this->place->latest()->paginate(3);
+        $all_places = Place::latest()->paginate(10);
+        
         return view('admin.places.index')->with('all_places', $all_places);
     }
 
     public function create()
     {
-        $all_areas = $this->area->all();
-        $all_prefectures = $this->prefecture->all();
-        $all_cities = $this->city->all();
+        $all_areas = Area::all();
+        $all_prefectures = Prefecture::all();
+        $all_cities = City::all();
         
         return view('admin.places.create')
                 ->with('all_areas', $all_areas)
@@ -63,30 +49,29 @@ class PlaceController extends Controller
             'spend_time'     =>  'nullable|integer'
         ]);
         
-        #save the post
-        $this->place->place_category = $request->place_category;
-        $this->place->name_en        =  $request->name_en;
-        $this->place->name_jp        =  $request->name_jp;
-        $this->place->opening_time   =  Carbon::parse($request->opening_time);
-        $this->place->ending_time   =   Carbon::parse($request->ending_time);
-        $this->place->url           =  $request->url;
-        $this->place->area_id       =  $request->area_id;
-        $this->place->prefecture_id =  $request->prefecture_id;
-        $this->place->city_id       =  $request->city_id;
-        $this->place->address       =  $request->address;
-        $this->place->spend_time    =  $request->spend_time;
-        $this->place->save();
+        Place::create([
+            'place_category' => $request->place_category,
+            'name_en'        =>  $request->name_en,
+            'name_jp'        =>  $request->name_jp,
+            'opening_time'   =>  Carbon::parse($request->opening_time),
+            'ending_time'   =>   Carbon::parse($request->ending_time),
+            'url'           =>  $request->url,
+            'area_id'      =>  $request->area_id,
+            'prefecture_id' =>  $request->prefecture_id,
+            'city_id'       =>  $request->city_id,
+            'address'       =>  $request->address,
+            'spend_time'    =>  $request->spend_time
+        ]);
 
         return redirect()->route('place.index');
     }
 
-    public function edit($id)
+    public function edit(Place $place)
     {
-        $all_areas = $this->area->all();
-        $all_prefectures = $this->prefecture->all();
-        $all_cities = $this->city->all();
+        $all_areas = Area::all();
+        $all_prefectures = Prefecture::all();
+        $all_cities = City::all();
 
-        $place = $this->place->findOrFail($id);
         $opening_time  = date('H:i', strtotime($place->opening_time));
         $place->opening_time = $opening_time;
         $ending_time  = date('H:i', strtotime($place->ending_time));
@@ -99,7 +84,7 @@ class PlaceController extends Controller
                 ->with('place' ,$place);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Place $place)
     {
         $request->validate([
             'place_category' =>  'required|in:spot,activity,restaurant,hotel',
@@ -116,7 +101,6 @@ class PlaceController extends Controller
         ]);
         
         #save the post
-        $place                 = $this->place->findOrFail($id);
         $place->place_category = $request->place_category;
         $place->name_en        =  $request->name_en;
         $place->name_jp        =  $request->name_jp;
@@ -134,9 +118,9 @@ class PlaceController extends Controller
         return redirect()->route('place.index');
     }
 
-    public function destroy($id)
+    public function destroy(Place $place)
     {
-        $this->place->destroy($id);
+        $place->delete();
         return redirect()->back();
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController;
 use App\Http\Controllers\Admin\PlaceController;
+use App\Http\Controllers\Admin\PlaceImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +51,15 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/places',[PlaceController::class, 'index'])->name('place.index');
 Route::get('/places/create',[PlaceController::class, 'create'])->name('place.create');
 Route::post('/places/store',[PlaceController::class, 'store'])->name('place.store');
-Route::get('/places/{id}/edit', [PlaceController::class, 'edit'])->name('place.edit');
-Route::patch('/places/{id}/update', [PlaceController::class, 'update'])->name('place.update');
-Route::delete('/places/{id}/destroy', [PlaceController::class, 'destroy'])->name('place.destroy');
+Route::get('/places/{place}/edit', [PlaceController::class, 'edit'])->name('place.edit');
+Route::patch('/places/{place}/update', [PlaceController::class, 'update'])->name('place.update');
+Route::delete('/places/{place}/destroy', [PlaceController::class, 'destroy'])->name('place.destroy');
 
 #PLACE IMAGES
+Route::get('/place_images/{place}/show',[PlaceImageController::class, 'show'])->name('place_image.show');
+Route::get('/place_images/{place}/create', [PlaceImageController::class, 'create'])->name('place_image.create');
+Route::post('/place_images/{place}/store',[PlaceImageController::class, 'store'])->name('place_image.store');
+Route::get('/place_image/{place_image}/edit', [PlaceImageController::class, 'edit'])->name('place_image.edit');
+Route::patch('/place_image/{place_image}/update', [PlaceImageController::class, 'update'])->name('place_image.update');
+Route::delete('/place_image/{place_image}/destroy', [PlaceImageController::class, 'destroy'])->name('place_image.destroy');
+

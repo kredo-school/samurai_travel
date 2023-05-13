@@ -50,19 +50,18 @@
                                 </button>
                             </td>
                             <td>
-                                {{-- <a href="{{ route('product.edit', $product->id) }}" class="text-primary" > --}}
+                                <a href="{{ route('place_image.show', $place) }}" class="text-primary" >
                                 <button class="border-0 bg-transparent text-success p-1 me-1">
                                     <i class="fa-regular fa-image fs-4"></i>
                                 </button>
                             </td>
                             <td>
-                                {{-- <a href="{{ route('product.edit', $product->id) }}" class="text-primary" > --}}
-                                <a href="{{ route('place.edit', $place->id) }}" class="border-0 bg-transparent text-warning p-1 me-1">
+                                <a href="{{ route('place.edit', $place) }}" class="border-0 bg-transparent text-warning p-1 me-1">
                                     <i class="fa-solid fa-pen-to-square fs-4"></i>
                                 </a>
                             </td>
                             <td>
-                                <button class="border-0 bg-transparent text-danger p-1 me-1" data-bs-toggle="modal" data-bs-target="#delete-place-{{ $place->id }}">
+                                <button class="border-0 bg-transparent text-danger p-1 me-1" data-bs-toggle="modal" data-bs-target="#delete-place-{{ $place->id}}">
                                     <i class="fa-solid fa-trash-can text-danger fs-4"></i>
                                 </button>
                                 @include('admin.places.modals.delete')
