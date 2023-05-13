@@ -190,7 +190,7 @@
 }
 
 /* Message */
-.success {
+.msg-success {
     height: $message-height;
     width: $message-width;
     padding: $message-padding;
@@ -198,7 +198,7 @@
     border-radius: $message-border-radius;
 }
 
-.notice {
+.msg-notice {
     height: $message-height;
     width: $message-width;
     padding: $message-padding;
@@ -206,7 +206,7 @@
     border-radius: $message-border-radius;
 }
 
-.fail {
+.msg-fail {
     height: $message-height;
     width: $message-width;
     padding: $message-padding;

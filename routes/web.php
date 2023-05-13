@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController as AdminTopController;
@@ -29,9 +30,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
         # Admin Top
         Route::get('/top', [AdminTopController::class, 'top'])->name('top');
-        # Admin User Register
-        Route::get('/register', [RegisterController::class, 'register'])->name('register');
-        Route::post('/store', [RegisterController::class, 'store'])->name('store');
+        # Users
+        Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+        Route::patch('/users/{id}/change_role', [UsersController::class, 'change_role'])->name('users.change_role');
         Route::get('/keywords', [KeywordController::class, 'index'])->name('keywords');
         Route::get('/keywords/create', [KeywordController::class, 'create'])->name('keywords.create');
         Route::post('/keywords/store', [KeywordController::class, 'store'])->name('keywords.store');
