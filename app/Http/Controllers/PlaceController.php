@@ -22,8 +22,4 @@ class PlaceController extends Controller
         $this->place_image = $place_image;
         
     }
-
-    
-
-    
 }

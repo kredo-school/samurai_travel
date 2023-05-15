@@ -7,7 +7,7 @@
         <div class="bg-plan p-2">
             <div class="p-2">
                 <i class="fa-regular fa-clock"></i> ### 9:00
-                <i class="fa-solid fa-location-dot"></i> <p> {{ $place->name_en }} </p>
+                {{-- <i class="fa-solid fa-location-dot"></i> <p> {{ $place->name_en }} </p> --}}
             </div>
 
             <div class="d-flex">

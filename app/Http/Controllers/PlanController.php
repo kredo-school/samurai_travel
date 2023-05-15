@@ -35,7 +35,6 @@ class PlanController extends Controller
             
         return view('users.plans.show')
         ->with('place_for_plan' , $place_for_plan);
-                
     }
 
     

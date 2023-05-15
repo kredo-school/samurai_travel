@@ -148,6 +148,10 @@
   margin-left: 1em;
 }
 
+#map {
+    height: 500px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}
 
     </style>
 
@@ -169,16 +173,9 @@
                         <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
                     </li>
                 </ul>
-            
                   @foreach($place_for_plan as $place)
                   @include('users.plans.contents.place')
                   @endforeach
-              </div>
-                
-                    
-            
-            
-                </div>
         </div>
         
         <div class="col-md-6"><div class="row">
@@ -206,7 +203,9 @@
               </div>
           </div>
       </div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030689856!2d139.76454987550272!3d35.68123617258717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1683548732190!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div id="map"></div>
+          <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
+          </script>
         </div>
       </div>
         </div>
