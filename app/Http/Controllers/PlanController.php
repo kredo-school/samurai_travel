@@ -17,23 +17,6 @@ class PlanController extends Controller
 {
     // define private properties
     const LOCAL_STORAGE_FOLDER =  'public/images/';
-    
-    private $place;
-    private $user;
-    private $keyword;
-    private $place_image;
-    private $place_keyword;
-
-    // define the constructor
-    public function __construct(Place $place, User $user, Keyword $keyword, PlaceImage $place_image, PlaceKeyword $place_keyword)
-    {
-        $this->place = $place;
-        $this->user = $user;
-        $this->keyword = $keyword;
-        $this->place_image = $place_image;
-        $this->place_keyword = $place_keyword;
-        
-    }
 
     public function ShowPlanInfo()
     {   
@@ -44,15 +27,15 @@ class PlanController extends Controller
     
         $place_for_plan = [];
 
-        foreach($all_places as $place){
-            if($this->place->favorite()){
+        foreach($all_places->take(6) as $place){
+            if($place->favorite()){
                 $place_for_plan[] = $place;
             }
         }
             
-        return view('users.plans.show')->with('place', $place);
-        // ->with('place_image', $place_image);
-        
+        return view('users.plans.show')
+        ->with('place_for_plan' , $place_for_plan);
+                
     }
 
     
