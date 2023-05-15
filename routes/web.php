@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController as AdminTopController;
 use App\Http\Controllers\TopController;
+use App\Http\Controllers\PlacedetailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,9 @@ use App\Http\Controllers\TopController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/placedetails',[PlacedetailController::class, 'index'])->name('placedetails');
+// Route::get('/recommendation/plan', [RecommendationController::class, 'index'])->name('recommendation');
 
 Route::group(['middleware' => 'auth'], function(){
 
