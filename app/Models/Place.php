@@ -50,7 +50,7 @@ class Place extends Model
     }
 
     # Return TRUE if the Auth user already liked the place
-    public function unfavorite(){
-        return $this->likes()->where('id' , Auth::user()->id)->exists();
+    public function favorited(){
+        return $this->favorite()->where('user_id' , Auth::user()->id)->exists();
     } 
 }
