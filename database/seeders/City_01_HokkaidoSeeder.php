@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +16,11 @@ class City_01_HokkaidoSeeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-
         Schema::disableForeignKeyConstraints();
-        DB::table($table_name)->truncate(); 
+        City::truncate(); 
         Schema::enableForeignKeyConstraints();
 
-        $data = [
+        $data = collect([
             [
                 'code' => '011002',
                 'prefecture_id' => 1,
@@ -1096,7 +1095,10 @@ class City_01_HokkaidoSeeder extends Seeder
                 'name_en' => 'Rausucho',
                 'name_jp' => '羅臼町',
             ]
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

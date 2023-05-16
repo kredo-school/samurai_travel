@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,7 @@ class City_17_Ishikawa_Seeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-
-        $data = [
+        $data = collect([
             [
                 'code' => '172014',
                 'prefecture_id' => 17,
@@ -131,7 +130,10 @@ class City_17_Ishikawa_Seeder extends Seeder
                 'name_en' => 'Notogawa-cho',
                 'name_jp' => '能登町',
             ],
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

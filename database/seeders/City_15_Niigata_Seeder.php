@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,7 @@ class City_15_Niigata_Seeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-    
-        $data = [
+        $data = collect([
             [
                 'code' => '151009',
                 'prefecture_id' => 15,
@@ -197,7 +196,10 @@ class City_15_Niigata_Seeder extends Seeder
                 'name_en' => 'Awashimaura Village',
                 'name_jp' => '粟島浦村',
             ],
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+        
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

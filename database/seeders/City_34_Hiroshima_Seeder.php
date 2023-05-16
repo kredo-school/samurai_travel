@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,7 @@ class City_34_Hiroshima_Seeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-    
-        $data = [
+        $data = collect([
             [
                 'code' => '341002',
                 'prefecture_id' => 34,
@@ -155,7 +154,10 @@ class City_34_Hiroshima_Seeder extends Seeder
                 'name_en' => 'Jinsekikogen-cho',
                 'name_jp' => '神石高原町',
             ],
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+        
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

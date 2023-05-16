@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,10 +15,7 @@ class City_02_Aomori_Seeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-
-    
-        $data = [
+        $data = collect([
             [
                 'code' => '022012',
                 'prefecture_id' => 2,
@@ -258,7 +256,10 @@ class City_02_Aomori_Seeder extends Seeder
                 'name_en' => 'Shingō-umra',
                 'name_jp' => '新郷村',
             ],
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+        
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

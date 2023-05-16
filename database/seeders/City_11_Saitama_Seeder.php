@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,7 @@ class City_11_Saitama_Seeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-    
-        $data = [
+        $data = collect([
             [
                 'code' => '111007',
                 'prefecture_id' => 11,
@@ -395,7 +394,10 @@ class City_11_Saitama_Seeder extends Seeder
                 'name_en' => 'Matsubushimamachi',
                 'name_jp' => '松伏町',
             ],
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+        
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

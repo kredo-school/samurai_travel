@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,7 @@ class City_06_Yamagata_Seeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'cities';
-    
-        $data = [
+        $data = collect([
             [
                 'code' => '062014',
                 'prefecture_id' => 6,
@@ -227,7 +226,10 @@ class City_06_Yamagata_Seeder extends Seeder
                 'name_en' => 'Yuzawa-machi',
                 'name_jp' => '遊佐町',
             ],
-        ];
-        DB::table($table_name)->insert($data);
+        ]);
+        
+        $data->map(function ($areaAttributes) {
+            return City::create($areaAttributes);
+        });
     }
 }

@@ -16,13 +16,11 @@ class PrefectureSeeder extends Seeder
      */
     public function run()
     {
-        $table_name = 'prefectures';
-
         Schema::disableForeignKeyConstraints();
-        DB::table($table_name)->truncate(); 
+        Prefecture::truncate(); 
         Schema::enableForeignKeyConstraints();
 
-        $data = [
+        $data = collect([
             [
                 'id' => 1,
                 'code' => '01',
@@ -306,8 +304,10 @@ class PrefectureSeeder extends Seeder
                 'name_en' => 'Okinawa',
                 'name_jp' => ''
             ]
-        ];
-    
-        DB::table($table_name)->insert($data);
+        ]);
+
+        $data->map(function ($areaAttributes) {
+            return Prefecture::create($areaAttributes);
+        });
     }
 }
