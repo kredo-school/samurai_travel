@@ -15,4 +15,5 @@ yarn-error.log
 /.vscode
 composer.json
 composer.lock
+composer.lock
 /public/mix-manifest.json
