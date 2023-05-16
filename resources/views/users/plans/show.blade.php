@@ -178,37 +178,38 @@
                   @endforeach
         </div>
         
-        <div class="col-md-6"><div class="row">
-          <div class="d-flex text-end mt-1 mb-4">
-              {{-- Edit button --}}
-              <div class="col">
-                  <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-genre-#" title="Edit">
-                  <i class="fa-solid fa-pen text-warning"></i> EDIT
-                  </button>
-              </div>
-              
-              {{-- Delete button --}}
-              <div class ="col">
-                  <button class="btn btn-outline-danger btn-sm text-dark" data-bs-toggle="modal" data-bs-target="#delete-genre-#" title="Delete">
-                  <i class="fa-solid fa-trash-can text-danger"></i> DELETE
-                  </button>
-              </div>
-              {{-- Like button --}}
-              <div class="col">
-                  
-                  <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
-              </div>
-              <div class="col">
-                  <span># count</span>
-              </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="d-flex text-end mt-1 mb-4">
+                {{-- Edit button --}}
+                <div class="col">
+                    <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-genre-#" title="Edit">
+                    <i class="fa-solid fa-pen text-warning"></i> EDIT
+                    </button>
+                </div>
+                
+                {{-- Delete button --}}
+                <div class ="col">
+                    <button class="btn btn-outline-danger btn-sm text-dark" data-bs-toggle="modal" data-bs-target="#delete-genre-#" title="Delete">
+                    <i class="fa-solid fa-trash-can text-danger"></i> DELETE
+                    </button>
+                </div>
+                {{-- Like button --}}
+                <div class="col">
+                    
+                    <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
+                </div>
+                <div class="col">
+                    <span># count</span>
+                </div>
+            </div>
           </div>
-      </div>
-          <div id="map"></div>
-          <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
-          </script>
         </div>
       </div>
-        </div>
-
+        <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
+        </script>
+      </div>
+      
         @include('users.plans.contents.recommend')
 @endsection

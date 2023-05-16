@@ -14,17 +14,20 @@ function initMap(): void {
 
 function calculateAndDisplayRoute(
     directionsService: google.maps.DirectionsService,
-    directionsRenderer: google.maps.DirectionsRenderer
+    _directionsRenderer: google.maps.DirectionsRenderer
 ) {
-
     // 出発地点
-    const origin = { lat: 35.6895, lng: 139.69171 };
+    // const origin = { lat: 35.6895, lng: 139.69171 };
+    const origin = "2-1-33 Sakurajima Konohana-ku Universal Studios Japan";
     // 目的地
-    const destination = { lat: 35.655164, lng: 139.74477 };
+    // const destination = { lat: 35.655164, lng: 139.74477 };
+    const destination = "Ofukacho Kita-ku Grand Front Osaka";
     // ウェイポイント（経由地）
     const waypoints = [
-        { location: { lat: 35.685, lng: 139.752 } },
-        { location: { lat: 35.672, lng: 139.769 } }
+        // { location: { lat: 35.685, lng: 139.752 } },
+        // { location: { lat: 35.672, lng: 139.769 } }
+        { location: "1-1-43 Abenosuji Abeno-ku" },
+        { location: "Osaka Aquarium" }
     ];
     const map = new google.maps.Map(document.getElementById("map") as HTMLElement,
     {
