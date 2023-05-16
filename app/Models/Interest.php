@@ -14,5 +14,13 @@ class Interest extends Model
         return $this->belongsTo(Keyword::class);
     }
 
-    #
+    # Use this to get User
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    # Use this to get place
+    public function placeKeyword(){
+        return $this->belongsTo(PlaceKeyword::class);
+    }
 }

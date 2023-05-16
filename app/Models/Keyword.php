@@ -28,14 +28,16 @@ class Keyword extends Model
         return $this->belongsTo(PlaceKeyword::class);
     }
 
-    # To get the interest of the keyword
+    # To get the interest of the place_keyword
     public function interest(){
-        return $this->hasMany(Interest::class);
+        return $this->hasOne(Interest::class);
     }
 
     # Return TRUE if the Auth user already interested in the keyword 
     public function isInterested(){
-        return $this->interest();
+        return $this->interest()->where('user_id' , Auth::user()->id)->exists();
         // ->where('user_id' , Auth::user()->id)->exists();
     }
+
+    
 }

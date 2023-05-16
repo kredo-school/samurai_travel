@@ -161,21 +161,24 @@
     <div class="container bg-light shadow p-5 rounded">
       <div class="row">
         <div class="col-md-6">
-          <div class="container-plan bg-white shadow p-5 rounded">
-            <h4 class="h4 text-capitalize">#Planname</h4>
+          <h4 class="h4 text-capitalize">#Planname</h4>
+          <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
+              </li>
+          </ul>
+          <div class="container-plan bg-white shadow p-5 m-1 rounded">
             
               <div class="col">                                 
-                <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
-                    </li>
-                </ul>
+            
                   @foreach($place_for_plan as $place)
                   @include('users.plans.contents.place')
                   @endforeach
+              </div>
+          </div>
         </div>
         
         <div class="col-md-6">

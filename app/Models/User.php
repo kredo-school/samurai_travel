@@ -57,4 +57,10 @@ class User extends Authenticatable
     public function placeFavorite(){
         return $this->hasMany(PlaceFavorite::class);
     }
+
+
+    # Use this to get interest keyword of Auth user
+    public function interests(){
+        return $this->hasMany(Interest::class);
+    }
 }

@@ -40,6 +40,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/keywords/edit/{id}', [KeywordController::class, 'edit'])->name('keywords.edit');
         Route::patch('/keywords/{id}/update', [KeywordController::class,'update'])->name('keywords.update');
         Route::delete('/keywords/{id}/destroy', [KeywordController::class, 'destroy'])->name('keywords.destroy');
+        
+        
+
     });
 
     // for displaying ADMIN/ GENRE MANAGEMENT
@@ -48,8 +51,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 
-
-});
     // for displaying PLAN DETAILS
     Route::get('/plans', [PlanController::class, 'showPlanInfo'])->name('plans');
+
+
+});
+    
     
