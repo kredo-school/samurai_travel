@@ -17,8 +17,8 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('code', 6);
             $table->unsignedBigInteger('prefecture_id');
-            $table->string('name_en', 20)->nullable();
-            $table->string('name_jp', 20)->nullable();
+            $table->string('name_en', 50)->nullable();
+            $table->string('name_jp', 50)->nullable();
             $table->timestamps();
 
             $table->foreign('prefecture_id')->references('id')->on('prefectures');
