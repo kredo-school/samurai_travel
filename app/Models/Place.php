@@ -20,13 +20,8 @@ class Place extends Model
     }
 
     #Use this to get all the keywords under the place
-    public function placeKeyword(){
-        return $this->hasMany(placeKeyword::class);
-    }
-
-    #Use this to get all the genres under the place
-    public function genre(){
-        return $this->hasMany(Genre::class);
+    public function keywords(){
+        return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
 
     #Use this to get all the areas under the place
@@ -50,7 +45,7 @@ class Place extends Model
     }
 
     # Return TRUE if the Auth user already liked the place
-    public function favorited(){
+    public function isFavorite(){
         return $this->favorite()->where('user_id' , Auth::user()->id)->exists();
     } 
 }

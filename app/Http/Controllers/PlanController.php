@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Interest;
 use Illuminate\Http\Request;
 use App\Models\Place;
@@ -9,8 +10,9 @@ use App\Models\User;
 use App\Models\Keyword;
 use App\Models\PlaceImage;
 use App\Models\PlaceKeyword;
-
+use App\Models\Plan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PlanController extends Controller
 
@@ -18,64 +20,91 @@ class PlanController extends Controller
 {
     // define private properties
     const LOCAL_STORAGE_FOLDER =  'public/images/';
+    private $plan;
+    private $place;
+    private $keyword;
 
-    
-                
+    public function __construct(Plan $plan, Place $place)
+    {
+        $this->plan = $plan;
+        $this->place = $place;
+    }
+
+
     // }
 
     # to show the place which has the keyword registered as 'interest' by Auth User
 
-    public function showPlanInfo(){
-    $all_places = Place::all();  //to get location name, adress
-    $all_place_image = PlaceImage::all();   //to get image and description
-    $all_place_keyword = PlaceKeyword::all(); //to get the place_keyword
-    $all_keyword = Keyword::all(); //to get the keyword
+    public function showPlanInfo()
+    {      
+        // [step1] add favorite
+        // place being marked as favorite by the login user
+        $favoritePlaces = Auth::user()->placeFavorites;
 
+        // [step2] get the interested keywords
+        $interestedKeywords = Auth::user()->interestedKeywords;
+        
+        $interestedPlaces = collect([]);
+        foreach($interestedKeywords as $keyword) {
+            $interestedPlaces = $interestedPlaces->merge($keyword->interestedPlaces);
+        }
 
-    $place_for_plan = [];
+        $interestedPlaces = $favoritePlaces->merge($interestedPlaces)->unique('id');
 
-    $count = 0;
-    foreach($all_places as $place){
-        print "!!!!!!!!!!!!!!!!!!!!!!! <br/>";
-        $s_count = (string) $count;
-        print "count: $s_count <br/>";
-        $count++;
+        return view('users.plans.show', [
+            'plan' => $this->plan,
+            'place' => $this->place,
+            'interested_places' => $interestedPlaces
+        ]);
+    }
 
-        $s_place = (string) $place;
-        print "s_place: $s_place <br/>";
+    public function up()
+    {
+        $plan = new Plan();
+        $userId = Auth::user()->id;
+        $interestedPlaces = [];
 
-        // キーワードに紐づく場所を追加
-        // もしお気に入りなら場所を追加
+        // Create a new plan and retriece its ID
+        $plan = DB::table('plans')->insertGetId([
+            'user_id' => $userId,
+            'user_div' => 1,
+            'title' => 'Test Plan',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-            if($place->favorited()){
-                $PlaceKeyWord   = PlaceKeyword::select('keyword_id')->where('place_id', '=', $place->id)->get();
-                $s_PlaceKeyWord = (string) $PlaceKeyWord;
-                print "s_PlaceKeyWord: $s_PlaceKeyWord <br/>";
+        //Assuming you have the plan ID available
+        $planId = $plan;
+        $day = 1; //specify the day for ID available
+        $sortNo = 1; //specofy the sort number for the plan 
 
-                $id_PlaceKeyWord = $PlaceKeyWord[0]->keyword_id;
-                $s_id_PlaceKeyWord = (string) $id_PlaceKeyWord;
-                print "s_id_PlaceKeyWord: $s_id_PlaceKeyWord <br/>";
+        foreach($interestedPlaces as $place){
+            DB::table('plan_details')->insert([
+                'plan_id'   => $planId,
+                'day'       => $day,
+                'place_id'  => $place->id,
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ]);
+            $sortNo++; //Increment the sort number for the next place in the plan
+        }
 
-                $PlaceIds   = PlaceKeyword::select('place_id')->where('keyword_id', '=', $PlaceKeyWord[0]->keyword_id)->get();
-                $s_PlaceIds = (string) $PlaceIds;
-                print "s_PlaceIds: $s_PlaceIds <br/>";
-
-                foreach($PlaceIds as $PlaceId){
-                    $get_place   = Place::select('*')->where('id', '=', $PlaceId->place_id)->get();
-                    $s_get_place = (string) $get_place;
-                    print "s_get_place: $s_get_place <br/>";
-                    $place_for_plan[] = $get_place[0];
-                }
-                
-                $place_for_plan[] = $place;
-                $str_pfm = implode(",", $place_for_plan);
-                print "str_pfm: $str_pfm <br/>";
-            }
+        $this->plan->save();
+        return redirect()->back();
         
     }
-    return view('users.plans.show')
-        ->with('place_for_plan' , $place_for_plan);
-}
-    
+
+    // public function edit(){
+        //option
+    // }
+
+    public function destroy($id){
+        $plan = $this->plan->findOrFail($id);
+        $plan->forceDelete();
+        return redirect()->back();
+    }
+
+
+
 
 }

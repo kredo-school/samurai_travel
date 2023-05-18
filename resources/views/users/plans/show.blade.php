@@ -4,6 +4,14 @@
 
 @section('content')
 <style>
+
+    .background-container{
+      position:relative;
+      
+    }
+
+  
+
     .container-plan{
         margin: 3rem auto auto auto ;
         padding: auto;
@@ -35,7 +43,9 @@
         background-size: cover;
         position:absolute;
         }
-    
+    .tab-content{
+        height: 300px;
+    }   
 
     .googlemap iframe {
         position: absolute;
@@ -154,65 +164,76 @@
 }
 
     </style>
-
-    <img class="back-img1" >
-    {{-- src="{{ asset('storage\images\plan details back(resized).jpg') }}" alt="">  --}}
+    <div class="background-container d-flex align-items-center"></div>
+    {{-- <img src="{{ asset('storage\images\plan details back(resized).jpg') }}" alt="top-image" class="top-image"> --}}
     
     <div class="container bg-light shadow p-5 rounded">
       <div class="row">
-        <div class="col-md-6">
-          <h4 class="h4 text-capitalize">#Planname</h4>
-          <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
-              </li>
-          </ul>
-          <div class="container-plan bg-white shadow p-5 m-1 rounded">
-            
-              <div class="col">                                 
-            
-                  @foreach($place_for_plan as $place)
-                  @include('users.plans.contents.place')
-                  @endforeach
-              </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="h4 text-capitalize">#Planname</h4>
           </div>
-        </div>
-        
-        <div class="col-md-6">
           <div class="row">
-            <div class="d-flex text-end mt-1 mb-4">
-                {{-- Edit button --}}
-                <div class="col">
-                    <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-genre-#" title="Edit">
-                    <i class="fa-solid fa-pen text-warning"></i> EDIT
-                    </button>
-                </div>
-                
-                {{-- Delete button --}}
-                <div class ="col">
-                    <button class="btn btn-outline-danger btn-sm text-dark" data-bs-toggle="modal" data-bs-target="#delete-genre-#" title="Delete">
-                    <i class="fa-solid fa-trash-can text-danger"></i> DELETE
-                    </button>
-                </div>
-                {{-- Like button --}}
-                <div class="col">
-                    
-                    <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
-                </div>
-                <div class="col">
-                    <span># count</span>
-                </div>
-            </div>
+            <div class="col-md-6">
+                <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="true">Day 1</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
+                    </li>
+                </ul>
+              </div>
+          
+            <div class="col-md-6 d-flex text-end ">
+              {{-- Save button  --}}
+              {{-- <div class="col">
+                <input type="button" class="btn btn-outline-success btn-sm me-2 text-dark" name="store" value="SAVE">                  
+              </div> --}}
+
+              {{-- Edit button --}}
+              <div class="col">
+                  <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-plan-#" title="Edit">
+                  <i class="fa-solid fa-pen text-warning"></i> EDIT
+                  </button>
+              </div>
+              
+              {{-- Delete button --}}
+              <div class ="col">
+                  <button class="btn btn-outline-danger btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#delete-plan-{{$plan->id}}">
+                  <i class="fa-solid fa-trash-can text-danger"></i> DELETE
+                  </button>
+              </div>
+              @include('users.plans.contents.modals.delete')
+              {{-- Like button --}}
+              <div class="col">
+                  <a href="{{ route('plans.up')}}" class="text-muted">                  
+                  <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
+              </div>
+              </a>
+              <div class="col">
+                  <span># count</span>
+              </div>
+              
+          </div>
+        </div> 
+      </div>
+
+      <div class="row"> 
+        <div class="col-md-6">                                 
+          <div class="container-plan bg-white shadow p-5 m-1 rounded">           
+                  @foreach($interested_places as $place)
+                    @include('users.plans.contents.place')
+                  @endforeach         
           </div>
         </div>
+        <div class="col-md-6" id="map"></div>
+          <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
+          </script>
       </div>
-        <div id="map"></div>
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
-        </script>
       </div>
-      
+    </div>
+
         @include('users.plans.contents.recommend')
+      
 @endsection
