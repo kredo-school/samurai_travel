@@ -44,7 +44,7 @@
 
                         @else
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="{{ route('admin.users.index') }}">Users</a>
+                                <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
                             </li>
 
                             <li class="nav-item mx-3">

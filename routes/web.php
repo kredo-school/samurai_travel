@@ -31,8 +31,8 @@ Route::group(['middleware' => 'auth'], function(){
         # Admin Top
         Route::get('/top', [AdminTopController::class, 'top'])->name('top');
         # Users
-        Route::get('/users', [UsersController::class, 'index'])->name('users.index');
-        Route::patch('/users/{id}/change_role', [UsersController::class, 'change_role'])->name('users.change_role');
+        Route::get('/users', [UsersController::class, 'index'])->name('users');
+        Route::patch('/users/{user}/update', [UsersController::class, 'update'])->name('users.update');
         Route::get('/keywords', [KeywordController::class, 'index'])->name('keywords');
         Route::get('/keywords/create', [KeywordController::class, 'create'])->name('keywords.create');
         Route::post('/keywords/store', [KeywordController::class, 'store'])->name('keywords.store');

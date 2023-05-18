@@ -16,7 +16,7 @@
                     <p>Are you sure you want to change the user's role to 'Admin' ?</p>
                 </div>
                 <div class="modal-footer border-0">
-                    <form action="{{ route('admin.users.change_role', $user->id) }}" method="post">
+                    <form action="{{ route('admin.users.update', $user) }}" method="post">
                         @csrf
                         @method('PATCH')
 
@@ -42,7 +42,7 @@
                     <p>Are you sure you want to change the user's role to 'User' ?</p>
                 </div>
                 <div class="modal-footer border-0">
-                    <form action="{{ route('admin.users.change_role', $user->id) }}" method="post">
+                    <form action="{{ route('admin.users.update', $user) }}" method="post">
                         @csrf
                         @method('PATCH')
 

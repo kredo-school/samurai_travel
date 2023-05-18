@@ -13,7 +13,7 @@
             <h3 class="text-bold">Users List</h3>
         </div>
         <div class="col-10">
-            <form action="{{ route('admin.users.index') }}" method="get">
+            <form action="{{ route('admin.users') }}" method="get">
                 <div class="row">
                     <div class="col-2">
                         <input type="text" name="name" class="form-control" value="{{ $name }}" placeholder="Name">

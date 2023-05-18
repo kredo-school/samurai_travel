@@ -32,9 +32,8 @@ class UsersController extends Controller
         return view('admin.users.index', compact('users', 'name', 'email', 'role_id'));
     }
 
-    public function change_role(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::find($id);
         $user->role_id = $request->role_id;
         $user->save();
 
