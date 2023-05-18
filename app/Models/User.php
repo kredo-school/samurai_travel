@@ -54,13 +54,13 @@ class User extends Authenticatable
     }
 
     #Use this to get all favorite places of Auth user
-    public function placeFavorite(){
-        return $this->hasMany(PlaceFavorite::class);
+    public function placeFavorites(){
+        return $this->belongsToMany(Place::class, 'place_favorites', 'user_id', 'place_id');
     }
 
 
     # Use this to get interest keyword of Auth user
-    public function interests(){
-        return $this->hasMany(Interest::class);
+    public function interestedKeywords(){
+        return $this->belongsToMany(Keyword::class, 'interests', 'user_id', 'keyword_id');
     }
 }

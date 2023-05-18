@@ -24,18 +24,18 @@ class Keyword extends Model
     }
 
     # Use this to get PlaceKeyword 
-    public function placeKeyword(){
-        return $this->belongsTo(PlaceKeyword::class);
+    public function interestedPlaces(){
+        return $this->belongsToMany(Place::class, 'place_keywords', 'keyword_id', 'place_id');
     }
 
     # To get the interest of the place_keyword
-    public function interest(){
-        return $this->hasOne(Interest::class);
-    }
+    // public function interest(){
+    //     return $this->hasOne(Interest::class);
+    // }
 
     # Return TRUE if the Auth user already interested in the keyword 
     public function isInterested(){
-        return $this->interest()->where('user_id' , Auth::user()->id)->exists();
+        return $this->interestedPlaces()->where('user_id' , Auth::user()->id)->exists();
         // ->where('user_id' , Auth::user()->id)->exists();
     }
 
