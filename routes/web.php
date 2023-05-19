@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\RegisterController;
-use App\Http\Controllers\Admin\TopController;
 use App\Http\Controllers\Admin\PlaceController;
 use App\Http\Controllers\Admin\PlaceImageController;
 use App\Http\Controllers\Admin\PlaceKeywordController;
+use App\Http\Controllers\Admin\TopController as AdminTopController;
+use App\Http\Controllers\TopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,25 +22,25 @@ use App\Http\Controllers\Admin\PlaceKeywordController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
 
 Route::group(['middleware' => 'auth'], function(){
 
     # For Admin
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
         # Admin Top
-        Route::get('/top', [TopController::class, 'top'])->name('top');
+        Route::get('/top', [AdminTopController::class, 'top'])->name('top');
         # Admin User Register
         Route::get('/register', [RegisterController::class, 'register'])->name('register');
         Route::post('/store', [RegisterController::class, 'store'])->name('store');
-
-        
+        Route::get('/keywords', [KeywordController::class, 'index'])->name('keywords');
+        Route::get('/keywords/create', [KeywordController::class, 'create'])->name('keywords.create');
+        Route::post('/keywords/store', [KeywordController::class, 'store'])->name('keywords.store');
+        Route::get('/keywords/edit/{id}', [KeywordController::class, 'edit'])->name('keywords.edit');
+        Route::patch('/keywords/{id}/update', [KeywordController::class,'update'])->name('keywords.update');
+        Route::delete('/keywords/{id}/destroy', [KeywordController::class, 'destroy'])->name('keywords.destroy');
     });
 
     // for displaying ADMIN/ GENRE MANAGEMENT

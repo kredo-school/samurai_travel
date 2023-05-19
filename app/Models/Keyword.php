@@ -9,6 +9,12 @@ class Keyword extends Model
 {
     use HasFactory;
 
+    protected $table = 'keywords';
+    protected $fillable = [
+        'name',
+        'genre_id'
+    ];
+
     public function genre(){
         return $this->belongsTo(Genre::class);
         // ->withTrashed();

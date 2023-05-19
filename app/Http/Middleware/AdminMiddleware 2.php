@@ -22,6 +22,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect()->route('top');   //This code is needed to change later.
+        return redirect()->route('home');   //This code is needed to change later.
     }
 }
