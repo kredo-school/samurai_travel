@@ -13,4 +13,8 @@ class Keyword extends Model
         return $this->belongsTo(Genre::class);
         // ->withTrashed();
     }
+
+    public function placeKeyword(){
+        return $this->hasMany(PlaceKeyword::class);
+    }
 }

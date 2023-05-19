@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController;
 use App\Http\Controllers\Admin\PlaceController;
 use App\Http\Controllers\Admin\PlaceImageController;
+use App\Http\Controllers\Admin\PlaceKeywordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +64,8 @@ Route::get('/place_image/{place_image}/edit', [PlaceImageController::class, 'edi
 Route::patch('/place_image/{place_image}/update', [PlaceImageController::class, 'update'])->name('place_image.update');
 Route::delete('/place_image/{place_image}/destroy', [PlaceImageController::class, 'destroy'])->name('place_image.destroy');
 
+#Place Keyword
+Route::get('/place_keywords/{place}/index',[PlaceKeywordController::class, 'index'])->name('place_keyword.index');
+Route::post('/place_keywords/{place}/store',[PlaceKeywordController::class, 'store'])->name('place_keyword.store');
+Route::patch('/place_keyword/{place}/{keyword}/update', [PlaceKeywordController::class, 'update'])->name('place_keyword.update');
+Route::delete('/place_keyword/{place}/{keyword}/destroy', [PlaceKeywordController::class, 'destroy'])->name('place_keyword.destroy');

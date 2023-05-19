@@ -15,7 +15,7 @@
 
                     <div class="form-group mb-3">
                         <label for="image_no" class="form-label text-muted mb-2">Image No.</label>
-                        <input type="number" name="image_no" class="form-control" style="width: 25%" value="{{ $place_image->image_no }}">
+                        <input type="number" name="image_no" class="form-control" style="width: 25%" value="{{ $place_image->image_no }}" readonly>
                         @error('image_no')
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror

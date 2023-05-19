@@ -9,7 +9,7 @@
             <h1 class="mx-3 mt-3 text-bold text-center fs-3">Place</h1>
             <div class="card-body mx-5">
                     {{-- Store the sections --}}
-                <form action="{{ route('place.update', $place->id) }}" method="post">
+                <form action="{{ route('place.update', $place) }}" method="post">
                     @csrf
                     @method('PATCH')
                     {{-- Place_Category --}}

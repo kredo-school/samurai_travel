@@ -44,7 +44,7 @@
                             <td>{{ $place->created_at }}</td>
                             <td>{{ $place->updated_at }}</td>
                             <td>
-                                {{-- <a href="{{ route('product.edit', $product->id) }}" class="text-primary" > --}}
+                                <a href="{{ route('place_keyword.index', $place) }}" class="text-primary" >
                                 <button class="border-0 bg-transparent text-info p-1  me-1">
                                     <i class="fa-solid fa-key fs-4"></i>
                                 </button>
