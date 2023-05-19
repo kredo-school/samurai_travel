@@ -11,8 +11,10 @@ use App\Models\Keyword;
 use App\Models\PlaceImage;
 use App\Models\PlaceKeyword;
 use App\Models\Plan;
+use App\Models\PlanFavorite;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class PlanController extends Controller
 
@@ -50,47 +52,61 @@ class PlanController extends Controller
         }
 
         $interestedPlaces = $favoritePlaces->merge($interestedPlaces)->unique('id');
+        
+        //[step3] save the plan
+        $plan = new Plan();
+        $plan->user_id = Auth::user()->id;
+        $plan->user_div = 1;
+        $plan->title = 'Test Plan'; // Modify the title accordingly
+        $plan->save();
+
+        //[step4] save the plan details
+        $sortNo = 1; // Initialize the sort number
+        foreach($interestedPlaces as $place) {
+            DB::table('plan_details')->insert([
+                'plan_id' => $plan->id,
+                'day' => 1, // Specify the day for ID available
+                'place_id' => $place->id,
+                'sort_no' => $sortNo, // Assign the sort number
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $sortNo++; // Increment the sort number for the next place in the plan
+        }
+        // Retrieve the plan from the 'plans' table using its ID
+        $plan = Plan::find($plan->id);
 
         return view('users.plans.show', [
-            'plan' => $this->plan,
+            'plan' => $plan, //pass the retrieved plan object
             'place' => $this->place,
-            'interested_places' => $interestedPlaces
+            'interested_places' => $interestedPlaces->take(6), // Limit the collection to six items
         ]);
     }
 
-    public function up()
+    public function favorite($planId)
     {
-        $plan = new Plan();
-        $userId = Auth::user()->id;
-        $interestedPlaces = [];
+        $user = Auth::user();
 
-        // Create a new plan and retriece its ID
-        $plan = DB::table('plans')->insertGetId([
-            'user_id' => $userId,
-            'user_div' => 1,
-            'title' => 'Test Plan',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // Check if the user has already favorited the plan
+        $existingFavorite = PlanFavorite::where('user_id', $user->id)
+        ->where('plan_id', $planId)
+        ->first();
 
-        //Assuming you have the plan ID available
-        $planId = $plan;
-        $day = 1; //specify the day for ID available
-        $sortNo = 1; //specofy the sort number for the plan 
+    if ($existingFavorite) {
+        // Plan is already favorited by the user
+        // implement the logic for unfavoriting here 
+    } else {
+        // Plan is not favorited by the user, so insert it into the plan_favorites table
+        $favorite = new PlanFavorite();
+        $favorite->user_id = $user->id;
+        $favorite->plan_id = $planId;
+        $favorite->save();
+        
+    }
 
-        foreach($interestedPlaces as $place){
-            DB::table('plan_details')->insert([
-                'plan_id'   => $planId,
-                'day'       => $day,
-                'place_id'  => $place->id,
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ]);
-            $sortNo++; //Increment the sort number for the next place in the plan
-        }
+    
+    return redirect()->back()->with('success', 'Added as my favorite plan!');;
 
-        $this->plan->save();
-        return redirect()->back();
         
     }
 
@@ -104,6 +120,15 @@ class PlanController extends Controller
         return redirect()->back();
     }
 
+    // function for displaying Admin user's recommend plan
+    public function showRecommendPlan(){
+        
+        //retrieve the plans created by admin users
+        $adminPlans = Plan::where('user_div', 'admin')->get();
+
+        return view('users.plans.contents.recommend', ['adminPlans' => $adminPlans]);
+
+    }
 
 
 

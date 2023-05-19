@@ -52,8 +52,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     // for displaying PLAN DETAILS
     Route::get('/plans', [PlanController::class, 'showPlanInfo'])->name('plans');
-    Route::get('/plans/up',[PlanController::class,'up'])->name('plans.up');//あとでgetを変更
-    Route::delete('/plans/destroy',[PlanController::class,'plans.destroy'])->name('plans.destroy');
+    Route::post('/plans/favorite/{planId}',[PlanController::class, 'favorite'])->name('favorite.plan');
+    Route::delete('/plans/destroy',[PlanController::class,'destroy'])->name('plans.destroy');
+    
 
 
 });

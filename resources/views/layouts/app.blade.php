@@ -15,7 +15,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-
+    <script>
+        // ページが読み込まれた後に実行される処理
+        document.addEventListener('DOMContentLoaded', function() {
+            // フラッシュメッセージが存在する場合、1秒後にメッセージを非表示にする
+            const flashMessage = document.querySelector('.alert');
+            if (flashMessage) {
+                setTimeout(function() {
+                    flashMessage.style.display = 'none';
+                }, 1000);
+            }
+        });
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 

@@ -23,7 +23,18 @@ class Plan extends Model
     public function placeFavorite(){
         return $this->hasMany(PlaceFavorite::class);
     }
-        
+
+    public function favorites(){
+        return $this->hasMany(PlanFavorite::class);
+    }
+
+    public function getIsFavoriteAttribute(){
+        return $this->favorites()->where('user_id', auth()->user()->id)->exists();
+    }
+
+    public function planDetails(){
+        return $this->hasMany(planDetails::class);
+    }
 
     
 }

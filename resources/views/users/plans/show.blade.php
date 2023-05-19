@@ -8,6 +8,9 @@
     .background-container{
       position:relative;
       
+      justify-content: center;
+      
+      
     }
 
   
@@ -42,6 +45,7 @@
         background-attachment: fixed;
         background-size: cover;
         position:absolute;
+        z-index: -1;
         }
     .tab-content{
         height: 300px;
@@ -65,6 +69,17 @@
         padding:auto;
         margin:10% auto auto auto ;
     }
+
+    .plan-content {
+    min-height: 500px;
+    max-height: 700px;
+    min-width: 160px;
+    max-width: 500px;
+    background-color: white;
+    border: solid 1px black;
+    
+    
+}
 
     /* Tomo-san 分 */
     @charset "UTF-8";
@@ -167,7 +182,7 @@
       <div class="row">
         <div class="row">
           <div class="col-md-6">
-            <h4 class="h4 text-capitalize">#Planname</h4>
+            <h4 class="h4 text-capitalize">#{{ $plan->title }}</h4>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -201,12 +216,24 @@
                   </button>
               </div>
               @include('users.plans.contents.modals.delete')
-              {{-- Like button --}}
+              
+              {{-- Like button for save the plan --}}
               <div class="col">
-                  <a href="{{ route('plans.up')}}" class="text-muted">                  
-                  <i class="fa-regular fa-heart" style="font-size: 1.5rem"></i>
+                <form action="{{ route('favorite.plan', ['planId' => $plan->id ]) }}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn btn-outline-light btn-sm me-2 text-dark">
+                    <i class="fa-regular fa-heart" ></i> FAVORITE
+                  </button>
+                    @if(session('success'))
+                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ session('success') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    @endif
+                </form>
               </div>
-              </a>
+              
+              
               <div class="col">
                   <span># count</span>
               </div>
@@ -215,19 +242,19 @@
         </div> 
       </div>
 
-      <div class="row"> 
-        <div class="col-md-6">                                 
-          <div class="container-plan bg-white shadow p-5 m-1 rounded">           
-                  @foreach($interested_places as $place)
-                    @include('users.plans.contents.place')
-                  @endforeach         
+        <div class="row"> 
+          <div class="col-md-6">                                 
+            <div class="container-plan bg-white shadow p-5 m-1 rounded">           
+                    @foreach($interested_places as $place)
+                      @include('users.plans.contents.place')
+                    @endforeach         
+            </div>
           </div>
+        
+            <div class="col-md-6">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030689856!2d139.76454987550272!3d35.68123617258717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1683548732190!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
         </div>
-      
-          <div class="col-md-6">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030689856!2d139.76454987550272!3d35.68123617258717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1683548732190!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-      </div>
       </div>
     </div>
 

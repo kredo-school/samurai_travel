@@ -63,4 +63,9 @@ class User extends Authenticatable
     public function interestedKeywords(){
         return $this->belongsToMany(Keyword::class, 'interests', 'user_id', 'keyword_id');
     }
+
+    # Use this to get favorite plans of Auth user
+    public function planFavorite(){
+        return $this->hasMany(PlanFavorite::class, 'plan_favorites', 'user_id', 'plan_id');
+    }
 }
