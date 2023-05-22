@@ -188,3 +188,28 @@
     border-radius: 50%;
     
 }
+
+/* Message */
+.msg-success {
+    height: $message-height;
+    width: $message-width;
+    padding: $message-padding;
+    background-color: aquamarine;
+    border-radius: $message-border-radius;
+}
+
+.msg-notice {
+    height: $message-height;
+    width: $message-width;
+    padding: $message-padding;
+    background-color: lemonchiffon;
+    border-radius: $message-border-radius;
+}
+
+.msg-fail {
+    height: $message-height;
+    width: $message-width;
+    padding: $message-padding;
+    background-color: mistyrose;
+    border-radius: $message-border-radius;
+}
