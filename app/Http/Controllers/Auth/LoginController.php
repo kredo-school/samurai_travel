@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,7 +38,7 @@ class LoginController extends Controller
             return route('admin.top');
         }
 
-        return route('home');   //This code is needed to change later.
+        return route('top');
 
     }
 
@@ -49,5 +50,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // override because of social login
+    protected function credentials(Request $request)
+    {
+        return array_merge(
+            // default credentials
+            $request->only($this->username(), 'password'),
+            [ 'google_id' => null ],    // not authenticated by google
+            [ 'facebook_id' => null ]   // not authenticated by facebook
+        );
     }
 }
