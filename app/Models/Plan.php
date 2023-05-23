@@ -33,7 +33,7 @@ class Plan extends Model
     }
 
     public function planDetails(){
-        return $this->hasMany(planDetails::class);
+        return $this->hasMany(PlanDetail::class);
     }
 
     

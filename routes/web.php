@@ -51,12 +51,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 
-    // for displaying PLAN DETAILS
+    // for displaying PLAN DETAILS(for LOGGED IN USER)
     Route::get('/plans', [PlanController::class, 'showPlanInfo'])->name('plans');
     Route::post('/plans/favorite/{planId}',[PlanController::class, 'favorite'])->name('favorite.plan');
     Route::delete('/plans/destroy',[PlanController::class,'destroy'])->name('plans.destroy');
     
-
+    //for displaying PLAN DETAILS(for GUEST USER)
+    Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show');
+    Route::post('/plans/favorite/{planId}',[PlanController::class, 'favorite'])->name('favorite.plan');
 
 });
     

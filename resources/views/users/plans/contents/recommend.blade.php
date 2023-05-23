@@ -16,6 +16,9 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="plan_id_day3-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day3" type="button" role="tab" aria-controls="plan_id_day3" aria-selected="false">Day 3</button>
+                </li>    
             </ul>
             
             <div class="container-plan bg-white shadow p-5 m-1 rounded"> 
@@ -47,19 +50,19 @@
                                 </div>
                         </div>
                         </div>
-                    @endforeach
-                @endforeach  --}}
+                    @endforeach 
+                 @endforeach  --}}
             </div> 
         </div>
        
         <div class="col shadow rounded mb-4 mx-4 p-4 plan-content">
             {{-- Plan No.2 that registered as recommend plan --}}
-            <h5> plan #2 here</h5>
+            <h5 class="text-center"> Recommended plan #2 </h5>
         </div>
         
         <div class="col shadow rounded mb-4 mx-4 p-4 plan-content">
             {{-- Plan No.3 that registered as recommend plan --}}
-            <h5> plan #3 here</h5>
+            <h5 class="text-center"> Recommended plan #3 </h5>
         </div>
         
     </div>

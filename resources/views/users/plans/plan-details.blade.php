@@ -173,52 +173,34 @@
       <div class="row">
         <div class="row">
           <div class="col-md-6">
-            <h4 class="h4 text-capitalize"># SUGGESTED PLAN</h4>
-            {{-- {{ $plan->title }} --}}
+            <h4 class="h4 text-capitalize">{{ $plans->title }}</h4>
+            
           </div>
           <div class="row">
             <div class="col-md-6">
                 <ul class="nav nav-pills mb-3" id="plan_id-tab" role="tablist">
-                  @for($d = 1; $d <= $day; $d++)
+                  
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link {{ $d > 1 ? '' : 'active' }}" id="plan_id_day{{ $d }}-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day{{ $d }}" type="button" role="tab" aria-controls="plan_id_day {{ $d }}" aria-selected="true">Day {{ $d }}</button>
-                    </li>
-                    <!-- <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="plan_id_day1-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day1" type="button" role="tab" aria-controls="plan_id_day1" aria-selected="false">Day 1</button>
+                  </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="plan_id_day2-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day2" type="button" role="tab" aria-controls="plan_id_day2" aria-selected="false">Day 2</button>
                     </li>
                     <li class="nav-item" role="presentation">
                       <button class="nav-link" id="plan_id_day3-tab" data-bs-toggle="pill" data-bs-target="#plan_id_day3" type="button" role="tab" aria-controls="plan_id_day3" aria-selected="false">Day 3</button>
-                  </li> -->
-                  @endfor
+                  </li> 
+                
                 </ul>
               </div>
           
             <div class="col-md-6 d-flex text-end ">
+              <div class="col-3"></div>
               {{-- Save button  --}}
-              {{-- <div class="col">
-                <input type="button" class="btn btn-outline-success btn-sm me-2 text-dark" name="store" value="SAVE">                  
-              </div> --}}
-
-              {{-- Edit button --}}
               <div class="col">
-                  <button class="btn btn-outline-warning btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#edit-plan-#" title="Edit">
-                  <i class="fa-solid fa-pen text-warning"></i> EDIT
-                  </button>
-              </div>
-              
-              {{-- Delete button --}}
-              {{-- <div class ="col">
-                  <button class="btn btn-outline-danger btn-sm me-2 text-dark" data-bs-toggle="modal" data-bs-target="#delete-plan-">
-                  <i class="fa-solid fa-trash-can text-danger"></i> DELETE
-                  </button>
-              </div> --}}
-              
-              {{-- Like button for save the plan --}}
-              <div class="col">
-                {{-- <form action="{{ route('favorite.plan', ['planId' => $plan->id ]) }}" method="POST"> --}}
+                <form action="{{ route('favorite.plan',  $plans->id ) }}" method="POST">
                   @csrf
-                  <button type="submit" class="btn btn-outline-light btn-sm me-2 text-dark">
-                    <i class="fa-regular fa-heart" ></i> FAVORITE
+                  <button type="submit" class="btn btn-grey btn-sm me-2 text-dark">
+                    <i class="fa-solid fa-circle text-success"></i> Add to my plan
                   </button>
                     @if(session('success'))
                       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -227,6 +209,12 @@
                       </div>
                     @endif
                 </form>
+                {{-- <input type="button" class="btn btn-outline-success btn-sm me-2 text-dark" name="store" value="Add to my plan">                   --}}
+              </div>
+              
+              {{-- Like button for save the plan --}}
+              <div class="col">
+                
               </div>
               
               
@@ -242,7 +230,46 @@
           <div class="col-md-6">                                 
             <div class="container-plan bg-white shadow p-3 rounded">    
                 <div class="tab-content " id="plan_id-tabContent">        
-                  @include('users.plans.contents.place')
+                  <div class="my-5">
+                    <div class="tab-content " id="plan_id-tabContent"> 
+                      @foreach($places_groups as $key => $places_group)
+                          <div class="tab-pane fade show {{ $key > 0 ? '': 'active'}} }}" id="plan_id_day{{ $key + 1 }}" role="tabpanel" aria-labelledby="plan_id_day{{ $key + 1 }}-tab" tabindex="0">
+                              <div class="float-start"><i class="fa-solid fa-arrow-down-long"></i></div>
+                              <div class="card-body">
+                                  @foreach($places as $place)
+                                    @if($plan_details->day == $key + 1)
+                                      <div class="bg-plan p-2 mb-1">
+                                          <div class="p-2">
+                                            @foreach ($place->times as $time)
+                                            <p><i class="fa-regular fa-clock"></i>{{ $time }}</p>
+                                            @endforeach
+                                              {{-- <p><i class="fa-regular fa-clock"></i>{{ $place->startTime }} </p> --}}
+                                              <p><i class="fa-solid fa-location-dot"></i> {{ $place->name_en }}</p>
+                                              
+                                              <div class="d-flex">
+                                                  @foreach($place->placeImages as $image)
+                                                      <div class="px-2">
+                                                          <img src="{{ asset($image->image) }}" class="img-sm" alt="">
+                                                      </div>
+                                                      <p class="place-desc px-2">
+                                                          {{ $image->description }}
+                                                      </p>      
+                                                  @endforeach                
+                                              </div>
+                                          </div>
+                                          <div>
+                                              <i class="fa-solid fa-car"></i> 30 min
+                                          </div>
+                                          
+                                      </div>
+                                      @endif
+                                  @endforeach
+                              </div>
+                              
+                          </div>
+                      @endforeach   
+                  </div>
+                  </div>
                 </div>      
             </div>
           </div>
@@ -255,9 +282,7 @@
     </div>
   </div>
 
-    <div class="my-5">
-      @include('users.plans.contents.recommend')
-    </div>
+    
         
       
 @endsection
