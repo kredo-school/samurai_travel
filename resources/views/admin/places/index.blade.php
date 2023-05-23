@@ -9,7 +9,7 @@
             <h1 class="text-bold fs-3">Places List</h1>
         </div>
         <div class="col-3">
-            <a href="{{ route('place.create') }}" class="btn btn-outline-primary float-end  px-4 me-3"> + Add</a>
+            <a href="{{ route('admin.place.create') }}" class="btn btn-outline-primary float-end  px-4 me-3"> + Add</a>
         </div>
         <div class="card mt-2">
             <div class="table-responsive-xl mt-4">
@@ -38,25 +38,25 @@
                             <td>{{ $place->place_category }}</td>
                             <td>{{ $place->name_jp }}</td>
                             <td>{{ $place->name_en }}</td>
-                            <td>{{ $place->opening_time }}</td>
-                            <td>{{ $place->ending_time }}</td>
+                            <td>{{ $place->opening_time }} {{ $place->open_ampm }}</td>
+                            <td>{{ $place->ending_time }} {{ $place->end_ampm }}</td>
                             <td><a href="{{ $place->url }}">{{ $place->url }}</a></td>
                             <td>{{ $place->created_at }}</td>
                             <td>{{ $place->updated_at }}</td>
                             <td>
-                                <a href="{{ route('place_keyword.index', $place) }}" class="text-primary" >
+                                <a href="{{ route('admin.place_keyword.index', $place) }}" class="text-primary" >
                                 <button class="border-0 bg-transparent text-info p-1  me-1">
                                     <i class="fa-solid fa-key fs-4"></i>
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('place_image.show', $place) }}" class="text-primary" >
+                                <a href="{{ route('admin.place_image.show', $place) }}" class="text-primary" >
                                 <button class="border-0 bg-transparent text-success p-1 me-1">
                                     <i class="fa-regular fa-image fs-4"></i>
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('place.edit', $place) }}" class="border-0 bg-transparent text-warning p-1 me-1">
+                                <a href="{{ route('admin.place.edit', $place) }}" class="border-0 bg-transparent text-warning p-1 me-1">
                                     <i class="fa-solid fa-pen-to-square fs-4"></i>
                                 </a>
                             </td>

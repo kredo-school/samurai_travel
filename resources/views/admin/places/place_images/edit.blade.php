@@ -9,7 +9,7 @@
             <h1 class="mx-3 mt-3 text-bold text-center fs-3">Place Image</h1>
             <div class="card-body mx-5">
 
-                <form action="{{ route('place_image.update', $place_image->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.place_image.update', $place_image->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
@@ -19,6 +19,25 @@
                         @error('image_no')
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="name_jp" class="form-label">Name(JP)</label>
+                            <input type="name_jp" class="form-control p-2" placeholder="Japanese Name here..." id="name_jp" name="name_jp" value="{{ old('name_jp',$place_image->name_jp) }}">
+                            @error('name_jp')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        {{-- name_en --}}
+                        <div class="col">
+                            <label for="name_en" class="form-label">Name(EN)</label>
+                            <input type="name_en" class="form-control" placeholder="English Name here..." id="name_en" name="name_en" value="{{ old('name_en', $place_image->name_en) }}">
+                            
+                            @error('name_en')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="form-group mb-3">
@@ -47,7 +66,7 @@
                     <div class="row text-center mt-5 mb-3">
                         <div class="col-2"></div>
                         <div class="col-3">
-                            <a href="{{ route('place_image.show', $place_image->place_id) }}" class="btn btn-outline-secondary form-control p-3">Cancel</a>
+                            <a href="{{ route('admin.place_image.show', $place_image->place_id) }}" class="btn btn-outline-secondary form-control p-3">Cancel</a>
                         </div>
                         <div class="col-5">
                             <button type="submit" class="btn btn-warning p-3 form-control">Save</button>

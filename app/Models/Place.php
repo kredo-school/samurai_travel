@@ -22,7 +22,11 @@ class Place extends Model
         'prefecture_id',
         'city_id',
         'address',
-        'spend_time'
+        'spend_time',
+        'image',
+        'description',
+        'open_ampm',
+        'end_ampm'
     ];
 
     public function area()

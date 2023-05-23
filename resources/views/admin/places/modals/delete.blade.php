@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-footer border-0">
-                <form action="{{ route('place.destroy', $place) }}" method="post">
+                <form action="{{ route('admin.place.destroy', $place) }}" method="post">
                     @csrf
                     @method('DELETE')
 

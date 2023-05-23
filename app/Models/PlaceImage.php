@@ -13,7 +13,9 @@ class PlaceImage extends Model
         'place_id',
         'image_no',
         'image',
-        'description'
+        'description',
+        'name_en',
+        'name_jp',
     ];
 
     public function place()

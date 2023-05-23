@@ -53,7 +53,7 @@ class PlaceKeywordController extends Controller
             'keyword_id' => $request->keyword_id
         ]);
         
-        return redirect()->route('place_keyword.index', $place->id);
+        return redirect()->route('admin.place_keyword.index', $place->id);
     }
 
     public function destroy(Place $place, Keyword $keyword)

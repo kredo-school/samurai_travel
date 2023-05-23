@@ -33,17 +33,21 @@ class PlaceImageController extends Controller
         $request->validate([
             'image_no'     =>  'required|min:1|integer',
             'image'        =>  'required|mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|min:1|max:1000'
+            'description'  =>  'required|min:1|max:1000',
+            'name_en'        =>  'required|min:1|max:1000',
+            'name_jp'        =>  'required|min:1|max:1000'
         ]);
         
         PlaceImage::create([
             'place_id'    => $place->id,
             'image_no'    => $request->image_no,
             'image'       => $this->saveImage($request),
-            'description' => $request->description
+            'description' => $request->description,
+            'name_en'        =>  $request->name_en,
+            'name_jp'        =>  $request->name_jp,
         ]);
         
-        return redirect()->route('place_image.show', $place);
+        return redirect()->route('admin.place_image.show', $place);
     }
 
     private function saveImage($request){
@@ -68,11 +72,15 @@ class PlaceImageController extends Controller
         $request->validate([
             'image_no'     =>  'required|min:1|integer',
             'image'        =>  'mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|min:1|max:1000'
+            'description'  =>  'required|min:1|max:1000',
+            'name_en'        =>  'required|min:1|max:1000',
+            'name_jp'        =>  'required|min:1|max:1000'
         ]);
 
         $place_image->image_no = $request->image_no;
         $place_image->description = $request->description;
+        $place_image->name_en        =  $request->name_en;
+        $place_image->name_jp        =  $request->name_jp;
 
         if($request->image){
             $this->deleteImage($place_image->image);
@@ -82,7 +90,7 @@ class PlaceImageController extends Controller
 
         $place_image->save();
 
-        return redirect()->route('place_image.show', $place_image->place_id);
+        return redirect()->route('admin.place_image.show', $place_image->place_id);
     }
 
     private function deleteImage($image_name){

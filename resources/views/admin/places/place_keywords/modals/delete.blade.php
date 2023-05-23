@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-footer border-0">
-                <form action="{{ route('place_keyword.destroy',[$place_keyword->place , $place_keyword->keyword]) }}" method="post">
+                <form action="{{ route('admin.place_keyword.destroy',[$place_keyword->place , $place_keyword->keyword]) }}" method="post">
                     @csrf
                     @method('DELETE')
 

@@ -9,7 +9,7 @@
             <h1 class="mx-3 mt-3 text-bold text-center fs-3">Place</h1>
             <div class="card-body mx-5">
                     {{-- Store the sections --}}
-                <form action="{{ route('place.update', $place) }}" method="post">
+                <form action="{{ route('admin.place.update', $place) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     {{-- Place_Category --}}
@@ -45,6 +45,30 @@
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+
+                    {{-- Image & Description --}}
+                    <div class="form-group mb-3">
+                        <label for="image" class="form-label text-muted mb-2">Image</label>
+                        <img src="{{ asset('storage/sample/' . $place->image) }}" alt="{{ $place->image }}" class="image-fluid w-100">
+                        <input type="file" name="image" id="image" class="form-control mt-3" style="width: 50%" aria-describedby="image-info">
+                        <div class="form-text" id="image-info">
+                            The acceptable formats are jpeg, jpg, png, and gif only. <br>
+                            Max file size is 1048kb.
+                        </div>
+
+                        @error('image')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="description" class="form-label fw-bold">Description</label>
+                        <textarea name="description" id="description" rows="1" class="form-control" placeholder="Write about the image">{{ old('description', $place->description) }}</textarea>
+
+                        @error('description')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     {{-- Area, Prefecture, City --}}
@@ -120,23 +144,34 @@
 
                     {{-- Time --}}
                     <div class="row mb-3">
-                        <div class="col-3">
+                        <div class="col-4">
                             <label for="opening_time" name="opening_time" class="form-label">opening_time</label>
-                            <input type="time" id="opening_time" name="opening_time" class="form-control" value="{{ old('opening_time', $place->opening_time) }}">
-            
+                            {{-- <input type="time" id="opening_time" name="opening_time" class="form-control" value="{{ old('opening_time', $place->opening_time) }}"> --}}
+                            <input type="number" id="ending_time" name="ending_time" class="form-control" value="{{ old( 'opening_time', $place->opening_time) }}">
+                            <select class="form-select" name="open_ampm" style="width: 50%">
+                                <option selected hidden disabled>{{ $place->open_ampm }}</option>
+                                <option value="am">AM</option>
+                                <option value="pm">PM</option>
+                            </select>
+
                             @error('opening_time')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <label for="ending_time" name="ending_time" class="form-label">ending_time</label>
-                            <input type="time" id="ending_time" name="ending_time" class="form-control" value="{{ old('ending_time', $place->ending_time) }}">
-            
+                            {{-- <input type="time" id="ending_time" name="ending_time" class="form-control" value="{{ old('ending_time', $place->ending_time) }}"> --}}
+                            <input type="number" id="ending_time" name="ending_time" class="form-control" value="{{ old('ending_time', $place->ending_time) }}">
+                            <select class="form-select" name="end_ampm" style="width: 50%">
+                                <option selected hidden disabled>{{ $place->end_ampm }}</option>
+                                <option value="am">AM</option>
+                                <option value="pm">PM</option>
+                            </select>
                             @error('ending_time')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <label for="spend_time" name="spend_time" class="form-label">spend_time</label>
                             <input type="number" id="spend_time" name="spend_time" class="form-control" value="{{ old('spend_time', $place->spend_time) }}">
             
@@ -150,7 +185,7 @@
                     <div class="row text-center mt-5 mb-3">
                         <div class="col-2"></div>
                         <div class="col-3">
-                            <a href="{{ url('/places') }}" class="btn btn-outline-secondary form-control p-3">Cancel</a>
+                            <a href="{{ url('admin/places') }}" class="btn btn-outline-secondary form-control p-3">Cancel</a>
                         </div>
                         <div class="col-5">
                             <button type="submit" class="btn btn-warning p-3 form-control">Save</button>

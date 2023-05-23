@@ -42,6 +42,27 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/keywords/edit/{id}', [KeywordController::class, 'edit'])->name('keywords.edit');
         Route::patch('/keywords/{id}/update', [KeywordController::class,'update'])->name('keywords.update');
         Route::delete('/keywords/{id}/destroy', [KeywordController::class, 'destroy'])->name('keywords.destroy');
+        #PLACE
+        Route::get('/places',[PlaceController::class, 'index'])->name('place.index');
+        Route::get('/places/create',[PlaceController::class, 'create'])->name('place.create');
+        Route::post('/places/store',[PlaceController::class, 'store'])->name('place.store');
+        Route::get('/places/{place}/edit', [PlaceController::class, 'edit'])->name('place.edit');
+        Route::patch('/places/{place}/update', [PlaceController::class, 'update'])->name('place.update');
+        Route::delete('/places/{place}/destroy', [PlaceController::class, 'destroy'])->name('place.destroy');
+        Route::post('/places/getPrefecturesByArea', [PlaceController::class, 'getPrefecturesByArea'])->name('ajax.getPrefecturesByArea');
+        Route::post('/places/getCitiesByPrefecture', [PlaceController::class, 'getCitiesByPrefecture'])->name('ajax.getCitiesByPrefecture');
+        #PLACE IMAGES
+        Route::get('/place_images/{place}/show',[PlaceImageController::class, 'show'])->name('place_image.show');
+        Route::get('/place_images/{place}/create', [PlaceImageController::class, 'create'])->name('place_image.create');
+        Route::post('/place_images/{place}/store',[PlaceImageController::class, 'store'])->name('place_image.store');
+        Route::get('/place_image/{place_image}/edit', [PlaceImageController::class, 'edit'])->name('place_image.edit');
+        Route::patch('/place_image/{place_image}/update', [PlaceImageController::class, 'update'])->name('place_image.update');
+        Route::delete('/place_image/{place_image}/destroy', [PlaceImageController::class, 'destroy'])->name('place_image.destroy');
+        #Place Keyword
+        Route::get('/place_keywords/{place}/index',[PlaceKeywordController::class, 'index'])->name('place_keyword.index');
+        Route::post('/place_keywords/{place}/store',[PlaceKeywordController::class, 'store'])->name('place_keyword.store');
+        Route::patch('/place_keyword/{place}/{keyword}/update', [PlaceKeywordController::class, 'update'])->name('place_keyword.update');
+        Route::delete('/place_keyword/{place}/{keyword}/destroy', [PlaceKeywordController::class, 'destroy'])->name('place_keyword.destroy');
     });
 
     // for displaying ADMIN/ GENRE MANAGEMENT
@@ -51,24 +72,3 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 });
 
-#PLACE
-Route::get('/places',[PlaceController::class, 'index'])->name('place.index');
-Route::get('/places/create',[PlaceController::class, 'create'])->name('place.create');
-Route::post('/places/store',[PlaceController::class, 'store'])->name('place.store');
-Route::get('/places/{place}/edit', [PlaceController::class, 'edit'])->name('place.edit');
-Route::patch('/places/{place}/update', [PlaceController::class, 'update'])->name('place.update');
-Route::delete('/places/{place}/destroy', [PlaceController::class, 'destroy'])->name('place.destroy');
-
-#PLACE IMAGES
-Route::get('/place_images/{place}/show',[PlaceImageController::class, 'show'])->name('place_image.show');
-Route::get('/place_images/{place}/create', [PlaceImageController::class, 'create'])->name('place_image.create');
-Route::post('/place_images/{place}/store',[PlaceImageController::class, 'store'])->name('place_image.store');
-Route::get('/place_image/{place_image}/edit', [PlaceImageController::class, 'edit'])->name('place_image.edit');
-Route::patch('/place_image/{place_image}/update', [PlaceImageController::class, 'update'])->name('place_image.update');
-Route::delete('/place_image/{place_image}/destroy', [PlaceImageController::class, 'destroy'])->name('place_image.destroy');
-
-#Place Keyword
-Route::get('/place_keywords/{place}/index',[PlaceKeywordController::class, 'index'])->name('place_keyword.index');
-Route::post('/place_keywords/{place}/store',[PlaceKeywordController::class, 'store'])->name('place_keyword.store');
-Route::patch('/place_keyword/{place}/{keyword}/update', [PlaceKeywordController::class, 'update'])->name('place_keyword.update');
-Route::delete('/place_keyword/{place}/{keyword}/destroy', [PlaceKeywordController::class, 'destroy'])->name('place_keyword.destroy');

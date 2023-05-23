@@ -1,5 +1,5 @@
 <div class="modal fade" id="edit-place_keyword-{{ $key }}">
-    <form action="{{ route('place_keyword.update',['place'=>$place_keyword->place->id ,'keyword'=> $place_keyword->keyword]) }}" method="post">
+    <form action="{{ route('admin.place_keyword.update',['place'=>$place_keyword->place->id ,'keyword'=> $place_keyword->keyword]) }}" method="post">
         @csrf
         @method('PATCH')
         <div class="modal-dialog modal-dialog-end">

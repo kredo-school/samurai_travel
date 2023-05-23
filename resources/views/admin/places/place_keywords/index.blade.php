@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <form action="{{ route('place_keyword.store', $place) }}" method="post">
+    <form action="{{ route('admin.place_keyword.store', $place) }}" method="post">
         @csrf
         <div class="row mb-2">
             <div class="col-7">
@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="mt-3">
-            <a href="{{ url('places') }}" class="btn btn-secondary float-end  px-4 me-3"> << Back</a>
+            <a href="{{ url('admin/places') }}" class="btn btn-secondary float-end  px-4 me-3"> << Back</a>
         </div>
     </div>  
 </div>
