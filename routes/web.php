@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::patch('/keywords/{id}/update', [KeywordController::class,'update'])->name('keywords.update');
         Route::delete('/keywords/{id}/destroy', [KeywordController::class, 'destroy'])->name('keywords.destroy');
         
-        
+
 
     });
 
@@ -61,5 +61,4 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/plans/favorite/{planId}',[PlanController::class, 'favorite'])->name('favorite.plan');
 
 });
-    
-    
+
