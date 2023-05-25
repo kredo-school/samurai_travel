@@ -1,4 +1,4 @@
-<div class="modal fade" id="delete-place_keyword-{{ $place_keyword->keyword_id}}">
+<div class="modal fade" id="delete-place_keyword-{{ $place_keyword->id}}">
     <div class="modal-dialog modal-dialog-end">
         <div class="modal-content border-danger">
             <div class="modal-header border-danger">
@@ -7,11 +7,11 @@
                 </h3>
             </div>
             <div class="modal-body">
-                <p>Are you sure to delete the keyword "{{ $place_keyword->keyword->name }}"?</p>
+                <p>Are you sure to delete the keyword "{{ $place_keyword->name }}"?</p>
             </div>
 
             <div class="modal-footer border-0">
-                <form action="{{ route('admin.place_keyword.destroy',[$place_keyword->place , $place_keyword->keyword]) }}" method="post">
+                <form action="{{ route('admin.place_keyword.destroy',['place' => $place->id, 'keyword' => $place_keyword->id]) }}" method="post">
                     @csrf
                     @method('DELETE')
 

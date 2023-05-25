@@ -42,11 +42,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($all_place_keywords as $key => $place_keyword)
+                        @foreach ($all_place_keywords as $key => $place_keyword)
                         <tr>
                             <td>{{ $place_keyword->place_id }}</td>
                             <td>
-                                {{ $place_keyword->keyword->name }}
+                                {{ $place_keyword->name }}
                             </td>
                             <td>{{ $place_keyword->created_at }}</td>
                             <td>{{ $place_keyword->updated_at }}</td>
@@ -58,14 +58,13 @@
                                 @include('admin.places.place_keywords.modals.edit')
                             </td>
                             <td>
-                                <button class="border-0 bg-transparent text-danger" data-bs-toggle="modal" data-bs-target="#delete-place_keyword-{{ $place_keyword->keyword_id }}">
+                                <button class="border-0 bg-transparent text-danger" data-bs-toggle="modal" data-bs-target="#delete-place_keyword-{{ $place_keyword->id }}">
                                     <i class="fa-solid fa-trash-can text-danger fs-4"></i>
                                 </button>
                                 @include('admin.places.place_keywords.modals.delete')
                             </td>
                         </tr>
-                        @empty
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -76,6 +75,6 @@
     </div>  
 </div>
 <div class="d-flex justify-content-center mt-3">
-    {{ $all_place_keywords->links() }}  
+    {{-- {{ $all_place_keywords->links() }}   --}}
 </div>
 @endsection

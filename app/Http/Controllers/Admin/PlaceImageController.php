@@ -31,11 +31,11 @@ class PlaceImageController extends Controller
     public function store(Request $request, Place $place)
     {
         $request->validate([
-            'image_no'     =>  'required|min:1|integer',
+            'image_no'     =>  'required|integer',
             'image'        =>  'required|mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|min:1|max:1000',
-            'name_en'        =>  'required|min:1|max:1000',
-            'name_jp'        =>  'required|min:1|max:1000'
+            'description'  =>  'required|max:1000',
+            'name_en'        =>  'required|max:1000',
+            'name_jp'        =>  'required|max:1000'
         ]);
         
         PlaceImage::create([
@@ -70,11 +70,11 @@ class PlaceImageController extends Controller
     public function update(Request $request, PlaceImage $place_image)
     {
         $request->validate([
-            'image_no'     =>  'required|min:1|integer',
+            'image_no'     =>  'required|integer',
             'image'        =>  'mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|min:1|max:1000',
-            'name_en'        =>  'required|min:1|max:1000',
-            'name_jp'        =>  'required|min:1|max:1000'
+            'description'  =>  'required|max:1000',
+            'name_en'        =>  'required|max:1000',
+            'name_jp'        =>  'required|max:1000'
         ]);
 
         $place_image->image_no = $request->image_no;

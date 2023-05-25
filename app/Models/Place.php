@@ -49,8 +49,8 @@ class Place extends Model
         return $this->hasMany(PlaceImage::class);
     }
 
-    public function placeKeyword()
+    public function keywords()
     {
-        return $this->hasMany(PlaceKeyword::class);
+        return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
 }

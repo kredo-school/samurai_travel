@@ -25,8 +25,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link href="{{ mix('css/style.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
+    {{-- <link href="{{ mix('css/style.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/admin.css') }}" rel="stylesheet"> --}}
 </head>
 <body>
     <div id="app">
