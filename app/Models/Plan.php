@@ -28,13 +28,22 @@ class Plan extends Model
         return $this->hasMany(PlanFavorite::class);
     }
 
-    public function getIsFavoriteAttribute(){
+    public function isFavorited(){
         return $this->favorites()->where('user_id', auth()->user()->id)->exists();
     }
 
     public function planDetails(){
-        return $this->hasMany(PlanDetail::class);
+        return $this->hasMany(PlanDetail::class, 'plan_details', 'plan_id', 'place_id');
     }
+
+    public function planRecommends(){
+        return $this->hasOne(User::class);
+    } 
+
+    public function planRecommended(){
+        return $this->recommends()->where('role_id' == 2);
+    }
+
 
     
 }

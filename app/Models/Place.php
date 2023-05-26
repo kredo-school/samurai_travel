@@ -48,4 +48,8 @@ class Place extends Model
     public function isFavorite(){
         return $this->favorite()->where('user_id' , Auth::user()->id)->exists();
     } 
+    
+    public function plans(){
+        return $this->hasOne(PlanDetail::class);
+    }
 }

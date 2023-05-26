@@ -13,15 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AdminUserSeeder::class);
-        $this->call([
-            ExampleSeeder::class,
-        ]);
-
-        // $this->call([
-        //     ExampleSeeder::class,
-        //     AdminUserSeeder::class
-        // ]);
+        //ExampleSeederは画面下部に移動しているので、ここでは削除
 
         $this->call([
             AdminUserSeeder::class,
@@ -78,7 +70,8 @@ class DatabaseSeeder extends Seeder
             PlaceSeeder::class,
             PlaceImageSeeder::class,
             GenreSeeder::class,
-            KeywordSeeder::class
+            KeywordSeeder::class,
+            ExampleSeeder::class,
 
         ]);
     // }

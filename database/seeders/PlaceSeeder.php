@@ -67,7 +67,7 @@ class PlaceSeeder extends Seeder
                 'city_id' => '631'
             ],
             [
-                'name_en' => 'TOkyo Conferrence Centre',
+                'name_en' => 'Tokyo Conferrence Centre',
                 'area_id' => '3',
                 'prefecture_id' => '13',
                 'city_id' => '631'

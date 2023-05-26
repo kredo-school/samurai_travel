@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\TopController as AdminTopController;
+use App\Http\Controllers\PlanFavoriteController;
 use App\Http\Controllers\TopController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,13 +54,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 
     // for displaying PLAN DETAILS(for LOGGED IN USER)
-    Route::get('/plans', [PlanController::class, 'showPlanInfo'])->name('plans');
-    Route::post('/plans/favorite/{planId}',[PlanController::class, 'favorite'])->name('favorite.plan');
-    Route::delete('/plans/destroy',[PlanController::class,'destroy'])->name('plans.destroy');
+    Route::get('/myplans', [PlanController::class, 'showPlanInfo'])->name('plans');
+    
     
     //for displaying PLAN DETAILS(for GUEST USER)
     Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show');
-    Route::post('/plans/favorite/{planId}',[PlanController::class, 'favorite'])->name('favorite.plan');
-
+    Route::get('/plan-recommended', [PlanController::class, 'showRecommendPlan'])->name('show');
+    Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
+    Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 });
 

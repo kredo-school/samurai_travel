@@ -68,4 +68,9 @@ class User extends Authenticatable
     public function planFavorite(){
         return $this->hasMany(PlanFavorite::class, 'plan_favorites', 'user_id', 'plan_id');
     }
+
+    # Use this to get the plan that Admin user recommends
+    public function recommendPlan(){
+        return $this->hasMany(Plan::class);
+    }
 }

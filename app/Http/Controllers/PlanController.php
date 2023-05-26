@@ -37,13 +37,12 @@ class PlanController extends Controller
         $this->place_image = $place_image;
     }
     
-    ## ログイン後にプランを表示させるときに使う
+    ## ログイン後にマイプランを表示させるときに使用 (to show the myplan for logged-in users)
     # to show the place which has the keyword registered as 'interest' by Auth User
 
     public function showPlanInfo()
     {      
         // [step1] add favorite
-        // place being marked as favorite by the login user
         $favoritePlaces = Auth::user()->placeFavorites;
 
         // [step2] get the interested keywords
@@ -55,122 +54,98 @@ class PlanController extends Controller
         }
 
         $interestedPlaces = $favoritePlaces->merge($interestedPlaces)->unique('id');
-        
-        //[step3] save the plan
-        // $plan = new Plan();
-        // $plan->user_id = Auth::user()->id;
-        // $plan->user_type = 'user';
-        // $plan->title = 'Test Plan'; // Modify the title accordingly
-        // $plan->save();
 
-        //[step4] save the plan details
-        // $day = 1; // Initialize the day
-
-        // foreach($interestedPlaces as $place) {
-        //     DB::table('plan_details')->insert([
-        //         'plan_id' => $plan->id,
-        //         'day' => 1, // Specify the day for ID available
-        //         'place_id' => $place->id,
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]);
-                
-        // }
-
-        // Retrieve the plan from the 'plans' table using its ID
-        // $plan = Plan::find($plan->id);
-
-        
         $interestedPlacesGroups = $interestedPlaces->chunk(6);
         $number_of_days = count($interestedPlacesGroups);
 
-
-        return view('users.plans.show', [
+        return view('users.myplans.myplan', [
             // 'plan' => $plan, //pass the retrieved plan object
             // 'place' => $this->place,
             'day' => $number_of_days,
             'interested_places_groups' => $interestedPlacesGroups 
         ]);
-
-    }
-
-    public function favorite($planId)
-    {
-        $user = Auth::user();
-
-        // Check if the user has already favorited the plan
-        $existingFavorite = PlanFavorite::where('user_id', $user->id)
-        ->where('plan_id', $planId)
-        ->first();
-
-    if ($existingFavorite) {
-        // Plan is already favorited by the user
-        // implement the logic for unfavoriting here 
-    } else {
-        // Plan is not favorited by the user, so insert it into the plan_favorites table
-        $favorite = new PlanFavorite();
-        $favorite->user_id = $user->id;
-        $favorite->plan_id = $planId;
-        $favorite->save();    
-    }
-
-    return redirect()->back()->with('success', 'Added as my plan!');
-
-    }
-
-    // public function edit(){
-        //option
-    // }
-
-    public function destroy($id){
-        $plan = $this->plan->findOrFail($id);
-        $plan->forceDelete();
-        return redirect()->back();
     }
 
     // function for displaying Admin user's recommend plan
+    // 管理者のおすすめプランを表示させる
     public function showRecommendPlan(){
-        
-        //retrieve the plans created by admin users
-        $adminPlans = [];
-        $adminPlans = Plan::where('user_type', 'admin')->get();
-        
-        return view('users.plans.contents.recommend', ['adminPlans' => $adminPlans]);
 
-    }
+        $recommended_plans = Plan::where('user_type', '=' , 'admin')->take(3)->get();
 
-    ## ログイン前に表示させるプラン詳細画面
-    public function showPlan($id){
-        $plans = $this->plan->findOrFail($id);
-        $placeIds= PlanDetail::select('place_id')->where('plan_id', '=', $plans->id)->get();
-        $places = Place::whereIn('id', $placeIds)->get();
-        $plan_details = PlanDetail::where('plan_id', $plans->id)->first(); 
+        $places= [];
+        $plan_details = null;
 
-        $placesGroups = $places;
-        $number_of_days = count($placesGroups);
-        
-
-        foreach ($places as $place) {
-            $startTime = strtotime('09:00');
-            $endTime = strtotime('24:00');
-            $times = [];
-            while ($startTime <= $endTime) {
-                $times[] = date('H:i', $startTime);
-                $startTime = strtotime('+' . $place->spend_time . ' minutes', $startTime);
-            }
-        
-            $place->times = $times;
+        foreach ($recommended_plans as $recommended_plan){
+            $placeIds= PlanDetail::select('place_id')->where('plan_id', '=', $recommended_plan->id)->get();
+            $places = Place::whereIn('id', $placeIds)->get();
+            $plan_details = PlanDetail::where('plan_id', $recommended_plan->id)->first();     
         }
-            return view('users.plans.plan-details', [        
-                'plans' => $plans, 
+        
+        print $recommended_plans;
+
+        $placeForPlanGroups = $places;
+
+            $i = 1;
+            $nextDestinationTime = null;
+        
+        // Use this for displaying the time 
+        // foreach ($places as $place) {
+        //     $times = [];
+        //     if($i == 1){
+        //         $times[] = date('H:i', strtotime('09:00'));
+        //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', strtotime('9:00'));    
+        //     }else{
+        //         $times[] = date('H:i', $nextDestinationTime);
+        //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', $nextDestinationTime);
+        //     }
+        
+        //     $place->times = $times;
+        //     $i++;
+        // }
+            return view('users.plans.contents.recommend', [        
+                'recommended_plans' => $recommended_plans, 
                 'places' => $places,
                 'plan_details' => $plan_details,
-                'day' => $number_of_days,
-                'places_groups' => $placesGroups
-                
+                'placeForPlanGroups' => $placeForPlanGroups,
             ]); 
         }
+    
+
+        // ゲストユーザを対象に表示させるプラン詳細画面
+        // To Show the plan details for guest user
+            public function showPlan($id){
+            $plans = $this->plan->findOrFail($id);
+            $placeIds= PlanDetail::select('place_id')->where('plan_id', '=', $plans->id)->get();
+            $places = Place::whereIn('id', $placeIds)->get();
+            $plan_details = PlanDetail::where('plan_id', $plans->id)->first(); 
+
+            $placeForPlanGroups = $places;
+
+                $i = 1;
+                $nextDestinationTime = null;
+            
+            // Use this for displaying the time 
+            // foreach ($places as $place) {
+            //     $times = [];
+            //     if($i == 1){
+            //         $times[] = date('H:i', strtotime('09:00'));
+            //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', strtotime('9:00'));    
+            //     }else{
+            //         $times[] = date('H:i', $nextDestinationTime);
+            //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', $nextDestinationTime);
+            //     }
+            
+            //     $place->times = $times;
+            //     $i++;
+            // }
+                return view('users.plans.plan-details', [        
+                    'plans' => $plans, 
+                    'places' => $places,
+                    'plan_details' => $plan_details,
+                    'placeForPlanGroups' => $placeForPlanGroups,
+                ]); 
+            }
+    
+    
+
     }
-
-
-
