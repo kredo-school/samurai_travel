@@ -54,11 +54,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 
     // for displaying PLAN DETAILS(for LOGGED IN USER)
-    Route::get('/myplans', [PlanController::class, 'showPlanInfo'])->name('plans');
+    Route::get('/myplans', [PlanController::class, 'showMyPlan'])->name('plans');
     
     
     //for displaying PLAN DETAILS(for GUEST USER)
-    Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show');
+    Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
     Route::get('/plan-recommended', [PlanController::class, 'showRecommendPlan'])->name('show');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');

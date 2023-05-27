@@ -40,7 +40,7 @@ class PlanController extends Controller
     ## ログイン後にマイプランを表示させるときに使用 (to show the myplan for logged-in users)
     # to show the place which has the keyword registered as 'interest' by Auth User
 
-    public function showPlanInfo()
+    public function showMyPlan()
     {      
         // [step1] add favorite
         $favoritePlaces = Auth::user()->placeFavorites;
@@ -80,13 +80,11 @@ class PlanController extends Controller
             $places = Place::whereIn('id', $placeIds)->get();
             $plan_details = PlanDetail::where('plan_id', $recommended_plan->id)->first();     
         }
-        
-        print $recommended_plans;
 
         $placeForPlanGroups = $places;
 
-            $i = 1;
-            $nextDestinationTime = null;
+            // $i = 1;
+            // $nextDestinationTime = null;
         
         // Use this for displaying the time 
         // foreach ($places as $place) {
@@ -121,8 +119,8 @@ class PlanController extends Controller
 
             $placeForPlanGroups = $places;
 
-                $i = 1;
-                $nextDestinationTime = null;
+                // $i = 1;
+                // $nextDestinationTime = null;
             
             // Use this for displaying the time 
             // foreach ($places as $place) {
@@ -138,6 +136,7 @@ class PlanController extends Controller
             //     $place->times = $times;
             //     $i++;
             // }
+            
                 return view('users.plans.plan-details', [        
                     'plans' => $plans, 
                     'places' => $places,

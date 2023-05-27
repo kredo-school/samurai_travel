@@ -45,7 +45,7 @@
 
 </style>
 <div class="background-container">
-    <img class="back-img" src="{{ asset('storage\images\olga-thelavart-vS3idIiYxX0-unsplash.jpg') }}" alt="">
+    {{-- <img class="back-img" src="{{ asset('storage\images\olga-thelavart-vS3idIiYxX0-unsplash.jpg') }}" alt=""> --}}
     <div class="row">
         <div class="my-5">
             <h3 class="h3 title text-center my-1 py-5">Recommend for you</h3>
@@ -74,8 +74,9 @@
                     @include('users.plans.contents.recommend-plan')
                     
                 <div class="btn btn-md btn-white d-flex justify-content-center p-3">
-                    <form class="" action="#" method="">
-                        <button class="btn btn-outline-dark rounded-pill h6">See More</button>
+                    <form action="#" method="get">
+                        @csrf
+                        <button class="btn btn-outline-dark rounded-pill h6"> See More </button>
                     </form>
                 </div>
             </div>

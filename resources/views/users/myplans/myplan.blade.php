@@ -22,12 +22,24 @@
   
     .back-img1{
         /* background-image: url('storage\images\plan details back(resized).jpg'); */
-        width: 100%;
-        height: 100%;
+        /* width: 100%;
+        height: 100%; */
         
         }
     
-    .back-img2{
+    /* .back-img2{
+        margin-top:0;
+        width: 100%;
+        height:  100%;
+        background-position:center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        position:absolute;
+        z-index: -1;
+        } */
+
+        .back-img{
         margin-top:0;
         width: 100%;
         height:  100%;
@@ -38,6 +50,7 @@
         position:absolute;
         z-index: -1;
         }
+    
     .tab-content{
         height: 500px;
     }   
@@ -167,7 +180,7 @@
 
     </style>
     <div class="top-container d-flex align-items-center">
-    {{-- <img class="back-img1" src="{{ asset('storage\images\plan details back(resized).jpg') }}" alt=""> --}}
+      <img class="back-img" src="{{ asset('storage\images\plan details back(resized).jpg') }}" alt="">
     
     <div class="container bg-light shadow p-5 rounded">
       <div class="row">
