@@ -15,7 +15,6 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/top.scss', 'public/css')
     .ts('resources/ts/map.ts', 'public/js')
-    .ts('resources/ts/test.ts', 'public/js')
     .sourceMaps();
 
 mix.version();

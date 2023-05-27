@@ -14,7 +14,6 @@ function calculateAndDisplayRoute(
     directionsService: google.maps.DirectionsService,
     _directionsRenderer: google.maps.DirectionsRenderer
 ) {
-    // console.log('gm_plan: ' + gm_plan);
     const promises = gm_plan.map((gm_plan) => getLatLngFromAddress(gm_plan));
     Promise.all(promises)
     .then((locations) => {
@@ -22,13 +21,12 @@ function calculateAndDisplayRoute(
             if (location) {
                 const latitude = location.lat();
                 const longitude = location.lng();
-                console.log(`住所: ${gm_plan[index]}, 緯度: ${latitude}, 経度: ${longitude}`);
             }
         });
-        console.log('LCS::'+locations);
 
         const center = locations[0] !== null ? locations[0] : undefined;
-        const map = new google.maps.Map(document.getElementById("map") as HTMLElement,
+        // const map = new google.maps.Map(document.getElementById("map") as HTMLElement,
+        const map = new google.maps.Map(document.querySelector(`[id^='map_']`) as HTMLElement,
             {
                 zoom: 14,
                 center: center,
@@ -43,16 +41,12 @@ function calculateAndDisplayRoute(
                 destination = locations[index] as google.maps.LatLng | undefined;
             } else {
                 const waypoint: google.maps.DirectionsWaypoint = {
-                    location: locations[index]?.toString(),
+                    location: new google.maps.LatLng(locations[index]?.lat()!, locations[index]?.lng()!),
                     stopover: true,
                 };
                 waypoints.push(waypoint);
             }
         }
-
-        console.log("ori::"+origin);
-        console.log("des::"+destination);
-        console.log(waypoints);
 
             // ルート検索のリクエストを送信
         directionsService.route({

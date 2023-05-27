@@ -19,8 +19,6 @@ class TopController extends Controller
             $gm_plan[] = $place['address']. ' '. $place['city_name_en']. ' '. $place['prefecture_name_en']. ' '. $place['name_en'];
         }
 
-        // dd($gm_plan);
-
         return view('users.top')
                 ->with('gm_plan', $gm_plan);
     }

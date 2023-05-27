@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col" id="map"></div>
+                <div class="col" id="map_123"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
                 </script>
             </div>
