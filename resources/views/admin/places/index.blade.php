@@ -24,6 +24,7 @@
                             <th>DESCRIPTION</th>
                             <th>OPENING TIME</th>
                             <th>ENDING TIME</th>
+                            <th>SPENDING TIME</th>
                             <th>OFFICIAL SITE</th>
                             <th>CREATED AT</th>
                             <th>UPDATED AT</th>
@@ -46,6 +47,7 @@
                             <td>{{ $place->description }}</td>
                             <td>{{ $place->opening_time }} {{ $place->open_ampm }}</td>
                             <td>{{ $place->ending_time }} {{ $place->end_ampm }}</td>
+                            <td>{{ $place->spend_time }}</td>
                             <td><a href="{{ $place->url }}">{{ $place->url }}</a></td>
                             <td>{{ $place->created_at }}</td>
                             <td>{{ $place->updated_at }}</td>

@@ -52,8 +52,8 @@ class PlaceController extends Controller
             'spend_time'     =>  'nullable|integer',
             'image'        =>  'required|mimes:jpg,png,jpeg,gif|max:10000',
             'description'  =>  'required|max:100',
-            'open_ampm'    =>  'nullable|in:am, pm',
-            'open_ampm'    =>  'nullable|in:am, pm'
+            'open_ampm'    =>  'nullable|in:am,pm',
+            'end_ampm'    =>  'nullable|in:am,pm'
         ]);
         
         Place::create([
@@ -119,8 +119,8 @@ class PlaceController extends Controller
             'spend_time'     =>  'nullable|integer',
             'image'        =>  'mimes:jpg,png,jpeg,gif|max:10000',
             'description'  =>  'required|max:100',
-            'open_ampm'    =>  'nullable|in:am, pm',
-            'open_ampm'    =>  'nullable|in:am, pm'
+            'open_ampm'    =>  'nullable|in:am,pm',
+            'end_ampm'    =>  'nullable|in:am,pm'
         ]);
         
         #save the post
