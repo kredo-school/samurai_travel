@@ -146,8 +146,7 @@
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="opening_time" name="opening_time" class="form-label">opening_time</label>
-                            {{-- <input type="time" id="opening_time" name="opening_time" class="form-control" value="{{ old('opening_time', $place->opening_time) }}"> --}}
-                            <input type="number" id="ending_time" name="ending_time" class="form-control" value="{{ old( 'opening_time', $place->opening_time) }}">
+                            <input type="number" id="opening_time" name="opening_time" class="form-control" value="{{ old( 'opening_time', $place->opening_time) }}">
                             <select class="form-select" name="open_ampm" style="width: 50%">
                                 <option selected hidden disabled>{{ $place->open_ampm }}</option>
                                 <option value="am">AM</option>
@@ -160,7 +159,6 @@
                         </div>
                         <div class="col-4">
                             <label for="ending_time" name="ending_time" class="form-label">ending_time</label>
-                            {{-- <input type="time" id="ending_time" name="ending_time" class="form-control" value="{{ old('ending_time', $place->ending_time) }}"> --}}
                             <input type="number" id="ending_time" name="ending_time" class="form-control" value="{{ old('ending_time', $place->ending_time) }}">
                             <select class="form-select" name="end_ampm" style="width: 50%">
                                 <option selected hidden disabled>{{ $place->end_ampm }}</option>
