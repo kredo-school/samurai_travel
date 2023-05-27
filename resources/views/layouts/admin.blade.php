@@ -20,17 +20,22 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     {{-- FontAwesome CDN --}}
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{-- <link href="{{ mix('css/style.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/admin.css') }}" rel="stylesheet"> --}}
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <img src="{{ asset('assets/logo_red.png')}}" alt="logo" style="width: 50px; height: 50px;">
                 <a class="navbar-brand" href="{{ url('/admin/top') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <img src="{{ asset('assets/logo.png')}}" alt="logo" class="logo position-static">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -44,27 +49,27 @@
 
                         @else
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
+                                <a class="nav-link" href="{{ route('admin.register') }}">Administrator</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Places</a>
+                                <a class="nav-link" href="#">Place</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Genres</a>
+                                <a class="nav-link" href="#">Genre</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Keywords</a>
+                                <a class="nav-link" href="#">Keyword</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Recommended Plans</a>
+                                <a class="nav-link" href="#">Recommended Plan</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Questions</a>
+                                <a class="nav-link" href="#">Question</a>
                             </li>
                         @endguest
                     </ul>
