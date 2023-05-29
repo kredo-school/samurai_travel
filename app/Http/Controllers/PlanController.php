@@ -68,7 +68,7 @@ class PlanController extends Controller
 
     // function for displaying Admin user's recommend plan
     // 管理者のおすすめプランを表示させる
-    public function showRecommendPlan(){
+    public function showRecommendPlan($id){
 
         $recommended_plans = Plan::where('user_type', '=' , 'admin')->take(3)->get();
 
@@ -119,6 +119,9 @@ class PlanController extends Controller
 
             $placeForPlanGroups = $places;
 
+            //testing
+            $recommended_plans_test = Plan::where('user_type', '=' , 'admin')->take(3)->get();
+
                 // $i = 1;
                 // $nextDestinationTime = null;
             
@@ -136,15 +139,16 @@ class PlanController extends Controller
             //     $place->times = $times;
             //     $i++;
             // }
-            
                 return view('users.plans.plan-details', [        
                     'plans' => $plans, 
                     'places' => $places,
                     'plan_details' => $plan_details,
                     'placeForPlanGroups' => $placeForPlanGroups,
+                    'recommended_plans'=>$recommended_plans_test
                 ]); 
             }
-    
+
+        
     
 
     }

@@ -9,12 +9,12 @@
       justify-content: center;
     }
 
-    .container-plan{
+    .plan-container{
         position: relative;
-        background: transparent;
-        max-height: 500px;
         overflow:auto;
+        max-height: 500px;
         }
+      
 
     .back-img{
         margin-top:0;
@@ -28,9 +28,6 @@
         z-index: -1;
         }
 
-    .tab-content{
-        height: 500px;
-    }   
 
     .googlemap iframe {
         position: absolute;
@@ -38,7 +35,7 @@
         padding: 2rem;
         top: 0; 
         left: 0; 
-        width: 300px; 
+        width: 600px; 
         height: 500px;
     }
 
@@ -47,16 +44,14 @@
 </style>
 
     <div class="background-container d-flex align-items-center">
-      <img class="back-img" src="{{ asset('storage\images\background.png') }}" alt="back-img">
+      <img class="back-img" src="{{ asset('storage\images\bg-paper.jpg') }}" alt="back-img">
 
-      @include('users.plans.contents.plan')
+      @include('users.plans.contents.plan', ['id', request()->route('id')])
 
     </div>
-
-    <div class="my-5">
-      {{-- @include('users.plans.contents.recommend') --}}
+    
+    <div>
+      @include('users.plans.contents.recommend', ['id', request()->route('id')])
     </div>
-
-  
 
 @endsection

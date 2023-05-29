@@ -59,7 +59,6 @@ Route::group(['middleware' => 'auth'], function(){
     
     //for displaying PLAN DETAILS(for GUEST USER)
     Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
-    Route::get('/plan-recommended', [PlanController::class, 'showRecommendPlan'])->name('show');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 });
