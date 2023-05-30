@@ -9,10 +9,16 @@ class PlaceFavorite extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    protected $table = 'place_favorites';
+    protected $fillable = ['user_id', 'place_id'];
+    protected $primaryKey = ['user_id', 'place_id'];
+    public $incrementing = false;
 
+    # To get the info of the user who favorite the place
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
+
+
 }

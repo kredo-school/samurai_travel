@@ -23,9 +23,9 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'name',
         'email',
         'password',
-        'role_id',
     ];
 
     /**
@@ -46,4 +46,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function placeFavorites()
+    {
+        return $this->hasMany(PlaceFavorite::class, 'place_id');
+    }
+
 }

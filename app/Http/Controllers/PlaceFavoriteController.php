@@ -18,7 +18,7 @@ class PlaceFavoriteController extends Controller
     public function store($place_id)
     {
         $this->favorite->user_id = Auth::user()->id;
-        $this->favorite->place_id = $lace_id;
+        $this->favorite->place_id = $place_id;
         $this->favorite->save();
 
         return redirect()->back();

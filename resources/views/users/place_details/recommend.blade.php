@@ -6,32 +6,14 @@
 		<div class="d-flex justify-content-start"><hr style="width: 80px;"></div>
 	</div>	
 	<div class="row justify-content-center">
-		<div class="row">
+		@foreach ($recommend_places as $recommend_place)
 			<div class="col-3 mb-4">
 				<a href="#" class="text-decoration-none text-dark">
-					<img src="{{asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg')}}" alt="..." class="grid-img img-fluid">
-					<p>Kyoto</p>
+					<img src="{{asset('/storage/sample/' . $recommend_place->image)}}" alt="{{$recommend_place->name_en}}" class="grid-img img-fluid" style="object-fit: cover;">
+					<p>{{$recommend_place->name_en}}</p>
 				</a>
 			</div>
-			<div class="col-3 mb-4">
-				<a href="#" class="text-decoration-none text-dark">
-					<img src="{{asset('/storage/sample/kyoto-2778629_1920.jpg')}}" alt="..." class="grid-img img-fluid">
-					<p>Kamakura</p>
-				</a>
-			</div>
-			<div class="col-3 mb-4">
-				<a href="#" class="text-decoration-none text-dark">
-					<img src="{{asset('/storage/sample/tomas-malik-orQBzc7Dl3U-unsplash.jpg')}}" alt="..." class="grid-img img-fluid">
-					<p>Fuji</p>
-				</a>
-			</div>
-			<div class="col-3 mb-4">
-				<a href="#" class="text-decoration-none text-dark">
-					<img src="{{asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg')}}" alt="..." class="grid-img img-fluid">
-					<p>Nara</p>
-				</a>
-			</div>
-		</div>
+		@endforeach
 	</div>
 </div>
 
