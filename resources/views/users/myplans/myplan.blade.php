@@ -79,12 +79,9 @@
                 <input type="button" class="btn btn-outline-success btn-sm me-2 text-dark" name="store" value="SAVE">                  
               </div> --}}
 
-              
-              
-              
-              <div class="col">
+              {{-- <div class="col">
                   <span># count</span>
-              </div>
+              </div> --}}
               
           </div>
         </div> 

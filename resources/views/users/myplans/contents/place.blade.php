@@ -6,7 +6,7 @@
                 <div class="tab-pane fade show {{ $key > 0 ? '' : 'active' }} }}" id="plan_id_day{{ $key + 1 }}" role="tabpanel" aria-labelledby="plan_id_day{{ $key + 1 }}-tab" tabindex="0">
                     
                     <div class="card-body">
-                        <?php $nextDestinationTime = null; ?>
+                        @php $nextDestinationTime = null; $i = 0; @endphp
                         @foreach($interested_places_group as $place)
                             <div class="bg-plan p-2 mb-1">
                                 <div class="p-2">
@@ -21,7 +21,7 @@
                                         ?>
                                     @endif
                                     
-                                    <i class="fa-solid fa-location-dot"></i> <p> {{ $place->name_en }} </p>
+                                    <i class="fa-solid fa-location-dot"></i> <span> {{ $place->name_en }} </span>
                                     
                                     <div class="d-flex">
                                         @foreach($place->placeImages as $image)
@@ -33,6 +33,10 @@
                                             </p>      
                                         @endforeach                
                                     </div>
+                                    {{--  Edit button --}}
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fa-solid fa-square-pen"></i> Edit
+                                    </a>
                                 </div>
                             </div>
                             <div>
@@ -42,6 +46,7 @@
                                 </div>
                                 30 min
                             </div>
+                            @php  $i++;  @endphp
                             @endforeach
                         </div>
                     </div>
@@ -49,13 +54,3 @@
         </div>
     </div> 
 </div>
-                        {{-- ジャンル名とキーワード名を表示させるときは次のコードを使用 --}}
-                        {{-- <h3>Genre</h3> --}}
-                        {{-- <p>
-                            {{ $place->keywords->first()->genre->name }}
-                        </p>
-                        
-                        <h3>Keyword</h3>
-                        <p>
-                            {{ $place->keywords->first()->name }}
-                        </p> --}}

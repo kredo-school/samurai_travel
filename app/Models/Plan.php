@@ -33,7 +33,7 @@ class Plan extends Model
     }
 
     public function planDetails(){
-        return $this->hasMany(PlanDetail::class, 'plan_details', 'plan_id', 'place_id');
+        return $this->hasMany(PlanDetail::class);
     }
 
     public function planRecommends(){

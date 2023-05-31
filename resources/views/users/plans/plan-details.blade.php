@@ -11,9 +11,13 @@
 
     .plan-container{
         position: relative;
-        overflow:auto;
+        overflow: auto;
         max-height: 500px;
         }
+    
+    .plan-container::-webkit-scrollbar{
+        display: none;
+    }
       
 
     .back-img{

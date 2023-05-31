@@ -71,6 +71,8 @@ class PlanController extends Controller
     public function showRecommendPlan($id){
 
         $recommended_plans = Plan::where('user_type', '=' , 'admin')->take(3)->get();
+        
+        
 
         $places= [];
         $plan_details = null;
@@ -83,23 +85,6 @@ class PlanController extends Controller
 
         $placeForPlanGroups = $places;
 
-            // $i = 1;
-            // $nextDestinationTime = null;
-        
-        // Use this for displaying the time 
-        // foreach ($places as $place) {
-        //     $times = [];
-        //     if($i == 1){
-        //         $times[] = date('H:i', strtotime('09:00'));
-        //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', strtotime('9:00'));    
-        //     }else{
-        //         $times[] = date('H:i', $nextDestinationTime);
-        //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', $nextDestinationTime);
-        //     }
-        
-        //     $place->times = $times;
-        //     $i++;
-        // }
             return view('users.plans.contents.recommend', [        
                 'recommended_plans' => $recommended_plans, 
                 'places' => $places,
@@ -111,34 +96,18 @@ class PlanController extends Controller
 
         // ゲストユーザを対象に表示させるプラン詳細画面
         // To Show the plan details for guest user
-            public function showPlan($id){
-            $plans = $this->plan->findOrFail($id);
-            $placeIds= PlanDetail::select('place_id')->where('plan_id', '=', $plans->id)->get();
-            $places = Place::whereIn('id', $placeIds)->get();
-            $plan_details = PlanDetail::where('plan_id', $plans->id)->first(); 
+        public function showPlan($id){
+                $plans = $this->plan->findOrFail($id);
+                $placeIds= PlanDetail::select('place_id')->where('plan_id', '=', $plans->id)->get();
+                $places = Place::whereIn('id', $placeIds)->get();
+                $plan_details = PlanDetail::where('plan_id', $plans->id)->first(); 
 
-            $placeForPlanGroups = $places;
+                $placeForPlanGroups = $places;
 
             //testing
             $recommended_plans_test = Plan::where('user_type', '=' , 'admin')->take(3)->get();
-
-                // $i = 1;
-                // $nextDestinationTime = null;
+        
             
-            // Use this for displaying the time 
-            // foreach ($places as $place) {
-            //     $times = [];
-            //     if($i == 1){
-            //         $times[] = date('H:i', strtotime('09:00'));
-            //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', strtotime('9:00'));    
-            //     }else{
-            //         $times[] = date('H:i', $nextDestinationTime);
-            //         $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', $nextDestinationTime);
-            //     }
-            
-            //     $place->times = $times;
-            //     $i++;
-            // }
                 return view('users.plans.plan-details', [        
                     'plans' => $plans, 
                     'places' => $places,

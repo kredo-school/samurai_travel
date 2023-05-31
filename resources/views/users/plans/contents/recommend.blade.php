@@ -10,17 +10,21 @@
     }
 
     .container-out{
-        max-width: 350px;
+        max-width: 330px;
         max-height: 550px;
         border: 1px solid black;
-        border-radius: 50px;
+        border-radius: 25px;
     }
 
     .container-plan{
         position: relative;
         max-height: 380px;
-        overflow:auto;
-        }
+        overflow-y: scroll; 
+    }
+
+    .container-plan::-webkit-scrollbar{
+        display:none;
+    }
 
     .back-img{
         margin-top:0;
@@ -34,7 +38,7 @@
         z-index: -1;
         }
     
-    .img-sm{
+    .img-xs{
         width: 100px;
     }
 
@@ -44,7 +48,7 @@
 
 </style>
 
-<div class="background-container">
+<div class="background-container recommended ">
     <img class="back-img" src="{{ asset('storage\images\bg-paper.jpg') }}" alt="">
     <div class="row">
         <div class="my-4">
@@ -53,34 +57,11 @@
     </div>
     
     <div class="row align-items-center justify-content-center pb-5">
-        
-        @foreach($recommended_plans as $key=>$recommended)
-            <div class="container-out col-3 bg-white shadow rounded mb-4 mx-4 p-1">
-                <h4 class="h5 text-capitalize text-center">{{ $recommended->title }}</h4>
-                <div class = "bg-light pt-1">
-                    <ul class="nav nav-pills mb-3" id="plan_id-tab{{ $key + 1 }}" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active h6" id="plan_id_day1-tab{{ $key + 1 }}" data-bs-toggle="pill" data-bs-target="#plan_id_day{{ $key + 1 }}" type="button" role="tab" aria-controls="plan_id_day{{ $key + 1 }}" aria-selected="true">Day 1</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link h6" id="plan_id_day2-tab{{ $key + 1 }}" data-bs-toggle="pill" data-bs-target="#plan_id_day{{ $key + 1 }}" type="button" role="tab" aria-controls="plan_id_day{{ $key + 1 }}" aria-selected="false">Day 2</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link h6" id="plan_id_day3-tab{{ $key + 1 }}" data-bs-toggle="pill" data-bs-target="#plan_id_day{{ $key + 1 }}" type="button" role="tab" aria-controls="plan_id_day{{ $key + 1 }}" aria-selected="false">Day 3</button>
-                        </li>    
-                    </ul>
-                </div>
+        {{-- display 3 plans registered as Admin User --}}
 
-                    @include('users.plans.contents.recommend-plan', ['recommended' => $recommended ])
+        {{-- @include('users.plans.contents.recommend-plan', ['recommended' => $recommended ]) --}}
+        @include('users.plans.contents.recommend-plan')
                     
-                <div class=" d-flex justify-content-center p-3 h6">
-                    <form action="{{ route('show.plan', $recommended->id )}}" method="get">
-                        @csrf
-                        <button class="btn btn-md btn-outline-dark rounded-pill h6" > SEE MORE </button>
-                    </form>
-                </div>
-            </div>
-        @endforeach
     </div>
-
 </div>
+
