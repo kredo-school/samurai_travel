@@ -9,5 +9,19 @@ class PlaceImage extends Model
 {
     use HasFactory;
 
-    
+
+    protected $fillable = [
+        'place_id',
+        'image_no',
+        'image',
+        'description',
+        'name_en',
+        'name_jp',
+    ];
+
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
+
 }

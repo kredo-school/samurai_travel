@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Place extends Model
@@ -13,6 +13,23 @@ class Place extends Model
     use HasFactory;
 
     protected $table = 'places'; //specify the table to use
+    protected $fillable = [
+        'place_category',
+        'name_en',
+        'name_jp',
+        'opening_time',
+        'ending_time',
+        'url',
+        'area_id',
+        'prefecture_id',
+        'city_id',
+        'address',
+        'spend_time',
+        'image',
+        'description',
+        'open_ampm',
+        'end_ampm'
+    ];
 
     #Use this to get the image of the place
     public function placeImages(){
@@ -34,11 +51,6 @@ class Place extends Model
         return $this->hasOne(Prefecture::class);
     }
 
-    #Use this to get all the cities under the place
-    public function city(){
-        return $this->hasOne(City::class);
-    }
-
     # To get the likes of the place
     public function favorite(){
         return $this->hasMany(PlaceFavorite::class);
@@ -51,5 +63,21 @@ class Place extends Model
     
     public function plans(){
         return $this->hasOne(PlanDetail::class);
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
     }
+
+    public function prefecture()
+    {
+        return $this->belongsTo(Prefecture::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    
 }

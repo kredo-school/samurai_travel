@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //ExampleSeederは画面下部に移動しているので、ここでは削除
 
         $this->call([
             AdminUserSeeder::class,
