@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Genre;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PhpParser\Node\Stmt\Foreach_;
 
 class Keyword extends Model
 {
@@ -18,7 +19,8 @@ class Keyword extends Model
         'genre_id'
     ];
 
-    public function genre(){
+    public function genre()
+    {
         return $this->belongsTo(Genre::class);
         // ->withTrashed();
     }
@@ -39,5 +41,17 @@ class Keyword extends Model
         // ->where('user_id' , Auth::user()->id)->exists();
     }
 
-   
+    public function placeKeyword()
+    {
+        return $this->hasMany(PlaceKeyword::class);
+    }
+
+    public function selectKeywordBySessionAnswers()
+    {
+        $session_answers = session('answers');
+        dump($session_answers);
+        foreach ($session_answers as $question_answer) {
+            $question_answer
+        }
+    }
 }

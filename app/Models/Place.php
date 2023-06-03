@@ -88,4 +88,19 @@ class Place extends Model
         return $this->hasMany(PlaceAffiliateSite::class);
     }
 
+    public function createPlanByQuestions()
+    {
+        $plan_keyword = Plan_key
+        $pre = Place::where('user_id', Auth::user()->id)->get();
+
+        if ($interests->isEmpty()) {
+            $interest = null;
+        } elseif ($interests->count() > 1) {
+            $interest = $interests->random();
+        } else {
+            $interest = $interests->first();
+        }
+
+        return $interest;
+    }
 }

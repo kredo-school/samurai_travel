@@ -1,0 +1,45 @@
+$button_acutive: #DAA4AA;
+$button_inacutive: #F3F3F3;
+
+main{
+    background-image: url("/images/bg-image-suggest.png");
+    width: auto;
+    min-height: 760px;
+    background-repeat: repeat;
+    background-size: contain;
+}
+
+.col-white{
+    background: white;
+}
+
+.q-box{
+    min-height: 260px;
+}
+
+// answer
+.answers{
+    display:inline-block;
+    position: relative;
+}
+.answers input{
+    opacity: 0;
+    position: absolute;
+    left: 0;
+}
+.answers label{
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: $button_inacutive;
+    display: inline-block;
+    cursor: pointer;
+    transition: .5s;
+}
+.answers label:hover,
+.answers input:checked + label{
+    background: $button_acutive;
+    color: white;
+}
+.answers input:focus + label{
+    box-shadow: 0 0 4px $button_acutive;
+}

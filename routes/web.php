@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use App\Http\Controllers\Admin\PlaceImageController;
 use App\Http\Controllers\Admin\PlaceKeywordController;
 use App\Http\Controllers\Admin\TopController as AdminTopController;
+use App\Http\Controllers\SuggestPlansController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PlaceFavoriteController;
@@ -82,10 +83,20 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 
+    // for displaying ADMIN/ GENRE MANAGEMENT
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
+    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
+
     # Place Detail Pages
     Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');
 
+        // Suggest Plans
+    Route::get('/suggest-plans/questions', [SuggestPlansController::class, 'index'])->name('suggest-plans.questions');
+    Route::get('/suggest-plans/plan_detail/{user_id}', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.plan_detail');
+    // Route::get('/suggest-plans/create_plan', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.create_plan');
 });
