@@ -2,6 +2,14 @@
 
 @section('title', 'Top')
 
+@section('map-js')
+    <script src="{{ asset('js/map.js') }}" defer></script>
+@endsection
+
+@section('top-css')
+    <link href="{{ mix('css/top.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container body-top">
         <div class="top d-flex align-items-center">
