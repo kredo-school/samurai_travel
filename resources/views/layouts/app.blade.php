@@ -85,6 +85,10 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        {{-- Footer --}}
+        @include('layouts.footer')
+        
     </div>
 </body>
 </html>
