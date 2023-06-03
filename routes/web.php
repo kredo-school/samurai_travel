@@ -16,6 +16,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PlaceFavoriteController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanFavoriteController;
+use App\Http\Controllers\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,13 @@ use App\Http\Controllers\PlanFavoriteController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
+
+# Social Login
+Route::get('/social_login', [SocialLoginController::class, 'social_login'])->name('social_login');
+Route::get('/auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
+Route::get('/auth/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('/auth/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
 
 Route::group(['middleware' => 'auth'], function(){
 
