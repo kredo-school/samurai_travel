@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\PlaceImage;
@@ -41,7 +42,6 @@ class PlaceController extends Controller
             ->with('sub_imgs', $sub_imgs)
             ->with('recommend_places', $recommend_places)
             ->with('affiliates', $affiliates);
-
     }
 
     public function getRecommendPlace($id)
@@ -85,7 +85,6 @@ class PlaceController extends Controller
 
         return $data;
     }
-  
 }
 
 # Display the Google maps and addresses of the places from Google API.

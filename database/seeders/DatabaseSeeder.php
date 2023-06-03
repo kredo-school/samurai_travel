@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AdminUserSeeder::class);
         $this->call([
+            AdminUserSeeder::class,
             AreaSeeder::class,
             PrefectureSeeder::class,
             // Cities
@@ -65,6 +65,11 @@ class DatabaseSeeder extends Seeder
             City_45_Miyazaki_Seeder::class,
             City_46_Kagoshima_Seeder::class,
             City_47_Okinawa_Seeder::class,
+            PlaceSeeder::class,
+            PlaceImageSeeder::class,
+            GenreSeeder::class,
+            KeywordSeeder::class,
+            ExampleSeeder::class,
         ]);
     }
 }

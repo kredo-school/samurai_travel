@@ -13,7 +13,8 @@ use App\Http\Controllers\Admin\TopController as AdminTopController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PlaceFavoriteController;
-
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PlanFavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,17 +67,23 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/place_keywords/{place}/store',[PlaceKeywordController::class, 'store'])->name('place_keyword.store');
         Route::patch('/place_keyword/{place}/{keyword}/update', [PlaceKeywordController::class, 'update'])->name('place_keyword.update');
         Route::delete('/place_keyword/{place}/{keyword}/destroy', [PlaceKeywordController::class, 'destroy'])->name('place_keyword.destroy');
+        #GENRE MANAGEMENT
+        Route::get('/genres', [GenreController::class, 'index'])->name('genres');
+        Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
+        Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
+        Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
     });
+    
+    // for displaying PLAN DETAILS(for LOGGED IN USER)
+    Route::get('/myplans', [PlanController::class, 'showMyPlan'])->name('plans');
 
-    // for displaying ADMIN/ GENRE MANAGEMENT
-    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
-    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
-    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
-    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
+    //for displaying PLAN DETAILS(for GUEST USER)
+    Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
+    Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
+    Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 
     # Place Detail Pages
     Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
-    
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');

@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Place extends Model
 {
     use HasFactory;
 
+    protected $table = 'places'; //specify the table to use
     protected $fillable = [
         'place_category',
         'name_en',
@@ -28,6 +30,21 @@ class Place extends Model
         'open_ampm',
         'end_ampm'
     ];
+
+
+    #Use this to get all the keywords under the place
+    public function keywords(){
+        return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
+    }
+
+    # To get the likes of the place
+    public function favorite(){
+        return $this->hasMany(PlaceFavorite::class);
+    }
+    
+    public function plans(){
+        return $this->hasOne(PlanDetail::class);
+    }
 
     public function area()
     {
@@ -47,11 +64,6 @@ class Place extends Model
     public function place_images()
     {
         return $this->hasMany(PlaceImage::class);
-    }
-
-    public function keywords()
-    {
-        return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
 
     public function placeKeyword()

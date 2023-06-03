@@ -47,9 +47,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function placeFavorites()
-    {
-        return $this->hasMany(PlaceFavorite::class, 'place_id');
+    # Use this to get all plans that Auth user have
+    public function plan(){
+        return $this->hasMany(Plan::class);
     }
 
+    #Use this to get all favorite places of Auth user
+    public function placeFavorites(){
+        return $this->belongsToMany(Place::class, 'place_favorites', 'user_id', 'place_id');
+    }
+
+
+    # Use this to get interest keyword of Auth user
+    public function interestedKeywords(){
+        return $this->belongsToMany(Keyword::class, 'interests', 'user_id', 'keyword_id');
+    }
+
+    # Use this to get favorite plans of Auth user
+    public function planFavorite(){
+        return $this->hasMany(PlanFavorite::class, 'plan_favorites', 'user_id', 'plan_id');
+    }
+
+    # Use this to get the plan that Admin user recommends
+    public function recommendPlan(){
+        return $this->hasMany(Plan::class);
+    }
 }
