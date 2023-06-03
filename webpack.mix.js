@@ -17,4 +17,6 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 
     mix.version();
+    .ts('resources/ts/map.ts', 'public/js')
+ 
 
