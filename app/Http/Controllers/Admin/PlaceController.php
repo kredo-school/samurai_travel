@@ -52,16 +52,14 @@ class PlaceController extends Controller
             'spend_time'     =>  'nullable|integer',
             'image'        =>  'required|mimes:jpg,png,jpeg,gif|max:10000',
             'description'  =>  'required|max:100',
-            'open_ampm'    =>  'nullable|in:am, pm',
-            'open_ampm'    =>  'nullable|in:am, pm'
+            'open_ampm'    =>  'nullable|in:am,pm',
+            'end_ampm'    =>  'nullable|in:am,pm'
         ]);
         
         Place::create([
             'place_category' => $request->place_category,
             'name_en'        =>  $request->name_en,
             'name_jp'        =>  $request->name_jp,
-            // 'opening_time'   =>  Carbon::parse($request->opening_time),
-            // 'ending_time'   =>   Carbon::parse($request->ending_time),
             'opening_time'   =>  $request->opening_time,
             'ending_time'   =>   $request->ending_time,
             'url'           =>  $request->url,
@@ -111,8 +109,8 @@ class PlaceController extends Controller
             'place_category' =>  'required|in:spot,activity,restaurant,hotel',
             'name_en'        =>  'required|max:1000',
             'name_jp'        =>  'required|max:1000',
-            'opening_time'   => 'nullable',
-            'ending_time'    => 'nullable',
+            'opening_time'   =>  'nullable',
+            'ending_time'    =>  'nullable',
             'url'            =>  'nullable|url',
             'area_id'        =>  'required',
             'prefecture_id'  =>  'required',
@@ -120,9 +118,9 @@ class PlaceController extends Controller
             'address'        =>  'nullable|min:1|max:1000',
             'spend_time'     =>  'nullable|integer',
             'image'        =>  'mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|max:1000',
-            'open_ampm'    =>  'nullable|in:am, pm',
-            'end_ampm'    =>  'nullable|in:am, pm'
+            'description'  =>  'required|max:100',
+            'open_ampm'    =>  'nullable|in:am,pm',
+            'end_ampm'    =>  'nullable|in:am,pm'
         ]);
         
         #save the post

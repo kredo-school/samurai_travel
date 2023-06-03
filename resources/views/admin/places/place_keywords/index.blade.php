@@ -44,7 +44,7 @@
                     <tbody>
                         @foreach ($all_place_keywords as $key => $place_keyword)
                         <tr>
-                            <td>{{ $place_keyword->place_id }}</td>
+                            <td>{{ $place->id }}</td>
                             <td>
                                 {{ $place_keyword->name }}
                             </td>

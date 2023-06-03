@@ -27,7 +27,7 @@ class CreatePlacesTable extends Migration
             $table->string('address')->nullable();
             $table->integer('spend_time')->nullable();
             $table->timestamps();
-            
+
             $table->foreign('area_id')->references('id')->on('areas');
             $table->foreign('prefecture_id')->references('id')->on('prefectures');
             $table->foreign('city_id')->references('id')->on('cities');
