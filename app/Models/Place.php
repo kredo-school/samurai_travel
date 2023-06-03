@@ -31,7 +31,6 @@ class Place extends Model
         'end_ampm'
     ];
 
-
     #Use this to get all the keywords under the place
     public function keywords(){
         return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');

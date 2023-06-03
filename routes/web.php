@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use App\Http\Controllers\Admin\PlaceImageController;
 use App\Http\Controllers\Admin\PlaceKeywordController;
+use App\Http\Controllers\Admin\RecommendedPlanController;
 use App\Http\Controllers\Admin\TopController as AdminTopController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\PlaceController;
@@ -88,4 +89,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');
 
+    // ADMIN-RECOMMENDED PLAN
+    Route::get('/recommended_plans',[RecommendedPlanController::class, 'index'])->name('recommended_plans');
+    Route::post('/recommended_plans/store', [RecommendedPlanController::class, 'store'])->name('recommended_plans.store');
+    Route::patch('/recommended_plans/{recommended_plans}/update', [RecommendedPlanController::class, 'update'])->name('recommended_plans.update');
+    Route::delete('/recommended_plans/{recommended_plans}/destroy', [RecommendedPlanController::class, 'destroy'])->name('recommended_plans.destroy');
+    
+    //ADMIN-RECOMMENDED PLAN DETAILS
+    Route::get('/recommended_plan_details/{planId}',[RecommendedPlanController::class, 'showDetail'])->name('show.plan_details');
 });
