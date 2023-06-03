@@ -60,7 +60,7 @@ class Place extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function place_images()
+    public function placeImages()
     {
         return $this->hasMany(PlaceImage::class);
     }
