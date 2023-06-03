@@ -31,38 +31,20 @@ class Place extends Model
         'end_ampm'
     ];
 
-    #Use this to get the image of the place
-    public function placeImages(){
-        return $this->hasMany(PlaceImage::class);
-    }
 
     #Use this to get all the keywords under the place
     public function keywords(){
         return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
 
-    #Use this to get all the areas under the place
-    public function area(){
-        return $this->hasOne(Area::class);
-    }
-
-    #Use this to get all the prefectures under the place
-    public function prefecture(){
-        return $this->hasOne(Prefecture::class);
-    }
-
     # To get the likes of the place
     public function favorite(){
         return $this->hasMany(PlaceFavorite::class);
     }
-
-    # Return TRUE if the Auth user already liked the place
-    public function isFavorite(){
-        return $this->favorite()->where('user_id' , Auth::user()->id)->exists();
-    } 
     
     public function plans(){
         return $this->hasOne(PlanDetail::class);
+    }
 
     public function area()
     {
@@ -79,5 +61,31 @@ class Place extends Model
         return $this->belongsTo(City::class);
     }
 
-    
+    public function place_images()
+    {
+        return $this->hasMany(PlaceImage::class);
+    }
+
+    public function placeKeyword()
+    {
+        return $this->hasMany(PlaceKeyword::class);
+    }
+
+    # Favorite
+    public function placeFavorite()
+    {
+        return $this->hasMany(PlaceFavorite::class);
+    }
+
+    public function isFavorite()
+    {
+        return $this->placeFavorite()->where('user_id', Auth::user()->id)->exists();
+    }
+
+    #Affiliate
+    public function placeAffiliateSites()
+    {
+        return $this->hasMany(PlaceAffiliateSite::class);
+    }
+
 }

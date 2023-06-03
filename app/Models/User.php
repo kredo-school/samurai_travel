@@ -23,9 +23,9 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -50,7 +50,6 @@ class User extends Authenticatable
     # Use this to get all plans that Auth user have
     public function plan(){
         return $this->hasMany(Plan::class);
-
     }
 
     #Use this to get all favorite places of Auth user

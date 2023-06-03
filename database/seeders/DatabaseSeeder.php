@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         $this->call([
             AdminUserSeeder::class,
             AreaSeeder::class,
@@ -71,8 +70,6 @@ class DatabaseSeeder extends Seeder
             GenreSeeder::class,
             KeywordSeeder::class,
             ExampleSeeder::class,
-
         ]);
-    // }
     }
 }
