@@ -53,4 +53,27 @@ class Place extends Model
     {
         return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
+
+    public function placeKeyword()
+    {
+        return $this->hasMany(PlaceKeyword::class);
+    }
+
+    # Favorite
+    public function placeFavorite()
+    {
+        return $this->hasMany(PlaceFavorite::class);
+    }
+
+    public function isFavorite()
+    {
+        return $this->placeFavorite()->where('user_id', Auth::user()->id)->exists();
+    }
+
+    #Affiliate
+    public function placeAffiliateSites()
+    {
+        return $this->hasMany(PlaceAffiliateSite::class);
+    }
+
 }
