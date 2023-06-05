@@ -87,5 +87,4 @@ class Place extends Model
     {
         return $this->hasMany(PlaceAffiliateSite::class);
     }
-
 }

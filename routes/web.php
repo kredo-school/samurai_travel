@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\RecommendedPlanController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\RegisterController;
@@ -76,16 +77,34 @@ Route::group(['middleware' => 'auth'], function(){
     
     // for displaying PLAN DETAILS(for LOGGED IN USER)
     Route::get('/myplans', [PlanController::class, 'showMyPlan'])->name('plans');
-
     //for displaying PLAN DETAILS(for GUEST USER)
     Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
+    
+    
 
     # Place Detail Pages
     Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');
+        
+    
+    // ADMIN-RECOMMENDED PLAN
+    Route::get('/recommended/plans',[RecommendedPlanController::class, 'index'])->name('recommended_plans');
+    Route::post('/recommended/plans/store', [RecommendedPlanController::class, 'store'])->name('recommended_plans.store');
+    Route::patch('/recommended/plans/{recommended_plans}/update', [RecommendedPlanController::class, 'update'])->name('recommended_plans.update');
+    Route::delete('/recommended/plans/{recommended_plans}/destroy', [RecommendedPlanController::class, 'destroy'])->name('recommended_plans.destroy');
+    
+    //ADMIN-RECOMMENDED PLAN DETAILS
+    Route::get('/recommended/plan/details/{plan}',[RecommendedPlanController::class, 'showDetail'])->name('show.plan_details');
+    Route::get('/recommended/plan/',[RecommendedPlanController::class, 'createDetail'])->name('planDetail.create');
+    
+    //ADMIN RECOMMENDED PLAN KEYWORDS LIST
+    Route::get('/recommended/plan/keywords',[RecommendedPlanController::class, 'showKeyword'])->name('show.plan_keywords');
+    
+    });
 
-});
+    
+
