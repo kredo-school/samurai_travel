@@ -18,6 +18,7 @@ use App\Http\Controllers\PlaceFavoriteController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanFavoriteController;
 use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\MyPageController;
 
 
 /*
@@ -123,4 +124,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');
 
+    # MyPage
+    Route::get('/my_page', [MyPageController::class, 'index'])->name('my_page');
+    Route::get('/my_page/keywords', [MyPageController::class, 'keywordIndex'])->name('my_page.keywords');
+    Route::post('/my_page/interests/store', [MyPageController::class, 'storeInterest'])->name('my_page.interests.store');
+    Route::delete('/my_page/interests/{id}/destroy', [MyPageController::class, 'destroyInterest'])->name('my_page.interests.destroy');
+    Route::delete('/my_page/place_favorites/{place_id}/destroy', [MyPageController::class, 'destroyPlaceFavorite'])->name('my_page.place_favorites.destroy');
+    Route::delete('/my_page/plan_favorites/{id}/destroy', [MyPageController::class, 'destroyPlanFavorite'])->name('my_page.plan_favorites.destroy');
+    Route::patch('/my_page/update_profile', [MyPageController::class, 'updateProfile'])->name('my_page.update_profile');
 });

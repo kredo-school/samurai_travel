@@ -20,5 +20,9 @@ class PlaceFavorite extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
 
 }
