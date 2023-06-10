@@ -131,7 +131,11 @@
 
             {{-- Map --}}
             {{-- Recommend for you --}}
-            @include('users.place_details.recommend')
+            @if ($place->recommend_places->isNotEmpty())
+                @include('users.place_details.recommend')
+            @else
+                <h3 class="text-muted text-center">No Recommend Places</h3>
+            @endif
         </div>       
     </div>
 @endsection
