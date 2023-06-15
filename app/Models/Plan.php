@@ -22,7 +22,7 @@ class Plan extends Model
 
     # Use this to get the place info in each plan
     public function place(){
-        return $this->hasMany(Place::class);
+        return $this->belongsToMany(Place::class, 'plan_details','plan_id','place_id');
     }
 
     public function placeFavorite(){
@@ -47,6 +47,10 @@ class Plan extends Model
 
     public function planRecommended(){
         return $this->recommends()->where('role_id' == 2);
+    }
+
+    public function keywords(){
+        return $this->belongsToMany(Keyword::class, 'plan_keywords', 'plan_id', 'keyword_id');
     }
 
     # 月・日・年・時間表示を行う場合はこのフォーマットを使う

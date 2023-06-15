@@ -6,7 +6,7 @@
 <div class="container">
     <form action="{{ route('recommended_plans.store')}}" method="post">
         @csrf
-    <div class="row gx-2 mb-4">
+    <div class="row gx-2 mb-4 my-5">
         <div class="col-8"><h3>Recommended Plans List</h3></div>
     
         <div class ="col">
@@ -41,7 +41,6 @@
         <tbody>
             
             @forelse($recommended_plans as $recommended_plan)
-                {{-- @foreach($recommended->planDetails as $key => $recoPlanDetails) --}}
                 <tr>
                     <td class="text-start">{{ $recommended_plan->id }}</td>
                     <td class="text-start">{{ $recommended_plan->title }}</td>
@@ -50,7 +49,7 @@
                     <td>{{ $recommended_plan->updated_at }}</td>
                     <td>
                         {{-- Key button --}}
-                        <a href="{{ route('show.plan_keywords', $recommended_plan->id) }}">
+                        <a href="{{ route("show.plan_keywords", ["plan"=>$recommended_plan->id]) }}">
                             <button class="btn btn-sm btn-outline-dark me-2" >
                                 <i class="fa-solid fa-key"></i>
                             </button>

@@ -4,21 +4,20 @@
 
 @section('content')
 <div class="container">
-    <form action="#" method="post">
-        @csrf
-    <div class="row gx-2 mb-4">
+    <div class="row gx-2 my-4">
         <div class="col-8"><h3>Recommended Plan Details List</h3></div>
         <div class ="col"></div>
         <div class="col-1">
-            <button type="submit"  class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i>ADD</button>
+        
+            <a href="{{ route('planDetail.create', ['plan_id' => $plan_details[0]->plan_id ]) }}">
+                <button type="submit"  class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i>ADD</button>
+            </a>
         </div>
         {{-- Error --}}
         @error('title')
             <div class="text-danger small">{{ $message }}</div>
         @enderror
-    
     </div>
-    </form>
     
     <table class="table table-hover align-middle bg-white border text-secondary">
         <thead class="table-success text-secondary small">
@@ -48,13 +47,15 @@
                 
                 <td>
                     {{-- Edit button --}}
-                    <button class="btn btn-outline-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#edit-recommended_plan-{{ $detail->id }}" title="Edit">
+                    <a href="{{ route('planDetail.edit', $detail->id ) }}">
+                    <button class="btn btn-outline-warning btn-sm me-2" title="Edit">
                     <i class="fa-solid fa-pen text-warning"></i>
                     </button>
+                    </a>
                 </td>
                 <td>
                     {{-- Delete button --}}
-                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-recommended_plan-{{ $detail->id }}" title="Delete">
+                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-{{ $detail->id }}" title="Delete">
                     <i class="fa-solid fa-trash-can text-danger"></i>
                     </button> 
 

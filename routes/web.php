@@ -16,6 +16,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PlaceFavoriteController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanFavoriteController;
+use App\Http\Controllers\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,13 @@ use App\Http\Controllers\PlanFavoriteController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
+
+# Social Login
+Route::get('/social_login', [SocialLoginController::class, 'social_login'])->name('social_login');
+Route::get('/auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
+Route::get('/auth/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('/auth/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -99,10 +107,21 @@ Route::group(['middleware' => 'auth'], function(){
     
     //ADMIN-RECOMMENDED PLAN DETAILS
     Route::get('/recommended/plan/details/{plan}',[RecommendedPlanController::class, 'showDetail'])->name('show.plan_details');
-    Route::get('/recommended/plan/',[RecommendedPlanController::class, 'createDetail'])->name('planDetail.create');
+    Route::get('recommended/plan/detail/create/',[RecommendedPlanController::class, 'createDetail'])->name('planDetail.create');
+    Route::get('recommended/plan/detail/create/{planID?}',[RecommendedPlanController::class, 'createDetail'])->name('planDetail.create');
+    Route::get('/recommended/plan/detail/place/create',[RecommendedPlanController::class, 'createPlace'])->name('create.place');
+    Route::get('/recommended/plan/detail/show/place/search/', [RecommendedPlanController::class, 'search'])->name('search.place');
+    Route::post('recommended/plan/detail/store/',[RecommendedPlanController::class, 'storeDetail'])->name('planDetail.store');
+    Route::get('/recommended/plan/detail/edit/{plan_details?}',[RecommendedPlanController::class, 'editDetail'])->name('planDetail.edit');
+    Route::get('/recommended/plan/detail/place/update',[RecommendedPlanController::class, 'updatePlace'])->name('update.place');
+    Route::patch('/recommended/plan/detail/{plan_details}/update',[RecommendedPlanController::class, 'updateDetail'])->name('planDetail.update');
+    Route::delete('/recommended/plan/detail/{plan_details}/destroy',[RecommendedPlanController::class, 'destroyDetail'])->name('planDetail.destroy');
     
     //ADMIN RECOMMENDED PLAN KEYWORDS LIST
-    Route::get('/recommended/plan/keywords',[RecommendedPlanController::class, 'showKeyword'])->name('show.plan_keywords');
+    Route::get('/recommended/plan/keywords/{plan}',[RecommendedPlanController::class, 'showKeyword'])->name('show.plan_keywords');
+    Route::post('/recommended/plan/keywords/store/', [RecommendedPlanController::class, 'storeKeyword'])->name('plan_keyword.store');
+    Route::patch('/recommended/plan/keywords/{keyword}/update', [RecommendedPlanController::class, 'updateKeyword'])->name('plan_keyword.update');
+    Route::delete('/recommended/plan/keywords/{keyword}/destroy', [RecommendedPlanController::class, 'destroyKeyword'])->name('plan_keyword.destroy');   
     
     });
 
