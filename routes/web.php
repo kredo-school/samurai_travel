@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/places/create',[AdminPlaceController::class, 'create'])->name('place.create');
         Route::post('/places/store',[AdminPlaceController::class, 'store'])->name('place.store');
         Route::get('/places/{place}/edit', [AdminPlaceController::class, 'edit'])->name('place.edit');
-        Route::patch('/places/{place}/update', [AdminPlaceController::class, 'update'])->name('place.update');
+        Route::post('/places/{place}/update', [AdminPlaceController::class, 'update'])->name('place.update');
         Route::delete('/places/{place}/destroy', [AdminPlaceController::class, 'destroy'])->name('place.destroy');
         Route::post('/places/getPrefecturesByArea', [AdminPlaceController::class, 'getPrefecturesByArea'])->name('ajax.getPrefecturesByArea');
         Route::post('/places/getCitiesByPrefecture', [AdminPlaceController::class, 'getCitiesByPrefecture'])->name('ajax.getCitiesByPrefecture');

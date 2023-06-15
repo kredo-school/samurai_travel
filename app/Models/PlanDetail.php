@@ -20,10 +20,5 @@ class PlanDetail extends Model
     public function place(){
         return $this->belongsTo(Place::class, 'place_id');
     }
-
-    public function place(){
-        return $this->belongsTo(Place::class);
-    }
-
 }
 
