@@ -9,9 +9,9 @@
             <h1 class="mx-3 mt-3 text-bold text-center fs-3">Place</h1>
             <div class="card-body mx-5">
                     {{-- Store the sections --}}
-                <form action="{{ route('admin.place.update', $place) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.place.update', $place->id) }}" method="post" enctype="multipart/form-data" id="edit-place-form">
                     @csrf
-                    @method('PATCH')
+                    @method('POST')
                     {{-- Place_Category --}}
                     <div class="form-group mb-3">
                         <label for="place_category" class="form-label text-muted mb-2">Place Category</label>
@@ -77,11 +77,7 @@
                             <label for="area_id" name="area_id" class="form-label">Area</label>
                             <select class="form-select" id="area_id" name="area_id">
                                 @foreach ($all_areas as $area)
-                                @if ($area->id === $place->area_id)
-                                    <option selected value="{{ $area->id }}">{{ $area->name_en }}</option>
-                                @else
-                                    <option value="{{ $area->id }}">{{ $area->name_en }}</option>
-                                @endif
+                                    <option {{ $area->id === $place->area_id ? 'selected' : '' }} value="{{ $area->id }}">{{ $area->name_en }}</option>
                                 @endforeach
                             </select>
 
@@ -93,11 +89,7 @@
                             <label for="prefecture_id" name="prefecture_id" class="form-label">Prefecture</label>
                             <select class="form-select" id="prefecture_id" name="prefecture_id">
                                 @foreach ($all_prefectures as $prefecture)
-                                @if ($prefecture->id === $place->prefecture_id)
-                                    <option selected value="{{ $prefecture->id }}">{{ $prefecture->name_en }}</option>
-                                @else
-                                    <option value="{{ $prefecture->id }}">{{ $prefecture->name_en }}</option>
-                                @endif
+                                <option {{ $prefecture->id === $place->prefecture_id ? 'selected' : '' }} value="{{ $prefecture->id }}">{{ $prefecture->name_en }}</option>
                                 @endforeach
                             </select>
 
@@ -109,11 +101,7 @@
                             <label for="city_id" name="city_id" class="form-label">City</label>
                             <select class="form-select" id="city_id" name="city_id">
                                 @foreach ($all_cities as $city)
-                                @if ($city->id === $place->city_id)
-                                    <option selected value="{{ $city->id }}">{{ $city->name_en }}</option>    
-                                @else
-                                    <option value="{{ $city->id }}">{{ $city->name_en }}</option>
-                                @endif
+                                    <option {{ $city->id === $place->city_id ? 'selected' : '' }}  selected value="{{ $city->id }}">{{ $city->name_en }}</option>    
                                 @endforeach
                             </select>
 
@@ -194,4 +182,88 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        var selectPrefectures = $("select#prefecture_id");
+        var selectCities = $("select#city_id");
+        // selectPrefectures.empty();
+        // selectCities.empty();
+
+        $('select#area_id').on('change keyup', function(){
+            selectPrefectures.empty();
+            selectCities.empty();
+
+            // Create an <option> element
+            var option = $("<option></option>");
+            option.val('');
+            option.text('Select the prefecture');
+            
+            // Append the option to the select element
+            selectPrefectures.append(option);
+
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("admin.ajax.getPrefecturesByArea") }}',
+                data: $('#edit-place-form').serialize(),
+                dataType: 'json',
+                success: function(jsonData) {
+
+                    // Iterate over the JSON data
+                    $.each(jsonData, function(index, item) {
+                        // Create an <option> element
+                        var option = $("<option></option>");
+                        // Set the value and text of the option
+                        option.val(item.id);
+                        option.text(item.name_en);
+                        // Append the option to the select element
+                        selectPrefectures.append(option);
+                    });
+                },
+                error: function(xhr) {
+
+                }
+            });
+        });
+
+        $('select#prefecture_id').on('change keyup', function(){
+            selectCities.empty();
+
+            // Create an <option> element
+            var option = $("<option></option>");
+            option.val('');
+            option.text('Select the city');
+            // Append the option to the select element
+            selectCities.append(option);
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("admin.ajax.getCitiesByPrefecture") }}',
+                data: $('#edit-place-form').serialize(),
+                dataType: 'json',
+                success: function(jsonData) {
+
+                    // Iterate over the JSON data
+                    $.each(jsonData, function(index, item) {
+                        // Create an <option> element
+                        var option = $("<option></option>");
+                        // Set the value and text of the option
+                        option.val(item.id);
+                        option.text(item.name_en);
+                        // Append the option to the select element
+                        selectCities.append(option);
+                    });
+                },
+                error: function(xhr) {
+
+                }
+            });
+        });
+
+    });
+
+</script>
 @endsection

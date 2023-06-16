@@ -53,12 +53,12 @@ class Place extends Model
 
     public function prefecture()
     {
-        return $this->belongsTo(Prefecture::class);
+        return $this->belongsTo(Prefecture::class, 'place_id');
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'place_id');
     }
 
     public function place_images()
