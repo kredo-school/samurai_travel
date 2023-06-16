@@ -19,7 +19,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanFavoriteController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\MyPageController;
-
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,9 @@ use App\Http\Controllers\MyPageController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
+//Search
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::get('/search/place', [SearchController::class, 'search'])->name('search.place');
 
 # Social Login
 Route::get('/social_login', [SocialLoginController::class, 'social_login'])->name('social_login');
@@ -117,13 +120,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
-
     # Place Detail Pages
     Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');
-
     # MyPage
     Route::get('/my_page', [MyPageController::class, 'index'])->name('my_page');
     Route::get('/my_page/keywords', [MyPageController::class, 'keywordIndex'])->name('my_page.keywords');
