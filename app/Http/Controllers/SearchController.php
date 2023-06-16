@@ -19,14 +19,14 @@ class SearchController extends Controller
         $all_genres = Genre::all();
         $all_keywords = Keyword::all();
 
-        return view('users.search.search')
-                // ->with('all_places', $all_places)
-                ->with('all_areas' , $all_areas)
-                ->with('all_prefectures' , $all_prefectures)
-                ->with('all_genres' , $all_genres)
-                ->with('all_keywords' , $all_keywords);
+        return view('users.search.search', [
+            'all_areas' => $all_areas,
+            'all_prefectures' => $all_prefectures,
+            'all_genres' => $all_genres,
+            'all_keywords' => $all_keywords,
+        ]);
     }
-
+    
     public function search(Request $request)
     {
         $places = new Place;
