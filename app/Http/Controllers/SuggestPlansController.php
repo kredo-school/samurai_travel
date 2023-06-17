@@ -160,13 +160,12 @@ class SuggestPlansController extends Controller
         $plan_detail = new PlanDetail();
         $result = $plan_detail->storePlanDetail($plan_id, $place_ids, null);
 
-        dd($result);
         if ($result) {
             session()->forget('plan_details');
             session()->forget('target_prefecture_id');
             session()->forget('arrival_times');
 
-            return redirect()->route('###');
+            return redirect()->route('my_page');
         } else {
             return redirect()->back();
         }
