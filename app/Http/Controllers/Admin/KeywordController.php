@@ -12,6 +12,13 @@ class KeywordController extends Controller
     private $keyword;
     private $genre;
 
+    public function __construct(Genre $genre, Keyword $keyword)
+    {
+        $this->genre = $genre;
+        $this->keyword = $keyword;
+    }
+
+
     public function index()
     {
         $all_keywords = Keyword::paginate(10);
@@ -36,10 +43,10 @@ class KeywordController extends Controller
         ]);
 
         Keyword::create([
-            'name' => $request->name,
+            'name' => ucwords(strtolower($request->name)),
             'genre_id' => $request->genre_id
         ]);
-        return redirect()->back();
+        return redirect()->route('admin.keywords');
     }
 
     public function edit($id)
@@ -62,7 +69,7 @@ class KeywordController extends Controller
         $keyword->genre_id = $request->genre_id;
         $keyword->save();
 
-        return redirect()->back();
+        return redirect()->route('admin.keywords');
     }
 
     public function destroy(Keyword $keyword, $id)
