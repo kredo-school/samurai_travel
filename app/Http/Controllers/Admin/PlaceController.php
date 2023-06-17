@@ -88,8 +88,8 @@ class PlaceController extends Controller
     public function edit(Place $place)
     {
         $all_areas = Area::all();
-        $all_prefectures = Prefecture::all();
-        $all_cities = City::all();
+        $all_prefectures = Prefecture::where('area_id', $place->area_id)->get();
+        $all_cities = City::where('prefecture_id', $place->prefecture_id)->get();
 
         // $opening_time  = date('H:i', strtotime($place->opening_time));
         // $place->opening_time = $opening_time;

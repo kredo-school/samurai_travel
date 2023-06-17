@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title' , 'Admin: Genre List')
 
 @section('content')
 <div class="container">
-    <form action="{{ route('genres.store')}}" method="post">
+    <form action="{{ route('admin.genres.store')}}" method="post">
         @csrf
     <div class="row gx-2 mb-4">
         <div class="col-8"><h3>Genres List</h3></div>

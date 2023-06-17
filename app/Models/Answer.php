@@ -12,19 +12,26 @@ class Answer extends Model
 {
     use HasFactory;
 
-    public function question()
-    {
-        return $this->belongsTo(Question::class);
-    }
+    protected $table = 'answers';
+    protected $fillable = [
+        'answer',
+        'question_id',
+        'answer_no',
+        'answer',
+        'genre_id',
+        'keyword_id',
+    ];
 
-    public function genre()
-    {
+    public function genre(){
         return $this->belongsTo(Genre::class);
     }
 
-    public function keyword()
-    {
+    public function keyword(){
         return $this->belongsTo(Keyword::class);
+    }
+
+    public function question(){
+        return $this->belongsTo(Question::class);
     }
 
     public function selectAnswers(array $answer_ids)

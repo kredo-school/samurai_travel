@@ -1,7 +1,7 @@
 {{-- Edit --}}
 <div class="modal fade" id="edit-genre-{{$genre->id}}">
     <div class="modal-dialog">
-        <form action="{{ route('genres.update', $genre->id) }}" method="post">
+        <form action="{{ route('admin.genres.update', $genre->id) }}" method="post">
             @csrf
             @method('PATCH')
             <div class="modal-content border-warning">
@@ -25,7 +25,7 @@
 {{-- Delete --}}
 <div class="modal fade" id="delete-genre-{{$genre->id}}">
     <div class="modal-dialog">
-        <form action="{{ route('genres.destroy', $genre->id) }}" method="post">
+        <form action="{{ route('admin.genres.destroy', $genre->id) }}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-content border-danger">

@@ -49,15 +49,15 @@
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Places</a>
+                                <a class="nav-link" href="{{ route('admin.place.index')}}">Places</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Genres</a>
+                                <a class="nav-link" href="{{ route('admin.genres')}}">Genres</a>
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Keywords</a>
+                                <a class="nav-link" href="{{ route('admin.keywords')}}">Keywords</a>
                             </li>
 
                             <li class="nav-item mx-3">
@@ -65,7 +65,7 @@
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="#">Questions</a>
+                                <a class="nav-link" href="{{ route('admin.question') }}">Questions</a>
                             </li>
                         @endguest
                     </ul>
@@ -106,5 +106,6 @@
             </div>
         </main>
     </div>
+    @yield('scripts')
 </body>
 </html>

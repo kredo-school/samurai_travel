@@ -7,10 +7,16 @@ use App\Models\Keyword;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
+use App\Console\Kernel;
 
 class Interest extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'keyword_id'
+    ];
 
     public function user()
     {

@@ -12,6 +12,13 @@ class Question extends Model
 {
     use HasFactory;
 
+    protected $table = 'questions';
+    protected $fillable = [
+        'question',
+        'genre_id',
+        'keyword_id',
+    ];
+
     public function genre()
     {
         return $this->belongsTo(Genre::class);

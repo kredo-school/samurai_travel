@@ -28,9 +28,19 @@
     @yield('top-css')
     @yield('suggest-plans-css')
     @yield('plan-details-css')
-
+    @yield('search-css')
+    
     <!-- Font Awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Slide -->
+    <script src="{{ asset('js/common.js') }}" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 </head>
 <body>
@@ -52,10 +62,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
 
-                        <li class="nav-item h5 me-5">
-                            <a class="nav-link" href="#">Favorite</a>
-                        </li>
-
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('social_login'))
@@ -64,6 +70,10 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item h5 me-5">
+                                <a class="nav-link" href="{{ route('my_page') }}">My Page</a>
+                            </li>
+
                             <li class="nav-item dropdown h5">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->first_name." ".Auth::user()->last_name }}

@@ -34,12 +34,14 @@ class Place extends Model
 
 
     #Use this to get all the keywords under the place
-    public function keywords(){
+    public function keywords()
+    {
         return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
 
     # To get the likes of the place
-    public function favorite(){
+    public function favorite()
+    {
         return $this->hasMany(PlaceFavorite::class);
     }
     
@@ -87,6 +89,14 @@ class Place extends Model
     public function placeAffiliateSites()
     {
         return $this->hasMany(PlaceAffiliateSite::class);
+    }
+
+    //To show all places on the search blade
+    public function getPlaces()
+    {
+        $places = Place::pluck('name_en', 'id');
+
+        return $places;
     }
 
     public function selectTargetPrefectureByKeywords(Array $keyword_list = null)
