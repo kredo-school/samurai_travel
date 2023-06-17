@@ -10,12 +10,16 @@ use App\Models\Interest;
 use App\Models\Question;
 use App\Models\PlanDetail;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class SuggestPlansController extends Controller
 {
     const DEFAULT_SPEND_TIME = 90;
     const MOVE_TIME = 30;
     const START_TIME = '09:00';
+    const RANDOM_MIN_NUMBER = 1;
+    const RANDOM_MAX_NUMBER = 3;
+    const RANDOM_CRITERIA_NUMBER = 2;
 
     public function index(Request $request)
     {
@@ -24,15 +28,15 @@ class SuggestPlansController extends Controller
             session()->forget('answers');
         } else {
             session(['question_no' => session('question_no') + 1]);
-
             // Dont include on select result
             $question_id = $request->input('question_id');
+        }
 
-            if (!empty($request->input('answer'))) {
-                session(['answers.question_'.$question_id.'.question_id' => $question_id]);
-                foreach ($request->input('answer') as $answer) {
-                    session()->push('answers.question_'.$question_id.'.answer_id', $answer);
-                }
+        if (!empty($request->input('answer'))) {
+            session(['answers.question_'.$question_id.'.question_id' => $question_id]);
+            
+            foreach ($request->input('answer') as $answer) {
+                session()->push('answers.question_'.$question_id.'.answer_id', $answer);
             }
         }
 
@@ -43,21 +47,13 @@ class SuggestPlansController extends Controller
         if (is_null($interest_data)) {
             $is_use_interest = false;
         } else {
-            $r_use_interest_num = mt_rand(1, 3);
-            if ($r_use_interest_num == 1 || $r_use_interest_num == 2) {
-                $is_use_interest = true;
-            } else {
-                $is_use_interest = false;
-            }
+            $r_use_interest_num = mt_rand(self::RANDOM_MIN_NUMBER, self::RANDOM_MAX_NUMBER);
+            $is_use_interest = self::isLessThanNumber($r_use_interest_num);
         }
 
         // Whether to use keyword
-        $r_use_keyword_num = mt_rand(1, 3);
-        if ($r_use_keyword_num == 1 || $r_use_keyword_num == 2) {
-            $is_use_keyword = true;
-        } else {
-            $is_use_keyword = false;
-        }
+        $r_use_keyword_num = mt_rand(self::RANDOM_MIN_NUMBER, self::RANDOM_MAX_NUMBER);
+        $is_use_keyword = self::isLessThanNumber($r_use_keyword_num);
 
         $question = new Question();
         // Search by interested keyword
@@ -75,6 +71,12 @@ class SuggestPlansController extends Controller
 
         return view('users.suggest-plans.questions')
                     ->with('question', $question_data);
+    }
+
+    private function isLessThanNumber ($random_num)
+    {
+        $result = ($random_num <= self::RANDOM_CRITERIA_NUMBER) ? true : false;
+        return $result;
     }
 
     public function createPlan (Request $request)
@@ -179,7 +181,7 @@ class SuggestPlansController extends Controller
             if (is_null($place->spend_time)) {
                 $arrival_times[] = $this->plusArrivalTime($arrival_times[$index], self::DEFAULT_SPEND_TIME, self::MOVE_TIME);
             } else {
-                $arrival_times[] = $this->plusArrivalTime($arrival_times[$index], $place->spend_time, 30);
+                $arrival_times[] = $this->plusArrivalTime($arrival_times[$index], $place->spend_time, self::MOVE_TIME);
             }
             $index++;
         }
@@ -206,16 +208,5 @@ class SuggestPlansController extends Controller
 
         $result_time = sprintf('%02d:%02d', $hours, $minutes);
         return $result_time;
-    }
-
-    public function searchPlaces(Request $request)
-    {
-        $request_data = $request->all();
-
-        $response = [
-            'data' => 'xxx'
-        ];
-
-        return response()->json($response);
     }
 }
