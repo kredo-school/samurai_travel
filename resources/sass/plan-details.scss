@@ -1,0 +1,73 @@
+$plan_day_bg: #DAA4AA;
+$plan_bg: #F3F3F3;
+
+main{
+    background-image: url("/images/bg-image.jpg");
+    width: auto;
+    min-height: 760px;
+    background-repeat: repeat;
+    background-size: contain;
+}
+
+.col-white{
+    background: white;
+}
+
+.img-sm{
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    background: $plan_bg;
+}
+
+.img-lg{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: $plan_bg;
+}
+
+.bg-plan{
+    background-color: $plan_bg;
+}
+
+/* タブの色変更 */
+.nav-pills .nav-link.active{
+    background-color: $plan_day_bg;
+    color: black;
+}
+
+/* タブの文字色変更 */
+.nav-pills .nav-link{
+    color: black;
+    font-weight: bold;
+}
+
+/*　仮image　*/
+.img-sm{
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+    background: $plan_bg;
+}
+
+.img-lg{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: $plan_bg;
+}
+
+.background-container{
+    position:relative; 
+    justify-content: center;
+}
+
+.add-place{
+    img:hover{
+        cursor: pointer;
+    }
+    p:hover{
+        cursor: pointer;
+    }
+}

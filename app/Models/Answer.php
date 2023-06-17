@@ -26,4 +26,12 @@ class Answer extends Model
     {
         return $this->belongsTo(Keyword::class);
     }
+
+    public function selectAnswers(array $answer_ids)
+    {
+        $answer_ids = array_merge(...$answer_ids);
+        $answers = Answer::whereIn('id', $answer_ids)->get();
+
+        return $answers;
+    }
 }

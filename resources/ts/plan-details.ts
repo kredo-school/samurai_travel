@@ -1,0 +1,151 @@
+$(document).on('click', '[id^="remove_button_"]', function() {
+    const id: string = $(this).attr('id') || '';
+    const key: string = id.split('_')[2];
+    const cardElement: JQuery<HTMLElement> = $(`#place_${key}`);
+
+    let arrivalTime: string | undefined;
+    if (cardElement.length > 0) {
+        arrivalTime = cardElement.attr('data-arrival-time');
+    }
+
+    const newContent: string = `
+        <div class="card-body row">
+            <div class="col-10">
+                <div> <i class="fa-regular fa-clock"></i> ${arrivalTime}</div>
+                <div class="h5">Please add Place</div>
+            </div>
+            <div class="col-2 d-flex align-items-center">
+                <button name='add_button' id='add_button_${key}' type="button" class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#add_place_modal">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    cardElement.empty().append(newContent);
+});
+
+
+$(document).on('click', '[id^="add_button_"]', function() {
+    const buttonId: string = $(this).attr('id') || '';
+    const key: string = buttonId.split('_')[2];
+    const id: string = 'place_' + key;
+
+    sessionStorage.setItem('add_target_place_id', id);
+});
+
+
+$(document).on('click', '[id="add_place_button"]', function() {
+
+    const id = sessionStorage.getItem('add_target_place_id');
+    let key: string = '';
+    if (id !== null) {
+        key = id.split('_')[1];
+    }
+
+    const cardElement: JQuery<HTMLElement> = $(`#${id}`);
+    let arrivalTime: string | undefined;
+    if (cardElement.length > 0) {
+        arrivalTime = cardElement.attr('data-arrival-time');
+    }
+
+    const selectedPlaceElements = document.getElementsByClassName('selected-place');
+
+    let placeId: string | null = null;
+    let placeNameEn: string | null = null;
+    let imgSrc: string | null = null;
+    let imgAlt: string | null = null;
+    if (selectedPlaceElements.length > 0) {
+        const selectedPlaceElement = selectedPlaceElements[0];
+
+        const imgElements = selectedPlaceElement.getElementsByTagName('img');
+        const pElements = selectedPlaceElement.getElementsByTagName('p');
+    
+        if (imgElements.length > 0) {
+            const imgElement = imgElements[0];
+            imgSrc = imgElement.getAttribute('src');
+            imgAlt = imgElement.getAttribute('alt');
+        }
+
+        if (pElements.length > 0) {
+            const pElement = pElements[0];
+            placeId = pElement.getAttribute('data-place-id');
+            placeNameEn = pElement.textContent;
+        }
+    }
+
+    const newContent: string = `
+        <div class="card-body row">
+            <div class="col-10">
+                <div><i class="fa-regular fa-clock"></i> ${arrivalTime}</div>
+                <div class="h5">${placeNameEn}</div>
+                <input type="hidden" name="${key}" value="${placeId}">
+                <div>
+                    <img src="${imgSrc}" class="img-sm" alt="${imgAlt}">
+                </div>
+            </div>
+            <div class="col-2 d-flex align-items-center">
+                <button name='remove_button' id='remove_button_${key}' type="button" class="border-0 bg-white">
+                    <i class="fa-sharp fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    cardElement.empty().append(newContent);
+});
+
+
+/* Click Add Place */
+const placeList = document.querySelectorAll(".add-place") as NodeListOf<HTMLElement>;
+let selectedElement: HTMLElement | null = null;
+
+function clickAddPlace(placeList: HTMLElement) {
+    const addPlaceButton = document.getElementById("add_place_button") as HTMLButtonElement;
+    addPlaceButton.disabled = false;
+
+    if (selectedElement) {
+        selectedElement.style.border = "";
+        selectedElement.style.backgroundColor = "";
+        selectedElement.classList.remove("selected-place");
+    }
+
+    placeList.style.border = "2px solid #C0C0C0";
+    placeList.style.backgroundColor = "#F3F3F3";
+    placeList.classList.add("selected-place");
+    selectedElement = placeList;
+}
+
+placeList.forEach((placeList) => {
+    placeList.addEventListener("click", () => {
+        clickAddPlace(placeList);
+    });
+});
+
+
+// $.ajax({
+//     url: '/xxx',
+//     method: 'POST',
+//     data: {
+
+//     },
+//     success: function(response) {
+//         console.log('success!!');
+//     // サーバーからの応答データを受け取る
+//     const updatedData = response.data;
+
+//     // 画面の更新処理
+//     // 例: 特定の要素の内容を変更
+//     $('#element-id').text(updatedData);
+
+//     // 例: 新しい要素を追加
+//     const newElement = '<div>New Element</div>';
+//     $('#parent-element').append(newElement);
+
+//     // 例: 要素を削除
+//     $('#element-to-delete').remove
+
+//     },
+//     error: function(xhr, status, error) {
+//         // error
+//         console.log('error!!');
+//     }
+// });

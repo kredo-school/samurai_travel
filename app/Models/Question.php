@@ -29,7 +29,13 @@ class Question extends Model
 
     public function selectRandomQuestionByKeyword(Interest $interest)
     {
-        $question = Question::where('keyword_id', $interest->keyword_id)->inRandomOrder()->first();
+        $answers = session('answers');
+        if (empty($answers)) {
+            $question = Question::where('keyword_id', $interest->keyword_id)->inRandomOrder()->first();
+        } else {
+            $question_ids = array_column($answers, 'question_id');
+            $question = Question::whereNotIn('id', $question_ids)->where('keyword_id', $interest->keyword_id)->inRandomOrder()->first();
+        }
         if ($question === null) {
             return false;
         }
@@ -39,7 +45,13 @@ class Question extends Model
 
     public function selectRandomQuestionByGenre(Genre $interested_genre)
     {
-        $question = Question::where('genre_id', $interested_genre->id)->inRandomOrder()->first();
+        $answers = session('answers');
+        if (empty($answers)) {
+            $question = Question::where('genre_id', $interested_genre->id)->inRandomOrder()->first();
+        } else {
+            $question_ids = array_column($answers, 'question_id');
+            $question = Question::whereNotIn('id', $question_ids)->where('genre_id', $interested_genre->id)->inRandomOrder()->first();
+        }
         if ($question === null) {
             return false;
         }
@@ -49,7 +61,13 @@ class Question extends Model
 
     public function selectRandomQuestion()
     {
-        $question = Question::inRandomOrder()->first();
+        $answers = session('answers');
+        if (empty($answers)) {
+            $question = Question::inRandomOrder()->first();
+        } else {
+            $question_ids = array_column($answers, 'question_id');
+            $question = Question::whereNotIn('id', $question_ids)->inRandomOrder()->first();
+        }
         if ($question === null) {
             return false;
         }

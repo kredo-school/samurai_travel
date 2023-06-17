@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center pt-5">
             <div class="q-box col-6 shadow col-white text-center rounded-3 pt-5 pb-3 px-4">
                 <div class="row">
                     <div class="col-6 offset-3 h3 p-2 border border-dark boorder-2 rounded-pill mb-4">Question {{session('question_no')}}</div>
@@ -54,7 +54,7 @@
                     if (submitType === 'next') {
                         this.action = "{{ route('suggest-plans.questions') }}";
                     } else {
-                        this.action = "{{ route('suggest-plans.plan_detail', Auth::user()->id) }}";
+                        this.action = "{{ route('suggest-plans.show', Auth::user()->id) }}";
                     }
                 });
             });

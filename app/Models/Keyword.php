@@ -49,9 +49,25 @@ class Keyword extends Model
     public function selectKeywordBySessionAnswers()
     {
         $session_answers = session('answers');
-        dump($session_answers);
-        foreach ($session_answers as $question_answer) {
-            $question_answer
+        if (!empty($session_answers)) {
+            $answer_ids = array_column($session_answers, 'answer_id');
+            $answer = new Answer();
+            $answers = $answer->selectAnswers($answer_ids);
+
+            $genre_ids = $answers->whereNotNull('genre_id')->pluck('genre_id')->toArray();
+
+            $keywords = Keyword::whereIn('genre_id', $genre_ids)->get();
+
+            $keyword_ids = [];
+            array_push($keyword_ids, $keywords->pluck('id')->toArray());
+            array_push($keyword_ids, $answers->whereNotNull('keyword_id')->pluck('keyword_id')->toArray());
+            
+            $all_keyword_ids = array_merge(...$keyword_ids);
+            
+        } else {
+            $all_keyword_ids = null;
         }
+
+        return $all_keyword_ids;
     }
 }

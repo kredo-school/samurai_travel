@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Place extends Model
@@ -88,19 +89,44 @@ class Place extends Model
         return $this->hasMany(PlaceAffiliateSite::class);
     }
 
-    public function createPlanByQuestions()
+    public function selectTargetPrefectureByKeywords(Array $keyword_list = null)
     {
-        $plan_keyword = Plan_key
-        $pre = Place::where('user_id', Auth::user()->id)->get();
+        if (empty($keyword_list)) {
+            $prefecture = new Prefecture();
+            $target_prefecture = $prefecture->inRandomOrder()->first();
 
-        if ($interests->isEmpty()) {
-            $interest = null;
-        } elseif ($interests->count() > 1) {
-            $interest = $interests->random();
+            $target_prefecture_id = $target_prefecture->id;
         } else {
-            $interest = $interests->first();
+            $suggested_place_ids = PlaceKeyword::whereIn('keyword_id', $keyword_list)->get();
+
+            $place_ids = $suggested_place_ids->pluck('place_id');
+            $target_prefecture = Place::whereIn('id', $place_ids)
+                                ->groupBy('prefecture_id')
+                                ->select('prefecture_id', DB::raw('COUNT(*) as count'))
+                                ->orderByDesc('count')
+                                ->first();
+
+            $target_prefecture_id = $target_prefecture->prefecture_id;
         }
 
-        return $interest;
+        return $target_prefecture_id;
+    }
+
+    public function selectByPrefecture(int $prefecture_id)
+    {
+        $categories = ['spot', 'activity', 'restaurant', 'hotel'];
+        $place_list = collect([]);
+
+        foreach ($categories as $category) {
+            $place_list = $place_list->concat(
+                Place::where('prefecture_id', $prefecture_id)
+                    ->where('place_category', $category)
+                    ->inRandomOrder()
+                    ->limit(9)
+                    ->get()
+            );
+        }
+
+        return $place_list;
     }
 }

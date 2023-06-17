@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Prefecture extends Model
 {
@@ -22,5 +23,11 @@ class Prefecture extends Model
     public function places()
     {
         return $this->hasMany(Place::class);
+    }
+
+    public function selectRandomPrefecture()
+    {
+        $prefecture = DB::inRandomOrder()->first();
+        return $prefecture;
     }
 }

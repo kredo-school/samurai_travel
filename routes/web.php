@@ -105,6 +105,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Suggest Plans
     Route::get('/suggest-plans/questions', [SuggestPlansController::class, 'index'])->name('suggest-plans.questions');
-    Route::get('/suggest-plans/plan_detail/{user_id}', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.plan_detail');
-    // Route::get('/suggest-plans/create_plan', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.create_plan');
+    Route::get('/suggest-plans/plan_detail/{user_id}', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.show');
+    Route::get('/suggest-plans/edit/plan_detail/{user_id}', [SuggestPlansController::class, 'editPlan'])->name('suggest-plans.edit');
+    Route::post('/suggest-plans/store/plan_detail/{user_id}', [SuggestPlansController::class, 'storePlan'])->name('suggest-plans.store');
 });
