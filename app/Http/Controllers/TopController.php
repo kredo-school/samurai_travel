@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use DateTime;
 use App\Models\Plan;
 use App\Models\Place;
@@ -19,9 +21,10 @@ class TopController extends Controller
         $spots = Place::where('place_category', 'spot')->latest('updated_at')->take(4)->get();
 
         $transfer_minute = 30;
+        $interval = CarbonInterval::minutes($transfer_minute);    // Create a 30-minute interval
+        $start_time = '9:00 AM';
+        $arrival_time = Carbon::parse($start_time);    // Set the start time
         $pre_day = 0;
-        $start_dt ='2000/1/1 9:00'; // only hour and minute are used
-        $arrival_dt = new DateTime($start_dt);
         $top_plan = [];
         $place_list = [];
         $day_places = [];
@@ -33,9 +36,9 @@ class TopController extends Controller
         foreach ($plan->planDetailsSorted as $planDetail) {
             // get arrival time
             if ($planDetail->sort_no === 1) {
-                $arrival_dt = new DateTime($start_dt);
+                $arrival_time = Carbon::parse($start_time);    // Set the start time
             } else {
-                $arrival_dt->modify("+{$transfer_minute} minutes");
+                $arrival_time->add($interval);
             }
 
             $tmp_place = [
@@ -46,7 +49,7 @@ class TopController extends Controller
                 'address' => $planDetail->place->address,
                 'image' => $planDetail->place->image,
                 'description' => $planDetail->place->description,
-                'arrival_time' => $arrival_dt->format('G:i'),
+                'arrival_time' => $arrival_time->format('g:i A'),
             ];
 
             // for google map
