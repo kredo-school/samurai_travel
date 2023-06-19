@@ -11,33 +11,37 @@
 @endsection
 
 @section('content')
-    <div class="container body-top">
-        <div class="top d-flex align-items-center">
-            <img src="{{ asset('/images/top-image.png') }}" alt="top-image" class="top-image">
-            <div class="top-nav d-flex">
-                <a href="#" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
-                    <div class="">Search by your destination
-                        <div class="text-center mt-1">
-                            <i class="fa-solid fa-arrow-right"></i>
+    <div id="first-page" style="background-image: url('/images/top-image.png');">
+        <div class="container body-top">
+            <div class="top d-flex align-items-center" style="height: 1000px;">
+                <div class="top-nav d-flex">
+                    <a href="{{ route('search.index') }}" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
+                        <div class="">Search by your destination
+                            <div class="text-center mt-1">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
-                    <div class="">Search by category
-                        <div class="text-center mt-1">
-                            <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="{{ route('search.index') }}" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
+                        <div class="">Search by category
+                            <div class="text-center mt-1">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
-                    <div class="">Search by what to do
-                        <div class="text-center mt-1">
-                            <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    {{-- <a href="#" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
+                        <div class="">Search by what to do
+                            <div class="text-center mt-1">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a> --}}
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="container body-top">
         <div class="mt-5 mb-3">
             <h3 class="h3 title text-center mb-3">We offer itineraries tailored to your preferences!</h3>
             @include('users.top.plan')
@@ -45,24 +49,24 @@
         <div class="my-5">
             <h3 class="h3 title text-center mb-3">Pick up</h3>
             <div class="my-5">
-                @include('users.top.pickup', ['category' => 'hotel'])
+                @include('users.top.pickup', ['category' => 'hotel', 'places' => $hotels])
             </div>
             <div class="my-5">
-                @include('users.top.pickup', ['category' => 'restaurant'])
+                @include('users.top.pickup', ['category' => 'restaurant', 'places' => $restaurants])
             </div>
             <div class="my-5">
-                @include('users.top.pickup', ['category' => 'activity'])
+                @include('users.top.pickup', ['category' => 'activity', 'places' => $activities])
             </div>
             <div class="my-5">
-                @include('users.top.pickup', ['category' => 'spot'])
+                @include('users.top.pickup', ['category' => 'spot', 'places' => $spots])
             </div>
         </div>
-        <div class="my-5">
+        <div class="my-5" id="how-to-create-plan">
             <h3 class="h3 title text-center mb-3">How to create my plan?</h3>
             @include('users.top.how_to')
         </div>
     </div>
-    
+
 @endsection
 
 

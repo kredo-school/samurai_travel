@@ -1,10 +1,10 @@
 <div class="row align-items-center">
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            @if (file_exists(asset('/storage/xxx.jpg')))
-                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(public_path('images/top_howto_search.png')))
+                <img src="{{ asset('images/top_howto_search.png')}}" class="img-howto" alt="top_howto_search.png">
             @else
-                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="no-image.png">
             @endif
         </div>
         <h5 class="h5 text-center my-4">Search</h5>
@@ -16,10 +16,10 @@
     </div>
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            @if (file_exists(asset('/storage/xxx.jpg')))
-                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(public_path('images/top_howto_create_plan.png')))
+                <img src="{{ asset('images/top_howto_create_plan.png')}}" class="img-howto" alt="top_howto_create_plan.png">
             @else
-                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="no-image.png">
             @endif
         </div>
         <h5 class="h5 text-center my-4">Press this button</h5>
@@ -31,10 +31,10 @@
     </div>
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            @if (file_exists(asset('/storage/xxx.jpg')))
-                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(public_path('images/top_howto_login.png')))
+                <img src="{{ asset('images/top_howto_login.png')}}" class="img-howto" alt="top_howto_login.png">
             @else
-                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="no-image.png">
             @endif
         </div>
         <h5 class="h5 text-center my-4">Login</h5>
@@ -46,10 +46,10 @@
     </div>
     <div class="col shadow rounded mb-4 p-4 howto">
         <div class="d-flex justify-content-center">
-            @if (file_exists(asset('/storage/xxx.jpg')))
-                <img src="{{ asset('/storage/xxx.jpg') }}" class="img-howto" alt="#">
+            @if (file_exists(public_path('images/top_howto_show_plan.png')))
+                <img src="{{ asset('images/top_howto_show_plan.png')}}" class="img-howto" alt="top_howto_show_plan.png">
             @else
-                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="#">
+                <img src="{{ asset('/images/no-image.png') }}" class="img-howto" alt="no-image.png">
             @endif
         </div>
         <h5 class="h5 text-center my-4">You can see plans in your page</h5>

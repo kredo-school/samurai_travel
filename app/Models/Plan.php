@@ -44,6 +44,7 @@ class Plan extends Model
         return $this->recommends()->where('role_id' == 2);
     }
 
-
-    
+    public function planDetailsSorted(){
+        return $this->hasMany(PlanDetail::class)->oldest('day')->oldest('sort_no');
+    }
 }
