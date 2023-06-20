@@ -28,55 +28,59 @@ class TopController extends Controller
         $top_plan = [];
         $place_list = [];
         $day_places = [];
+        $gm_plan = [];
 
-        // plan title for top page
-        $top_plan['id'] = $plan->id;
-        $top_plan['title'] = $plan->title;
+        if ($plan) {
+            // plan title for top page
+            $top_plan['id'] = $plan->id;
+            $top_plan['title'] = $plan->title;
 
-        foreach ($plan->planDetailsSorted as $planDetail) {
-            // get arrival time
-            if ($planDetail->sort_no === 1) {
-                $arrival_time = Carbon::parse($start_time);    // Set the start time
-            } else {
-                $arrival_time->add($interval);
+            foreach ($plan->planDetailsSorted as $planDetail) {
+                // get arrival time
+                if ($planDetail->sort_no === 1) {
+                    $arrival_time = Carbon::parse($start_time);    // Set the start time
+                } else {
+                    $arrival_time->add($interval);
+                }
+
+                $tmp_place = [
+                    'place_id' => $planDetail->place->id,
+                    'name_en' => $planDetail->place->name_en,
+                    'prefecture_name_en' => $planDetail->place->prefecture->name_en,
+                    'city_name_en' => $planDetail->place->city->name_en,
+                    'address' => $planDetail->place->address,
+                    'image' => $planDetail->place->image,
+                    'description' => $planDetail->place->description,
+                    'arrival_time' => $arrival_time->format('g:i A'),
+                ];
+
+                // for google map
+                $place_list[] = $tmp_place;
+
+                // first place of day
+                if ($pre_day !== $planDetail->day) {
+                    if ($pre_day !== 0) {
+                        // add places of day
+                        $top_plan['days'][] = $day_places;
+                    }
+                    // reset
+                    $day_places = [];
+                }
+                // add place to places of day
+                $day_places[] = $tmp_place;
+
+                // save day
+                $pre_day = $planDetail->day;
             }
-
-            $tmp_place = [
-                'place_id' => $planDetail->place->id,
-                'name_en' => $planDetail->place->name_en,
-                'prefecture_name_en' => $planDetail->place->prefecture->name_en,
-                'city_name_en' => $planDetail->place->city->name_en,
-                'address' => $planDetail->place->address,
-                'image' => $planDetail->place->image,
-                'description' => $planDetail->place->description,
-                'arrival_time' => $arrival_time->format('g:i A'),
-            ];
+            // add places of day
+            $top_plan['days'][] = $day_places;
 
             // for google map
-            $place_list[] = $tmp_place;
-
-            // first place of day
-            if ($pre_day !== $planDetail->day) {
-                if ($pre_day !== 0) {
-                    // add places of day
-                    $top_plan['days'][] = $day_places;
-                }
-                // reset
-                $day_places = [];
+            foreach ($place_list as $place) {
+                $gm_plan[] = $place['address']. ' '. $place['city_name_en']. ' '. $place['prefecture_name_en']. ' '. $place['name_en'];
             }
-            // add place to places of day
-            $day_places[] = $tmp_place;
-
-            // save day
-            $pre_day = $planDetail->day;
         }
-        // add places of day
-        $top_plan['days'][] = $day_places;
 
-        // for google map
-        foreach ($place_list as $place) {
-            $gm_plan[] = $place['address']. ' '. $place['city_name_en']. ' '. $place['prefecture_name_en']. ' '. $place['name_en'];
-        }
 
         return view(
             'users.top',

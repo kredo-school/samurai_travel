@@ -44,7 +44,11 @@
     <div class="container body-top">
         <div class="mt-5 mb-3">
             <h3 class="h3 title text-center mb-3">We offer itineraries tailored to your preferences!</h3>
-            @include('users.top.plan')
+            @if ($top_plan)
+                @include('users.top.plan')
+            @else
+                <h3 class="h3 text-center mb-3">Sorry, preparing plan now.</h3>
+            @endif
         </div>
         <div class="my-5">
             <h3 class="h3 title text-center mb-3">Pick up</h3>
