@@ -91,4 +91,13 @@ class Place extends Model
     {
         return $this->hasMany(PlaceAffiliateSite::class);
     }
+
+    //つかささんのPRに含まれているので後で消す
+    //To show all places on the search blade
+    public function getPlaces()
+    {
+        $places = Place::pluck('name_en', 'id');
+        return $places;
+}
+    
 }

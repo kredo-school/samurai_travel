@@ -18,11 +18,12 @@ use App\Models\Plan;
 use App\Models\PlanDetail;
 use App\Models\PlanFavorite;
 use App\Models\PlanKeyword;
+use Illuminate\Pagination\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
-
+use Illuminate\Pagination\Paginator;
 
 class RecommendedPlanController extends Controller
 
@@ -87,13 +88,13 @@ class RecommendedPlanController extends Controller
             ->with('plan_details', $plan->details)
             ->with('all_places', $all_places)
             ->with('plans', $plans);
-            // 'plan_details' => $plan,
     }
 
     #----- FOR CREATE PAGE -----
     public function createDetail(Plan $plan, Request $request){
             $all_places = Place::all();
             $plans = Plan::all();
+
         return view('admin.plans.plan_details.recommended_plan_details_create')
         ->with('plans', $plans)
         ->with('all_places', $all_places)
@@ -101,70 +102,56 @@ class RecommendedPlanController extends Controller
         }
 
     # -----For display Place list page (for create page )-----
-    public function createPlace(){
-            $all_places = Place::latest()->paginate(10);
-            $all_area = Area::all();
-            $all_prefecture = Prefecture::all();
-            $all_city = City::all();
-            
-        return view('admin.plans.place.place_create')
-        ->with('all_places', $all_places)
-        ->with('all_area', $all_area)
-        ->with('all_prefecture', $all_prefecture)
-        ->with('all_city', $all_city);
-    }
-        
-    public function search(Request $request)
+    public function createPlace()
     {
-        $places = new Place;
-        $all_places = Place::all();
+        $all_places_options = Place::all();
+        $all_places = Place::latest()->paginate(10);
         $all_areas = Area::all();
         $all_prefectures = Prefecture::all();
         $all_cities = City::all();
+            
+        return view('admin.plans.place.place_create')
+        ->with('all_places_options', $all_places_options)
+        ->with('all_places', $all_places)
+        ->with('all_areas', $all_areas)
+        ->with('all_prefectures', $all_prefectures)
+        ->with('all_cities', $all_cities);
+    }
 
-        $s_place_div = $request->input('place_div');
-        $s_name_en = $request->input('name_en');
-        $s_area = $request->input('area');
-        $s_prefecture = $request->input('prefecture');
-        $s_city = $request->input('city');
+    //Use this to search the place in place create page
+    public function search(Request $request)
+    {
+        $all_places_options = Place::all();
+        $all_places = Place::query();
+        $all_areas = Area::all();
+        $all_prefectures = Prefecture::all();
+        $all_cities = City::all();
+        
+        if($request->input('place_category') != '---')
+            $all_places->where('place_category', $request->input('place_category'));
+        
+        if($request->input('name_en') != '---')
+            $all_places->where('name_en', $request->input('name_en'));
 
-        $query = Place::query();
+        if($request->input('area') != '---')
+            $all_places->where('area_id', $request->input('area'));
 
-        if(isset($s_place_div)){
-            $query->whereIn('place_div', $s_place_div);
-        }
-
-        if(isset($s_name_en)){
-            $query->whereIn('name_en', $s_name_en);
-        }
-
-        if(isset($s_category)){
-            $query->whereIn('place_category', $s_category);
-        }
-
-        if(isset($s_area)){
-            $query->whereIn('area_id', $s_area);
-        }
-
-        if(isset($s_prefecture)){
-            $query->whereIn('prefecture_id', $s_prefecture);
-        }
-
-        if(isset($s_city)){
-            $query->whereIn('city', $s_city);
-        }
-
-        $places = $query->paginate(10);
-
-        return view('users.search.search')
-                ->with('all_places', $all_places)
-                ->with('all_areas' , $all_areas)
-                ->with('all_prefectures' , $all_prefectures)
-                ->with('all_cities' , $all_cities)
-                ->with('places', $places)
-                ->with('s_area', $s_area ?? [])
-                ->with('s_prefectures', $s_prefecture ?? [])
-                ->with('s_city', $s_city ?? [] );
+        if($request->input('prefecture') != '---')
+            $all_places->where('prefecture_id', $request->input('prefecture'));
+        
+        if($request->input('city') != '---')
+            $all_places->where('city_id', $request->input('city'));
+        
+        return view('admin.plans.place.place_create' ,[
+                'all_places_options' => $all_places_options,
+                'all_places'=> $all_places->paginate(10),
+                'all_areas' => $all_areas,
+                'all_prefectures' => $all_prefectures,
+                'all_cities' => $all_cities,
+                's_area'=> $s_area ?? [],
+                's_prefectures'=> $s_prefecture ?? [],
+                's_city'=> $s_city ?? [] 
+        ]);            
     }
 
     //Create the content of the plan
@@ -188,37 +175,38 @@ class RecommendedPlanController extends Controller
     }
         
     // Use this to display the edit page       
-    public function editDetail(Plan $plan, PlanDetail $detail){
+    public function editDetail(PlanDetail $plan_details, $place_id){
         $all_places = Place::all();
         $plans = Plan::all();
 
         return view('admin.plans.plan_details.recommended_plan_details_edit', [
             'plans' => $plans,
             'all_places' => $all_places,
-            'plan_details' => $plan->details,
-            'plan_detail' => $detail
+            'plan_details' => $plan_details,
+            'place_id' => $place_id
         ]);
     }
 
     # -----For display Place list page (for edit page)-----
-    public function updatePlace(Plan $plan){
+    public function updatePlace($plan_detail_id){
+        $all_places_options = Place::all();
         $all_places = Place::latest()->paginate(10);
-        $all_area = Area::all();
-        $all_prefecture = Prefecture::all();
-        $all_city = City::all();
+        $all_areas = Area::all();
+        $all_prefectures = Prefecture::all();
+        $all_cities = City::all();
         $plans = Plan::all();
 
     return view('admin.plans.place.place_edit')
-    ->with('all_places', $all_places)
-    ->with('all_area', $all_area)
-    ->with('all_prefecture', $all_prefecture)
-    ->with('all_city', $all_city)
-    ->with('plan_details', $plan->details);
+        ->with('all_places_options', $all_places_options)
+        ->with('all_places', $all_places)
+        ->with('all_areas', $all_areas)
+        ->with('all_prefectures', $all_prefectures)
+        ->with('all_cities', $all_cities)
+        ->with('plan_detail_id', $plan_detail_id);
 }
-    
 
-    //PLAN DETAILS の内容を更新
-    public function updateDetail(Request $request, PlanDetail $plan_detail){
+    // use this to update the contents in plan
+    public function updateDetail(Request $request, PlanDetail $plan_details){
         $request->validate([
             'place_id'  => 'required',
             'day' => 'required',
@@ -226,27 +214,24 @@ class RecommendedPlanController extends Controller
             'plan_id' => 'required'
         ]);
         
-        // $plan_detail = PlanDetail::find($request->id);
-        // $plan_detail->plan_id = $request->plan_id;
-        // $plan_detail->place_id = $request->place_id;
-        // $plan_detail->day = $request->day;
-        // $plan_detail->sort_no = $request->sort_no;
+        $plan_detail = PlanDetail::find($plan_details->id);
+        $plan_detail->plan_id = $request->plan_id;
+        $plan_detail->place_id = $request->place_id;
+        $plan_detail->day = $request->day;
+        $plan_detail->sort_no = $request->sort_no;
         $plan_detail->save();
 
-        return redirect()->route('show.plan_details', ['plan' => $request->plan_id],['plan_detail' => $request->id]);
+        return redirect()->route('show.plan_details', ['plan' => $request->plan_id]);
     }
     
     public function destroyDetail(PlanDetail $plan_detail, $id){
         $plan_detail->destroy($id);
         return redirect()->back();
-
     }
 
     # ----- FOR PLAN KEYWORD PAGE-----
-
     public function showKeyword(Plan $plan){               
         $all_keywords = Keyword::all();
-
         $planKeywords = $plan->keywords;
 
         return view('admin.plans.keywords.recommended_plan_keyword', [        

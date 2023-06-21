@@ -39,7 +39,6 @@
                                         </option>
                                     @endforeach
                             </select>
-                            {{-- <input type="text" value="{{ request()->plan_id }}" name="plan_id"> --}}
                     </div>
                     <div class="row mb-3">
                         <div class="col">
