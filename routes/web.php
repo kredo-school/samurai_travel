@@ -147,5 +147,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/suggest-plans/questions', [SuggestPlansController::class, 'index'])->name('suggest-plans.questions');
     Route::get('/suggest-plans/plan_detail/{user_id}', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.show');
     Route::get('/suggest-plans/edit/plan_detail/{user_id}', [SuggestPlansController::class, 'editPlan'])->name('suggest-plans.edit');
+    Route::post('/suggest-plans/edit/ajax/reload-other-places', [SuggestPlansController::class, 'searchPlaces']);
     Route::post('/suggest-plans/store/plan_detail/{user_id}', [SuggestPlansController::class, 'storePlan'])->name('suggest-plans.store');
 });

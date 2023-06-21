@@ -13,7 +13,7 @@
 <div class="container">
     <div class="row"> 
         <div class="col-4">
-            <form action="{{ route('suggest-plans.store', Auth::user()->id) }}" method="POST">
+            <form action="{{ route('suggest-plans.store', Auth::user()->id) }}" id="form-plan" method="POST">
                 @csrf
                 @php $i = 0; @endphp
                 @foreach($plan_details as $key =>$place)
@@ -36,12 +36,15 @@
                     </div>
                     @php $i++; @endphp
                 @endforeach
-
+            </form>
         </div>
         <div class="col-8">
             <div class="row">
-                <div class="col text-center">
+                <div class="col-10 text-center">
                     <div class="h3">Other Places you might like to visit</div>
+                </div>
+                <div class="col-2 h2">
+                    <i class="fa-solid fa-rotate-right" id="reload-places"></i>
                 </div>
             </div>
             <div class="other-place-list" id="other_place_list">
@@ -62,9 +65,8 @@
             </div>
         </div>
         <div class="mt-3 submit text-center">
-            <button type="submit" class="btn btn-outline-dark fw-bold bg-white rounded-pill">Save as my plan</button>
+            <button type="submit" form="form-plan" class="btn btn-outline-dark fw-bold bg-white rounded-pill">Save as my plan</button>
         </div>
-    </form>
     </div>
 </div>
 <!-- Modal -->
@@ -99,4 +101,7 @@
         </div>
     </div>
 </div>
+<script>
+    window.csrfToken = '{{ csrf_token() }}';
+</script>
 @endsection

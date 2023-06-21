@@ -93,7 +93,6 @@ $(document).on('click', '[id="add_place_button"]', function() {
     cardElement.empty().append(newContent);
 });
 
-
 /* Click Add Place */
 const placeList = document.querySelectorAll(".add-place") as NodeListOf<HTMLElement>;
 let selectedElement: HTMLElement | null = null;
@@ -120,32 +119,81 @@ placeList.forEach((placeList) => {
     });
 });
 
+$(document).on('click', '[id="reload-places"]', function() {
+    
+    const csrfToken = (window as any).csrfToken;
+    fetch('/suggest-plans/edit/ajax/reload-other-places', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json',
+            'X-CSRF-Token': csrfToken,
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        let otherPlaceHtml: string = '';
+        let addPlaceHtml: string = '';
+        data['data'].forEach(((place: { [key: string]: string }, index: number) => {
+            if (index === 0 || (index + 1) % 4 === 0) {
+                otherPlaceHtml += '<div class="row mb-3">'
+                addPlaceHtml +=  '<div class="row mb-3">'
+            }
 
-// $.ajax({
-//     url: '/xxx',
-//     method: 'POST',
-//     data: {
+            otherPlaceHtml += `<div class="col-4" id="other_place_${index}">
+            <div>
+                <img src="${data['asset_path']}/${place['image']}" class="img-sm" alt="${data['asset_path']}/${place['image']}">
+            </div>
+                <p data-place-id="${place['id']}">${place['name_en']}</p>
+            </div>`
+            if ((index + 1) % 3 === 0) {
+                otherPlaceHtml += `</div>`;
+            }
 
-//     },
-//     success: function(response) {
-//         console.log('success!!');
-//     // サーバーからの応答データを受け取る
-//     const updatedData = response.data;
+            addPlaceHtml += `<div class="col-4 add-place d-flex flex-column" id="add_place_${index}">
+            <div class="mx-auto">
+                <img src="${data['asset_path']}/${place['image']}" class="img-sm" alt="${data['asset_path']}/${place['image']}">
+            </div>
+                <p class="mt-auto" data-place-id="${place['id']}">${place['name_en']}</p>
+            </div>`
 
-//     // 画面の更新処理
-//     // 例: 特定の要素の内容を変更
-//     $('#element-id').text(updatedData);
+            if ((index + 1) % 3 === 0) {
+                otherPlaceHtml += `</div>`;
+                addPlaceHtml += `</div>`;
+            }
+        });
 
-//     // 例: 新しい要素を追加
-//     const newElement = '<div>New Element</div>';
-//     $('#parent-element').append(newElement);
+        const otherPlaceElement: JQuery<HTMLElement> = $('#other_place_list');
+        otherPlaceElement.empty().append(otherPlaceHtml);
 
-//     // 例: 要素を削除
-//     $('#element-to-delete').remove
+        const addPlaceElement: JQuery<HTMLElement> = $('#add_place_list');
+        addPlaceElement.empty().append(addPlaceHtml);
 
-//     },
-//     error: function(xhr, status, error) {
-//         // error
-//         console.log('error!!');
-//     }
-// });
+        const placeList = document.querySelectorAll(".add-place") as NodeListOf<HTMLElement>;
+        let selectedElement: HTMLElement | null = null;
+
+        function clickAddPlace(placeList: HTMLElement) {
+            const addPlaceButton = document.getElementById("add_place_button") as HTMLButtonElement;
+            addPlaceButton.disabled = false;
+        
+            if (selectedElement) {
+                selectedElement.style.border = "";
+                selectedElement.style.backgroundColor = "";
+                selectedElement.classList.remove("selected-place");
+            }
+        
+            placeList.style.border = "2px solid #C0C0C0";
+            placeList.style.backgroundColor = "#F3F3F3";
+            placeList.classList.add("selected-place");
+            selectedElement = placeList;
+        }
+        
+        placeList.forEach((placeList) => {
+            placeList.addEventListener("click", () => {
+                clickAddPlace(placeList);
+            });
+        });
+    })
+    .catch(error => {
+        console.error('Error', error);
+    });
+});
