@@ -27,7 +27,7 @@ class ChangeImageColumnNullableInPlaceImagesTable extends Migration
     public function down()
     {
         Schema::table('place_images', function (Blueprint $table) {
-            DB::statement('UPDATE `place_images` SET `image` = "" WHERE `image` IS NULL');
+            DB::table('place_images')->whereNull('image')->update(['image' => '']);
             $table->string('image',255)->nullable(false)->change();
         });
     }
