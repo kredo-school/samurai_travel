@@ -17,4 +17,10 @@ class Genre extends Model
         return $this->hasMany(Keyword::class);
         // ->withTrashed(); 
     }
+
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
+
+
 }

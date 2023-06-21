@@ -18,10 +18,10 @@
                         <tr>
                             <th>ID</th>
                             <th>PLACE-CATEGORY</th>
-                            <th>NAME(JP)</th>
-                            <th>NAME(EN)</th>
+                            <th>NAME(JP)<br>(Name(EN))</th>
                             <th>IMAGE</th>
                             <th>DESCRIPTION</th>
+                            <th>ADDRESS</th>
                             <th>OPENING TIME</th>
                             <th>ENDING TIME</th>
                             <th>SPENDING TIME</th>
@@ -39,12 +39,12 @@
                         <tr>
                             <td>{{ $place->id }}</td>
                             <td>{{ $place->place_category }}</td>
-                            <td>{{ $place->name_jp }}</td>
-                            <td>{{ $place->name_en }}</td>
+                            <td>{{ $place->name_jp }}<br>({{ $place->name_en }})</td>
                             <td>
                                 <img src="{{ asset('storage/sample/' . $place->image) }}" alt="{{ $place->image }}" class="d-block mx-auto img-fluid w-10">
                             </td>
                             <td>{{ $place->description }}</td>
+                            <td>{{ $place->address }}, {{ $place->city->name_en }}, {{ $place->prefecture->name_en }}</td>
                             <td>{{ $place->opening_time }} {{ $place->open_ampm }}</td>
                             <td>{{ $place->ending_time }} {{ $place->end_ampm }}</td>
                             <td>{{ $place->spend_time }}</td>

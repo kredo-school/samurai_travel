@@ -57,12 +57,12 @@ class Place extends Model
 
     public function prefecture()
     {
-        return $this->belongsTo(Prefecture::class);
+        return $this->belongsTo(Prefecture::class, 'place_id');
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'place_id');
     }
 
     public function placeImages()
@@ -92,12 +92,10 @@ class Place extends Model
         return $this->hasMany(PlaceAffiliateSite::class);
     }
 
-    //つかささんのPRに含まれているので後で消す
     //To show all places on the search blade
     public function getPlaces()
     {
         $places = Place::pluck('name_en', 'id');
         return $places;
-}
-    
+    }
 }

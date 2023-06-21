@@ -39,5 +39,8 @@ class Keyword extends Model
         // ->where('user_id' , Auth::user()->id)->exists();
     }
 
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
 
 }
