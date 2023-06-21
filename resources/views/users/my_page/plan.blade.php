@@ -95,7 +95,7 @@
 
     <div class=" d-flex justify-content-center p-3 h6">
       <form action="{{ route('show.plan', $plan->id )}}" method="get">
-        @csrf
+        
         <button class="btn btn-md btn-outline-dark rounded-pill h6" id="btn-see-more" > SEE MORE </button>
       </form>
     </div>
