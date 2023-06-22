@@ -1,4 +1,4 @@
-<?php
+c:\Users\81906\Desktop\Samurai Travel\app\Http\Controllers\Admin\RecommendedPlanController.php<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
