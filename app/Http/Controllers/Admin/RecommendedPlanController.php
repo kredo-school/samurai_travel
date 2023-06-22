@@ -60,12 +60,11 @@ class RecommendedPlanController extends Controller
             return redirect()->route('recommended_plans');
     }
 
-    public function update($id, Request $request){
+    public function update(Plan $recommended_plan, Request $request){
         $request->validate([
             'new_title'  => 'required|max:50|unique:plans,title' 
         ]);
 
-        $recommended_plan = Plan::findOrFail($id);
         $recommended_plan->user_id = Auth::user()->id;
         $recommended_plan->user_type = 'admin';
         $recommended_plan->title = ucwords(strtolower($request->new_title));
@@ -73,9 +72,9 @@ class RecommendedPlanController extends Controller
 
         return redirect()->route('recommended_plans');
     }
-    
-    public function destroy(Plan $recommended_plan, $id){
-        $recommended_plan->destroy($id);
+    //修正中
+    public function destroy(Plan $recommended_plan){
+        $recommended_plan->delete();
         return redirect()->back();
     }
         
@@ -186,6 +185,43 @@ class RecommendedPlanController extends Controller
             'place_id' => $place_id
         ]);
     }
+    //Use this to search the place in place create page
+    public function filter(Request $request)
+    {
+        $all_places_options = Place::all();
+        $all_places = Place::query();
+        $all_areas = Area::all();
+        $all_prefectures = Prefecture::all();
+        $all_cities = City::all();
+        
+        if($request->input('place_category') != '---')
+            $all_places->where('place_category', $request->input('place_category'));
+        
+        if($request->input('name_en') != '---')
+            $all_places->where('name_en', $request->input('name_en'));
+
+        if($request->input('area') != '---')
+            $all_places->where('area_id', $request->input('area'));
+
+        if($request->input('prefecture') != '---')
+            $all_places->where('prefecture_id', $request->input('prefecture'));
+        
+        if($request->input('city') != '---')
+            $all_places->where('city_id', $request->input('city'));
+        
+        return view('admin.plans.place.place_edit' ,[
+                'all_places_options' => $all_places_options,
+                'all_places'=> $all_places->paginate(10),
+                'all_areas' => $all_areas,
+                'all_prefectures' => $all_prefectures,
+                'all_cities' => $all_cities,
+                's_area'=> $s_area ?? [],
+                's_prefectures'=> $s_prefecture ?? [],
+                's_city'=> $s_city ?? [],
+                'plan_detail_id' => $request->plan_detail_id
+        ]);            
+    }
+
 
     # -----For display Place list page (for edit page)-----
     public function updatePlace($plan_detail_id){

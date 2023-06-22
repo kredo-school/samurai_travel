@@ -8,7 +8,7 @@
     <form action="{{ route('planDetail.edit', $plan_details )}}" method="post">
     @endforeach --}}
         {{-- @csrf --}}
-    <form action="{{ route('search')}}" method="get">
+    <form action="{{ route('filter', $plan_detail_id)}}" method="get">
         
     <div class="row gx-2 mb-4">
         <div class="col-3"><h3>Place Search</h3></div>

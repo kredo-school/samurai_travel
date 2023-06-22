@@ -95,12 +95,14 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
         Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
         Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
-        // ADMIN-RECOMMENDED PLAN
+        
+        #ADMIN-RECOMMENDED PLAN
         Route::get('/recommended/plans',[RecommendedPlanController::class, 'index'])->name('recommended_plans');
         Route::post('/recommended/plans/store', [RecommendedPlanController::class, 'store'])->name('recommended_plans.store');
-        Route::patch('/recommended/plans/{recommended_plans}/update', [RecommendedPlanController::class, 'update'])->name('recommended_plans.update');
-        Route::delete('/recommended/plans/{recommended_plans}/destroy', [RecommendedPlanController::class, 'destroy'])->name('recommended_plans.destroy');
-        //ADMIN-RECOMMENDED PLAN DETAILS
+        Route::patch('/recommended/plans/{recommended_plan}/update', [RecommendedPlanController::class, 'update'])->name('recommended_plans.update');
+        Route::delete('/recommended/plans/{recommended_plan}/destroy', [RecommendedPlanController::class, 'destroy'])->name('recommended_plans.destroy');
+        
+        #ADMIN-RECOMMENDED PLAN DETAILS
         Route::get('/recommended/plan/details/{plan}',[RecommendedPlanController::class, 'showDetail'])->name('show.plan_details');
         Route::get('recommended/plan/detail/create/{planID?}',[RecommendedPlanController::class, 'createDetail'])->name('planDetail.create');
         Route::get('/recommended/plan/detail/place/create',[RecommendedPlanController::class, 'createPlace'])->name('create.place');
@@ -108,14 +110,17 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('recommended/plan/detail/store/',[RecommendedPlanController::class, 'storeDetail'])->name('planDetail.store');
         Route::get('/recommended/plan/detail/edit',[RecommendedPlanController::class, 'editDetail'])->name('planDetail.edit');
         Route::get('/recommended/plan/detail/edit/{plan_details?}/{place_id?}',[RecommendedPlanController::class, 'editDetail'])->name('planDetail.edit');
+        Route::get('/recommended/plan/detail/place/filter/{plan_detail_id?}', [RecommendedPlanController::class, 'filter'])->name('filter');
         Route::get('/recommended/plan/detail/place/update/{plan_detail_id}',[RecommendedPlanController::class, 'updatePlace'])->name('update.place');
         Route::patch('/recommended/plan/detail/{plan_details}/update',[RecommendedPlanController::class, 'updateDetail'])->name('planDetail.update');
         Route::delete('/recommended/plan/detail/{plan_details}/destroy',[RecommendedPlanController::class, 'destroyDetail'])->name('planDetail.destroy');
-        //ADMIN RECOMMENDED PLAN KEYWORDS LIST
+        
+        #ADMIN RECOMMENDED PLAN KEYWORDS LIST
         Route::get('/recommended/plan/keywords/{plan}',[RecommendedPlanController::class, 'showKeyword'])->name('show.plan_keywords');
         Route::post('/recommended/plan/keywords/store/', [RecommendedPlanController::class, 'storeKeyword'])->name('plan_keyword.store');
         Route::patch('/recommended/plan/keywords/{keyword}/update', [RecommendedPlanController::class, 'updateKeyword'])->name('plan_keyword.update');
-        Route::delete('/recommended/plan/keywords/{keyword}/destroy', [RecommendedPlanController::class, 'destroyKeyword'])->name('plan_keyword.destroy'); 
+        Route::delete('/recommended/plan/keywords/{keyword}/destroy', [RecommendedPlanController::class, 'destroyKeyword'])->name('plan_keyword.destroy');
+        
         #QUESTION
         Route::get('/questions',[QuestionController::class, 'index'])->name('question');
         Route::get('/questions/create',[QuestionController::class, 'create'])->name('question.create');
@@ -143,7 +148,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
-    Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');    
+    Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy'); 
+    
     });
 
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy');
