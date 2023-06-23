@@ -6,14 +6,20 @@
 		<div class="d-flex justify-content-start"><hr style="width: 80px;"></div>
 	</div>	
 	<div class="row justify-content-center">
-		@foreach ($recommend_places as $recommend_place)
+		@if (empty($recommend_places))
+			<div class="mb-5">
+				<h3 class="text-muted text-center">No Recommend Places</h3>
+			</div>
+		@else
+			@foreach ($recommend_places as $recommend_place)
 			<div class="col-3 mb-4">
-				<a href="#" class="text-decoration-none text-dark">
+				<a href="{{ route('placedetails',  $recommend_place->id ) }}" class="text-decoration-none text-dark">
 					<img src="{{asset('/storage/sample/' . $recommend_place->image)}}" alt="{{$recommend_place->name_en}}" class="grid-img img-fluid" style="object-fit: cover;">
 					<p>{{$recommend_place->name_en}}</p>
 				</a>
 			</div>
-		@endforeach
+			@endforeach
+		@endif
 	</div>
 </div>
 
