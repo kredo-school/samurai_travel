@@ -43,8 +43,12 @@ class Place extends Model
     }
     
     public function plans(){
-        return $this->hasOne(PlanDetail::class);
+        return $this->belongsToMany(Plan::class, 'plan_details', 'plan_id', 'place_id');
     }
+
+    // public function plans(){
+    //     return $this->hasOne(PlanDetail::class);
+    // }
 
     public function area()
     {
@@ -59,11 +63,6 @@ class Place extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
-    }
-
-    public function place_images()
-    {
-        return $this->hasMany(PlaceImage::class);
     }
 
     public function placeImages()
@@ -97,7 +96,6 @@ class Place extends Model
     public function getPlaces()
     {
         $places = Place::pluck('name_en', 'id');
-
         return $places;
     }
 }

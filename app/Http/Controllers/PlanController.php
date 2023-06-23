@@ -23,6 +23,7 @@ class PlanController extends Controller
 {
     // define private properties
     const LOCAL_STORAGE_FOLDER =  'public/images/';
+    protected $fillable = ['title', 'user_id', 'user_type'];
     private $plan;
     private $place;
     private $keyword;
