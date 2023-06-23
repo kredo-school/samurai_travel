@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use function PHPUnit\Framework\isNull;
+use Carbon\Carbon;
 
 class Plan extends Model
 {
     use HasFactory;
     protected $fillable = ['interested.places'];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d'
+    ];
 
     # Use this to get the owner of the plan 
     public function user(){
@@ -20,7 +24,7 @@ class Plan extends Model
 
     # Use this to get the place info in each plan
     public function place(){
-        return $this->hasMany(Place::class);
+        return $this->belongsToMany(Place::class, 'plan_details','plan_id','place_id');
     }
 
     public function placeFavorite(){
@@ -35,7 +39,7 @@ class Plan extends Model
         return $this->favorites()->where('user_id', auth()->user()->id)->exists();
     }
 
-    public function planDetails(){
+    public function details(){
         return $this->hasMany(PlanDetail::class);
     }
 
@@ -57,4 +61,14 @@ class Plan extends Model
 
         return $this;
     }
+
+    public function keywords(){
+        return $this->belongsToMany(Keyword::class, 'plan_keywords', 'plan_id', 'keyword_id');
+    }
+
+    # 月・日・年・時間表示を行う場合はこのフォーマットを使う
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('F d, Y h:i A');
+    // }
 }
