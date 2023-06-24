@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Exception;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
@@ -37,7 +38,7 @@ class SocialLoginController extends Controller
                 $new_user = User::create([
                     "{$social_name}_id" => $social_user->id,
                     'email' => "{$social_name}_$social_user->id",
-                    'password' => encrypt($str_password),
+                    'password' => Hash::make($str_password),
                     'first_name' => "First Name",
                     'last_name' => "Last Name",
                 ]);
