@@ -4,8 +4,8 @@
 
 @section('content')
 <div style="background-image: url('/images/leaf-black-image.png');">
-    <div class="container" style="padding: 160px 0">
-        <div class="back-frame text-center d-flex align-items-center justify-content-center">
+    <div class="container" style="padding: 120px 0">
+        <div class="back-frame text-center d-flex align-items-center justify-content-center" style="width: 960px; height: 640px;">
             <div>
                 {{-- facebook login --}}
                 <p>
