@@ -182,6 +182,10 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('scripts')
 <script>
     $(document).ready(function(){
         var selectPrefectures = $("select#prefecture_id");

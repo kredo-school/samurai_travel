@@ -74,4 +74,21 @@ class User extends Authenticatable
     public function recommendPlan(){
         return $this->hasMany(Plan::class);
     }
+
+    # Use in my page
+    public function myPagePlaceFavorites()
+    {
+        return $this->hasMany(PlaceFavorite::class)->oldest();
+    }
+
+    public function myPagePlanFavorites()
+    {
+        return $this->hasMany(PlanFavorite::class)->oldest();
+    }
+
+    public function myPageInterests()
+    {
+        return $this->hasMany(Interest::class)->oldest();
+    }
+
 }

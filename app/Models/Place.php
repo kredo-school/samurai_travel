@@ -43,8 +43,12 @@ class Place extends Model
     }
     
     public function plans(){
-        return $this->hasOne(PlanDetail::class);
+        return $this->belongsToMany(Plan::class, 'plan_details', 'plan_id', 'place_id');
     }
+
+    // public function plans(){
+    //     return $this->hasOne(PlanDetail::class);
+    // }
 
     public function area()
     {
@@ -53,15 +57,15 @@ class Place extends Model
 
     public function prefecture()
     {
-        return $this->belongsTo(Prefecture::class, 'place_id');
+        return $this->belongsTo(Prefecture::class);
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class, 'place_id');
+        return $this->belongsTo(City::class);
     }
 
-    public function place_images()
+    public function placeImages()
     {
         return $this->hasMany(PlaceImage::class);
     }
@@ -88,4 +92,10 @@ class Place extends Model
         return $this->hasMany(PlaceAffiliateSite::class);
     }
 
+    //To show all places on the search blade
+    public function getPlaces()
+    {
+        $places = Place::pluck('name_en', 'id');
+        return $places;
+    }
 }
