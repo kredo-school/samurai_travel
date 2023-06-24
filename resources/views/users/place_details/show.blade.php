@@ -156,10 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
             let newCount = currentCount + 1;
             favCount.text(newCount);
 
-            console.log('a'+ currentCount);
         } else {
             targetElem.append('<i class="fa-regular fa-heart text-white">');
-                console.log('b');
         }
     } else {
         targetElem.append('<i class="fa-regular fa-heart text-white">');
@@ -176,7 +174,7 @@ $('.not-logged-in').on('click', function () {
         $(this).removeClass('favorite');
 
         let favPlaceList = JSON.parse(localStorage.getItem('favPlaceList'));
-        delete favPlaceList[`pId_${placeId}`]
+        delete favPlaceList[`pId_${placeId}`];
         localStorage.setItem('favPlaceList', JSON.stringify(favPlaceList));
 
         let favCount = $('#fav-count');
@@ -187,8 +185,9 @@ $('.not-logged-in').on('click', function () {
     } else {
         $(this).empty().append('<i class="fa-solid fa-heart text-danger"></i>');
         $(this).addClass('favorite');
-        let data = {[`pId_${placeId}`]: placeId};
-        localStorage.setItem('favPlaceList', JSON.stringify(data));
+        let favPlaceList = JSON.parse(localStorage.getItem('favPlaceList'));
+        favPlaceList[`pId_${placeId}`] = placeId;
+        localStorage.setItem('favPlaceList', JSON.stringify(favPlaceList));
 
         let favCount = $('#fav-count');
         let currentCount = parseInt(favCount.text());
