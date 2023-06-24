@@ -41,6 +41,10 @@ class Plan extends Model
         return $this->hasMany(PlanDetail::class);
     }
 
+    public function planDetails(){
+        return $this->hasMany(PlanDetail::class);
+    }
+
     public function planRecommends(){
         return $this->hasOne(User::class);
     } 
@@ -58,4 +62,8 @@ class Plan extends Model
     // {
     //     return Carbon::parse($value)->format('F d, Y h:i A');
     // }
+
+    public function planDetailsSorted(){
+        return $this->hasMany(PlanDetail::class)->oldest('day')->oldest('sort_no');
+    }
 }
