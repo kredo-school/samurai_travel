@@ -47,6 +47,9 @@ Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogle
 Route::get('/auth/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('auth.facebook');
 Route::get('/auth/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
 
+# Place Detail Pages
+Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
+
 Route::group(['middleware' => 'auth'], function(){
 
     # For Admin
@@ -144,8 +147,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
-    # Place Detail Pages
-    Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
+
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy'); 
@@ -159,4 +161,3 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/my_page/plan_favorites/{id}/destroy', [MyPageController::class, 'destroyPlanFavorite'])->name('my_page.plan_favorites.destroy');
     Route::patch('/my_page/update_profile', [MyPageController::class, 'updateProfile'])->name('my_page.update_profile');
 });
-

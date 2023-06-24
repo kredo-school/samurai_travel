@@ -35,26 +35,28 @@
                                 </div>
                                 {{-- Heart Button --}}
                                 <div class="me-2">
-                                    @if ($place->isFavorite())
-                                    {{-- red heart --}}
-                                    <form action="{{route('place_favorite.destroy', $place->id)}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                    
-                                        <button type="submit" class="btn btn-sm shadow-none p-0"><i class="fa-solid fa-heart text-danger"></i></button>
-                                    </form>
-                                    
+                                    @auth
+                                        @if ($place->isFavorite())
+                                            {{-- red heart --}}
+                                            <form action="{{route('place_favorite.destroy', $place->id)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm shadow-none p-0"><i class="fa-solid fa-heart text-danger"></i></button>
+                                            </form>
+                                        @else
+                                            {{-- white heart --}}
+                                            <form action="{{route('place_favorite.store', $place->id)}}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm shadow-none p-0"><i class="fa-regular fa-heart text-white"></i></button>
+                                            </form>
+                                        @endif
                                     @else
-                                        {{-- white heart --}}
-                                        <form action="{{route('place_favorite.store', $place->id)}}" method="post">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm shadow-none p-0"><i class="fa-regular fa-heart text-white"></i></button>
-                                        </form>
-                                    @endif
-                    
+                                        <button type="button" class="btn btn-sm shadow-none p-0 not-logged-in" data-place-id="{{ $place->id }}"></button>
+                                    @endauth
                                 </div>
-                                {{-- Favorite Model --}}
-                                {{ $place->placeFavorite->count() }}
+                                <div id=fav-count>
+                                    {{ $place->placeFavorite->count() }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,4 +137,64 @@
             @include('users.place_details.recommend')
         </div>       
     </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let placeId = $('.not-logged-in').data('place-id');
+    let favPlaceList = JSON.parse(localStorage.getItem('favPlaceList'));
+
+    targetElem = $('.not-logged-in');
+    if (favPlaceList !== null) {
+        let isFavorite = Object.values(favPlaceList).includes(placeId);
+
+        console.log(isFavorite);
+        if (isFavorite) {
+            targetElem.append('<i class="fa-solid fa-heart text-danger"></i>');
+            targetElem.addClass('favorite');
+
+            let favCount = $('#fav-count');
+            let currentCount = parseInt(favCount.text());
+            let newCount = currentCount + 1;
+            favCount.text(newCount);
+
+            console.log('a'+ currentCount);
+        } else {
+            targetElem.append('<i class="fa-regular fa-heart text-white">');
+                console.log('b');
+        }
+    } else {
+        targetElem.append('<i class="fa-regular fa-heart text-white">');
+    }
+
+});
+
+$('.not-logged-in').on('click', function () {
+    let isFavorite = $(this).hasClass('favorite');
+    let placeId = $(this).data('place-id');
+
+    if (isFavorite) {
+        $(this).empty().append('<i class="fa-regular fa-heart text-white">');
+        $(this).removeClass('favorite');
+
+        let favPlaceList = JSON.parse(localStorage.getItem('favPlaceList'));
+        delete favPlaceList[`pId_${placeId}`]
+        localStorage.setItem('favPlaceList', JSON.stringify(favPlaceList));
+
+        let favCount = $('#fav-count');
+        let currentCount = parseInt(favCount.text());
+        let newCount = currentCount - 1;
+        favCount.text(newCount);
+
+    } else {
+        $(this).empty().append('<i class="fa-solid fa-heart text-danger"></i>');
+        $(this).addClass('favorite');
+        let data = {[`pId_${placeId}`]: placeId};
+        localStorage.setItem('favPlaceList', JSON.stringify(data));
+
+        let favCount = $('#fav-count');
+        let currentCount = parseInt(favCount.text());
+        let newCount = currentCount + 1;
+        favCount.text(newCount);
+    }
+});
+</script>
 @endsection
