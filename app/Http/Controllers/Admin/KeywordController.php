@@ -12,13 +12,6 @@ class KeywordController extends Controller
     private $keyword;
     private $genre;
 
-    public function __construct(Genre $genre, Keyword $keyword)
-    {
-        $this->genre = $genre;
-        $this->keyword = $keyword;
-    }
-
-
     public function index()
     {
         $all_keywords = Keyword::paginate(10);

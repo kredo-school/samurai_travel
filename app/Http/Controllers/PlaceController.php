@@ -106,7 +106,6 @@ class PlaceController extends Controller
         $affiliates = $this->getAffiliate($id);
         
         return view('users.place_details.show')
-        ->with('place', $place)
         ->with('sub_imgs', $sub_imgs)
         ->with('recommend_places', $recommend_places)
         ->with('affiliates', $affiliates);
