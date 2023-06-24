@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use function PHPUnit\Framework\isNull;
 use Carbon\Carbon;
 
 class Plan extends Model
@@ -51,6 +53,17 @@ class Plan extends Model
 
     public function planRecommended(){
         return $this->recommends()->where('role_id' == 2);
+    }
+
+    public function storePlan(String $title = null){
+        $this->user_id = Auth::user()->id;
+        $this->user_type = 'user';
+        if (is_null($title)) {
+            $this->title = 'Suggest Plan';
+        }
+        $this->save();
+
+        return $this;
     }
 
     public function keywords(){

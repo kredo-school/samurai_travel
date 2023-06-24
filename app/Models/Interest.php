@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use App\Console\Kernel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Keyword;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use App\Console\Kernel;
 
 class Interest extends Model
 {
@@ -15,8 +18,27 @@ class Interest extends Model
         'keyword_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function keyword()
     {
         return $this->belongsTo(Keyword::class);
+    }
+
+    public function selectRandomInterest()
+    {
+        $interests = Interest::where('user_id', Auth::user()->id)->get();
+
+        if ($interests->isEmpty()) {
+            $interest = null;
+        } elseif ($interests->count() > 1) {
+            $interest = $interests->random();
+        } else {
+            $interest = $interests->first();
+        }
+        return $interest;
     }
 }
