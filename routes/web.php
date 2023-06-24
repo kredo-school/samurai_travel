@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PlaceController as AdminPlaceController;
 use App\Http\Controllers\Admin\PlaceImageController;
 use App\Http\Controllers\Admin\PlaceKeywordController;
 use App\Http\Controllers\Admin\TopController as AdminTopController;
+use App\Http\Controllers\SuggestPlansController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\AnswerController;
 use App\Http\Controllers\TopController;
@@ -149,6 +150,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 
+    // for displaying ADMIN/ GENRE MANAGEMENT
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
+    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
+
+    # Place Detail Pages
+    Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
+
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy'); 
@@ -161,4 +171,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/my_page/place_favorites/{place_id}/destroy', [MyPageController::class, 'destroyPlaceFavorite'])->name('my_page.place_favorites.destroy');
     Route::delete('/my_page/plan_favorites/{id}/destroy', [MyPageController::class, 'destroyPlanFavorite'])->name('my_page.plan_favorites.destroy');
     Route::patch('/my_page/update_profile', [MyPageController::class, 'updateProfile'])->name('my_page.update_profile');
+
+    // Suggest Plans
+    Route::get('/suggest-plans/questions', [SuggestPlansController::class, 'index'])->name('suggest-plans.questions');
+    Route::get('/suggest-plans/plan_detail/{user_id}', [SuggestPlansController::class, 'createPlan'])->name('suggest-plans.show');
+    Route::get('/suggest-plans/edit/plan_detail/{user_id}', [SuggestPlansController::class, 'editPlan'])->name('suggest-plans.edit');
+    Route::post('/suggest-plans/edit/ajax/reload-other-places', [SuggestPlansController::class, 'searchPlaces']);
+    Route::post('/suggest-plans/store/plan_detail/{user_id}', [SuggestPlansController::class, 'storePlan'])->name('suggest-plans.store');
 });

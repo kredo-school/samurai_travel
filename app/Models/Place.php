@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Place extends Model
@@ -33,12 +34,14 @@ class Place extends Model
 
 
     #Use this to get all the keywords under the place
-    public function keywords(){
+    public function keywords()
+    {
         return $this->belongsToMany(Keyword::class, 'place_keywords', 'place_id', 'keyword_id');
     }
 
     # To get the likes of the place
-    public function favorite(){
+    public function favorite()
+    {
         return $this->hasMany(PlaceFavorite::class);
     }
     
@@ -97,5 +100,46 @@ class Place extends Model
     {
         $places = Place::pluck('name_en', 'id');
         return $places;
+    }
+
+    public function selectTargetPrefectureByKeywords(Array $keyword_list = null)
+    {
+        if (empty($keyword_list)) {
+            $prefecture = new Prefecture();
+            $target_prefecture = $prefecture->inRandomOrder()->first();
+
+            $target_prefecture_id = $target_prefecture->id;
+        } else {
+            $suggested_place_ids = PlaceKeyword::whereIn('keyword_id', $keyword_list)->get();
+
+            $place_ids = $suggested_place_ids->pluck('place_id');
+            $target_prefecture = Place::whereIn('id', $place_ids)
+                                ->groupBy('prefecture_id')
+                                ->select('prefecture_id', DB::raw('COUNT(*) as count'))
+                                ->orderByDesc('count')
+                                ->first();
+
+            $target_prefecture_id = $target_prefecture->prefecture_id;
+        }
+
+        return $target_prefecture_id;
+    }
+
+    public function selectByPrefecture(int $prefecture_id)
+    {
+        $categories = ['spot', 'activity', 'restaurant', 'hotel'];
+        $place_list = collect([]);
+
+        foreach ($categories as $category) {
+            $place_list = $place_list->concat(
+                Place::where('prefecture_id', $prefecture_id)
+                    ->where('place_category', $category)
+                    ->inRandomOrder()
+                    ->limit(9)
+                    ->get()
+            );
+        }
+
+        return $place_list;
     }
 }
