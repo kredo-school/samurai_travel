@@ -36,7 +36,7 @@ $(document).on('click', '[id^="add_button_"]', function() {
 
 $(document).on('click', '[id="add_place_button"]', function() {
 
-    const id = sessionStorage.getItem('add_target_place_id');
+    const id: string | null = sessionStorage.getItem('add_target_place_id');
     let key: string = '';
     if (id !== null) {
         key = id.split('_')[1];
@@ -48,7 +48,7 @@ $(document).on('click', '[id="add_place_button"]', function() {
         arrivalTime = cardElement.attr('data-arrival-time');
     }
 
-    const selectedPlaceElements = document.getElementsByClassName('selected-place');
+    const selectedPlaceElements: HTMLCollectionOf<Element> = document.getElementsByClassName('selected-place');
 
     let placeId: string | null = null;
     let placeNameEn: string | null = null;
@@ -94,11 +94,11 @@ $(document).on('click', '[id="add_place_button"]', function() {
 });
 
 /* Click Add Place */
-const placeList = document.querySelectorAll(".add-place") as NodeListOf<HTMLElement>;
+const placeList: NodeListOf<HTMLElement> = document.querySelectorAll(".add-place") as NodeListOf<HTMLElement>;
 let selectedElement: HTMLElement | null = null;
 
 function clickAddPlace(placeList: HTMLElement) {
-    const addPlaceButton = document.getElementById("add_place_button") as HTMLButtonElement;
+    const addPlaceButton: HTMLButtonElement = document.getElementById("add_place_button") as HTMLButtonElement;
     addPlaceButton.disabled = false;
 
     if (selectedElement) {
@@ -119,21 +119,22 @@ placeList.forEach((placeList) => {
     });
 });
 
-$(document).on('click', '[id="reload-places"]', function() {
-    
+$(document).on('click', '[id="reload-places"]', async function() {
     const csrfToken = (window as any).csrfToken;
-    fetch('/suggest-plans/edit/ajax/reload-other-places', {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json',
-            'X-CSRF-Token': csrfToken,
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
+
+    try {
+        const response = await fetch('/suggest-plans/edit/ajax/reload-other-places', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'X-CSRF-Token': csrfToken,
+            },
+        });
+        const data = await response.json();
+
         let otherPlaceHtml: string = '';
         let addPlaceHtml: string = '';
-        data['data'].forEach(((place: { [key: string]: string }, index: number) => {
+        data['data'].forEach((place: { [key: string]: string }, index: number) => {
             if (index === 0 || (index + 1) % 4 === 0) {
                 otherPlaceHtml += '<div class="row mb-3">'
                 addPlaceHtml +=  '<div class="row mb-3">'
@@ -174,26 +175,37 @@ $(document).on('click', '[id="reload-places"]', function() {
         function clickAddPlace(placeList: HTMLElement) {
             const addPlaceButton = document.getElementById("add_place_button") as HTMLButtonElement;
             addPlaceButton.disabled = false;
-        
+
             if (selectedElement) {
                 selectedElement.style.border = "";
                 selectedElement.style.backgroundColor = "";
                 selectedElement.classList.remove("selected-place");
             }
-        
+
             placeList.style.border = "2px solid #C0C0C0";
             placeList.style.backgroundColor = "#F3F3F3";
             placeList.classList.add("selected-place");
             selectedElement = placeList;
         }
-        
+
         placeList.forEach((placeList) => {
             placeList.addEventListener("click", () => {
                 clickAddPlace(placeList);
             });
         });
-    })
-    .catch(error => {
-        console.error('Error', error);
-    });
+
+    } catch (error) {
+        let otherPlaceHtml: string = '';
+        console.log(error);
+        otherPlaceHtml += `
+        <div class="row mt-5">
+            <div class="col text-center">
+                <p class="text-danger">Error, something went wrong.</p>
+                <p class="text-danger">Please reload the screen.</p>
+            </div>
+        </div>`;
+
+        const otherPlaceElement: JQuery<HTMLElement> = $('#other_place_list');
+        otherPlaceElement.empty().append(otherPlaceHtml);
+    }
 });

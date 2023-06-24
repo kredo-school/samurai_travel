@@ -209,4 +209,20 @@ class SuggestPlansController extends Controller
         $result_time = sprintf('%02d:%02d', $hours, $minutes);
         return $result_time;
     }
+
+    public function searchPlaces()
+    {
+        $target_prefecture_id = session('target_prefecture_id');
+        $place = new Place();
+        $place_list = $place->selectByPrefecture($target_prefecture_id);
+        $asset_path = asset('storage/sample/');
+
+        $response = [
+            'data' => $place_list,
+            'asset_path' => $asset_path,
+            'message' => 'Success',
+        ];
+
+        return response()->json($response);
+    }
 }
