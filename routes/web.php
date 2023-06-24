@@ -42,6 +42,7 @@ Route::get('/search/place', [SearchController::class, 'search'])->name('search.p
 
 # Social Login
 Route::get('/social_login', [SocialLoginController::class, 'social_login'])->name('social_login');
+Route::post('/social_login/save-in-session/ajax', [SocialLoginController::class, 'saveInSession']); 
 Route::get('/auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
 Route::get('/auth/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('auth.facebook');

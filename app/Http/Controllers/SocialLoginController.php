@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\PlaceFavorite;
 
 class SocialLoginController extends Controller
 {
@@ -47,6 +48,11 @@ class SocialLoginController extends Controller
 
             }
 
+            // Save favorite place when not logged in
+            $fav_place_list = session('favPlaceList');
+            $place_favorite = new PlaceFavorite();
+            $place_favorite->storeFavoritePlaces($fav_place_list);
+
             return redirect()->route('top');
 
         } catch (Exception $e) {
@@ -84,5 +90,16 @@ class SocialLoginController extends Controller
         return $this->handleCallback('facebook');
     }
 
+    public function saveInSession(Request $request) {
+        $data = $request->all();
 
+        session(['favPlaceList' => $data]);
+        $response = [
+            'message' => 'Success',
+            'data' => $data,
+            'session_data' => session('favPlaceList'),
+        ];
+
+        return response()->json($response);
+    }
 }

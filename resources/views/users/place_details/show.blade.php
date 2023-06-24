@@ -168,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
 $('.not-logged-in').on('click', function () {
     let isFavorite = $(this).hasClass('favorite');
     let placeId = $(this).data('place-id');
-
     if (isFavorite) {
         $(this).empty().append('<i class="fa-regular fa-heart text-white">');
         $(this).removeClass('favorite');
@@ -185,7 +184,8 @@ $('.not-logged-in').on('click', function () {
     } else {
         $(this).empty().append('<i class="fa-solid fa-heart text-danger"></i>');
         $(this).addClass('favorite');
-        let favPlaceList = JSON.parse(localStorage.getItem('favPlaceList'));
+
+        let favPlaceList = JSON.parse(localStorage.getItem('favPlaceList')) || {};
         favPlaceList[`pId_${placeId}`] = placeId;
         localStorage.setItem('favPlaceList', JSON.stringify(favPlaceList));
 
