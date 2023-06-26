@@ -111,5 +111,28 @@ class MyPageSeeder extends Seeder
                 'plan_id' => $plan->id,
             ]);
         }
+
+        // Add 10 My Plans and Plan Details
+        for ($i = 1; $i <= 10; $i++)
+        {
+            $plan = Plan::create([
+                'user_id' => $user->id,
+                'user_type' => 'user',
+                'title'  => "My Page My Own Plan {$i}",
+            ]);
+
+            for ($j = 1; $j <= 3; $j++)
+            {
+                for ($k = 1; $k <= 5; $k++)
+                {
+                    PlanDetail::create([
+                        'plan_id' => $plan->id,
+                        'day' => $j,
+                        'place_id' => Place::get()->random()->id,
+                        'sort_no' => $k,
+                    ]);
+                }
+            }
+        }
     }
 }
