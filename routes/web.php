@@ -37,9 +37,13 @@ use App\Http\Controllers\SearchController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
+
 //Search
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::get('/search/place', [SearchController::class, 'search'])->name('search.place');
+
+# Place Detail Pages
+Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
 
 # Social Login
 Route::get('/social_login', [SocialLoginController::class, 'social_login'])->name('social_login');
@@ -48,9 +52,6 @@ Route::get('/auth/google', [SocialLoginController::class, 'redirectToGoogle'])->
 Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
 Route::get('/auth/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('auth.facebook');
 Route::get('/auth/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
-
-# Place Detail Pages
-Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -155,9 +156,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
     Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
     Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
-
-    # Place Detail Pages
-    Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
 
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
