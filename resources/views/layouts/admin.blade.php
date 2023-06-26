@@ -61,7 +61,7 @@
                             </li>
 
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="{{ route('recommended_plans')}}">Recommended Plans</a>
+                                <a class="nav-link" href="{{ route('admin.recommended_plans')}}">Recommended Plans</a>
                             </li>
 
                             <li class="nav-item mx-3">
