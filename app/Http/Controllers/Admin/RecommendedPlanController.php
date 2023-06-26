@@ -57,7 +57,7 @@ class RecommendedPlanController extends Controller
             $recommended_plan->user_type = 'admin';
             $recommended_plan->save();
 
-            return redirect()->route('recommended_plans');
+            return redirect()->route('admin.recommended_plans');
     }
 
     public function update(Plan $recommended_plan, Request $request){
@@ -70,7 +70,7 @@ class RecommendedPlanController extends Controller
         $recommended_plan->title = ucwords(strtolower($request->new_title));
         $recommended_plan->save();
 
-        return redirect()->route('recommended_plans');
+        return redirect()->route('admin.recommended_plans');
     }
     //修正中
     public function destroy(Plan $recommended_plan){
@@ -170,7 +170,7 @@ class RecommendedPlanController extends Controller
         $plan_detail->sort_no = $request->sort_no;
         $plan_detail->save();
         
-        return redirect()->route('show.plan_details', ['plan' => $request->plan_id]);
+        return redirect()->route('admin.show.plan_details', ['plan' => $request->plan_id]);
     }
         
     // Use this to display the edit page       
@@ -257,7 +257,7 @@ class RecommendedPlanController extends Controller
         $plan_detail->sort_no = $request->sort_no;
         $plan_detail->save();
 
-        return redirect()->route('show.plan_details', ['plan' => $request->plan_id]);
+        return redirect()->route('admin.show.plan_details', ['plan' => $request->plan_id]);
     }
     
     public function destroyDetail(PlanDetail $plan_detail, $id){
