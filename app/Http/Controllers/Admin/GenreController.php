@@ -26,7 +26,7 @@ class GenreController extends Controller
         ]);
 
         Genre::create([
-            'name' => $request->name
+            'name' => ucwords(strtolower($request->name))
         ]);
         
             return redirect()->back();

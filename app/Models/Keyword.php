@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Genre;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PhpParser\Node\Stmt\Foreach_;
 
 class Keyword extends Model
 {
@@ -18,7 +19,8 @@ class Keyword extends Model
         'genre_id'
     ];
 
-    public function genre(){
+    public function genre()
+    {
         return $this->belongsTo(Genre::class);
         // ->withTrashed();
     }
@@ -43,4 +45,33 @@ class Keyword extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function placeKeyword()
+    {
+        return $this->hasMany(PlaceKeyword::class);
+    }
+
+    public function selectKeywordBySessionAnswers()
+    {
+        $session_answers = session('answers');
+        if (!empty($session_answers)) {
+            $answer_ids = array_column($session_answers, 'answer_id');
+            $answer = new Answer();
+            $answers = $answer->selectAnswers($answer_ids);
+
+            $genre_ids = $answers->whereNotNull('genre_id')->pluck('genre_id')->toArray();
+
+            $keywords = Keyword::whereIn('genre_id', $genre_ids)->get();
+
+            $keyword_ids = [];
+            array_push($keyword_ids, $keywords->pluck('id')->toArray());
+            array_push($keyword_ids, $answers->whereNotNull('keyword_id')->pluck('keyword_id')->toArray());
+            
+            $all_keyword_ids = array_merge(...$keyword_ids);
+            
+        } else {
+            $all_keyword_ids = null;
+        }
+
+        return $all_keyword_ids;
+    }
 }
