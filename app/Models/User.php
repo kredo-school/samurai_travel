@@ -91,4 +91,9 @@ class User extends Authenticatable
         return $this->hasMany(Interest::class)->oldest();
     }
 
+    public function myPageMyPlans()
+    {
+        return $this->hasMany(Plan::class)->where('user_type', 'user')->oldest();
+    }
+
 }

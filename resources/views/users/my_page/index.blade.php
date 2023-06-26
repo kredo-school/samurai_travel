@@ -10,27 +10,23 @@
 @endphp
 
 <style type="text/css">
-    .place-img-div {
+    .place-img-div,.plan-div,.my-plan-div {
         position: relative;
     }
 
-    .place-img-div .see-place {
+    .see-place {
         position: absolute;
         top: 24px;
         left: 24px;
     }
 
-    .place-img-div .del-place {
+    .del-place {
         position: absolute;
         top: 24px;
         right: 24px;
     }
 
-    .plan-div {
-        position: relative;
-    }
-
-    .plan-div .del-plan {
+    .del-plan,.del-my-plan {
         position: absolute;
         top: 16px;
         right: 56px;
@@ -99,7 +95,7 @@
         </div>
     </div>
 
-    <ul class="slider p-0">
+    <ul class="slider p-0" id="slider-plan-favorite">
         @foreach ($plan_favorites as $plan_favorite)
             <li>
                 @php $plan = $plan_favorite->plan; @endphp
@@ -112,6 +108,28 @@
     </ul>
     @if ($plan_favorites->count() === 0)
         <h3 class="text-black text-center">You have no favorite plans.</h3>
+    @endif
+
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <h3 class="text-black text-line-black m-5">My own plans</h3>
+        </div>
+    </div>
+
+    <ul class="slider p-0" id="slider-my-plan">
+        @foreach ($my_plans as $plan)
+            <li>
+                <div class="my-plan-div">
+                    @include('users.my_page.plan')
+                    <i id="my-plan-i-{{ $plan->id }}" class="fa-solid fa-circle-xmark ps-2 del-my-plan h4"></i>
+                </div>
+            </li>
+        @endforeach
+    </ul>
+    @if ($my_plans->count() === 0)
+        <h3 class="text-black text-center">You have no your own plans.</h3>
     @endif
 
 
@@ -166,29 +184,35 @@
             dataType: "json",
 
         }) .then((res) => {
-            // In case of success response
-            if (res.interest_id) {
-                // Create a new span element
-                const span = document.createElement('span');
-                span.id = `interest-${res.interest_id}`;
-                span.className = interest_span_class;
-                span.textContent = res.keyword_name;
+            if (res.result === 'OK') {
+                // In case of success response
+                if (res.interest_id) {
+                    // Create a new span element
+                    const span = document.createElement('span');
+                    span.id = `interest-${res.interest_id}`;
+                    span.className = interest_span_class;
+                    span.textContent = res.keyword_name;
 
-                // Create a new i element
-                const i = document.createElement('i');
-                i.id = `interest-i-${res.interest_id}`;
-                i.className = interest_i_class;
-                span.appendChild(i);
-                i.addEventListener('click', function(event) {
-                    removeInterest(res.interest_id);
-                });
+                    // Create a new i element
+                    const i = document.createElement('i');
+                    i.id = `interest-i-${res.interest_id}`;
+                    i.className = interest_i_class;
+                    span.appendChild(i);
+                    i.addEventListener('click', function(event) {
+                        removeInterest(res.interest_id);
+                    });
 
-                // Add the new span element to the DOM
-                const interest_grp = document.getElementById('interest-grp');
-                interest_grp.appendChild(span);            }
+                    // Add the new span element to the DOM
+                    const interest_grp = document.getElementById('interest-grp');
+                    interest_grp.appendChild(span);
+                }
+            } else {
+                // In case of failure response
+                console.log(res.result);
+            }
 
-                // Reset the select2 element
-                $('#keyword-select').val(null).trigger('change');
+            // Reset the select2 element
+            $('#keyword-select').val(null).trigger('change');
 
         }) .fail((error) => {
             console.log(error.statusText);
@@ -202,11 +226,16 @@
             url: `/my_page/interests/${id}/destroy`,
 
         }) .then((res) => {
-            // In case of success response
+            if (res.result === 'OK') {
+                // In case of success response
 
-            // Remove the span element from the DOM
-            const interest = document.getElementById(`interest-${id}`);
-            interest.remove();
+                // Remove the span element from the DOM
+                const interest = document.getElementById(`interest-${id}`);
+                interest.remove();
+            } else {
+                // In case of failure response
+                console.log(res.result);
+            }
 
         }) .fail((error) => {
             console.log(error.statusText);
@@ -220,11 +249,16 @@
             url: `/my_page/place_favorites/${place_id}/destroy`,
 
         }) .then((res) => {
-            // In case of success response
+            if (res.result === 'OK') {
+                // In case of success response
 
-            // Remove the div element from the DOM
-            const place_favorite = document.getElementById(`place-favorite-${place_id}`);
-            place_favorite.remove();
+                // Remove the div element from the DOM
+                const place_favorite = document.getElementById(`place-favorite-${place_id}`);
+                place_favorite.remove();
+            } else {
+                // In case of failure response
+                console.log(res.result);
+            }
 
         }) .fail((error) => {
             console.log(error.statusText);
@@ -238,20 +272,73 @@
             url: `/my_page/plan_favorites/${id}/destroy`,
 
         }) .then((res) => {
-            // In case of success response
+            if (res.result === 'OK') {
+                // In case of success response
 
-            // Get the index of the slide to be clicked
-            let slide_lis = document.getElementsByClassName( "slick-slide" );
-            slide_lis = [].slice.call(slide_lis);
+                // Remove the slide from the DOM
+                removeSlide('slider-plan-favorite', x_icon);
+            } else {
+                // In case of failure response
+                console.log(res.result);
+            }
 
-            const slide_li = x_icon.parentNode.parentNode;
-            const index = slide_lis.indexOf( slide_li ) ;
-
-            // Remove the li element from the DOM
-            $('.slider').slick('slickRemove', index, false);
         }) .fail((error) => {
             console.log(error.statusText);
         });
+    }
+
+    function removeMyPlan(id, x_icon){
+        $.ajax({
+            // Delete my plan
+            type: "DELETE",
+            url: `/my_page/my_plan/${id}/destroy`,
+
+        }) .then((res) => {
+            if (res.result === 'OK') {
+                // In case of success response
+
+                // Remove the slide from the DOM
+                removeSlide('slider-my-plan', x_icon);
+            } else {
+                // In case of failure response
+                console.log(res.result);
+            }
+
+        }) .fail((error) => {
+            console.log(error.statusText);
+        });
+    }
+
+    function removeSlide(slider_id, x_icon){
+        // Get the index of the slide to be clicked
+        let slide_lis = document.querySelectorAll(`#${slider_id} .slick-slide`);
+        slide_lis = [].slice.call(slide_lis);
+
+        const slide_li = x_icon.parentNode.parentNode;
+        const index = slide_lis.indexOf( slide_li ) ;
+
+        // Remove the slide element from the DOM
+        $(`#${slider_id}`).slick('slickRemove', index, false);
+    }
+
+    function setClickEventToXIcon(records, id_name, x_icon_id_str, remove_func, is_slide=false){
+        const x_icons = {};
+        records.forEach(
+            function (record) {
+                // Get the x icon element each record
+                x_icons[record[id_name]] = document.getElementById(`${x_icon_id_str}-${record[id_name]}`);
+
+                // Set the click event to the x icon element
+                x_icons[record[id_name]].addEventListener('click', function(event) {
+                    if (is_slide){
+                        // In case of slide
+                        remove_func(record[id_name], x_icons[record[id_name]]);
+                    } else {
+                        remove_func(record[id_name]);
+                    }
+                });
+            }
+        );
     }
 
 
@@ -261,6 +348,7 @@
     const interests = @json($interests);
     const place_favorites = @json($place_favorites);
     const plan_favorites = @json($plan_favorites);
+    const my_plans = @json($my_plans);
 
     // CSRF Token
     $.ajaxSetup({
@@ -295,38 +383,23 @@
     const add_keyword = document.getElementById('add-keyword');
     add_keyword.addEventListener('click', addInterest);
 
+    let remove_func;
+
     // Set event listener to each interest
-    const interst_x_icons = {};
-    interests.forEach(
-        function (interest) {
-            interst_x_icons[interest['id']] = document.getElementById(`interest-i-${interest['id']}`);
-            interst_x_icons[interest['id']].addEventListener('click', function(event) {
-                removeInterest(interest['id']);
-            });
-        }
-    );
+    remove_func = removeInterest;
+    setClickEventToXIcon(interests, 'id', 'interest-i', remove_func);
 
     // Set event listener to each place favorite
-    const place_favorite_x_icons = {};
-    place_favorites.forEach(
-        function (place_favorite) {
-            place_favorite_x_icons[place_favorite['place_id']] = document.getElementById(`place-favorite-i-${place_favorite['place_id']}`);
-            place_favorite_x_icons[place_favorite['place_id']].addEventListener('click', function(event) {
-                removePlaceFavorite(place_favorite['place_id']);
-            });
-        }
-    );
+    remove_func = removePlaceFavorite;
+    setClickEventToXIcon(place_favorites, 'place_id', 'place-favorite-i', remove_func);
 
     // Set event listener to each plan favorite
-    const plan_favorite_x_icons = {};
-    plan_favorites.forEach(
-        function (plan_favorite) {
-            plan_favorite_x_icons[plan_favorite['id']] = document.getElementById(`plan-favorite-i-${plan_favorite['id']}`);
-            plan_favorite_x_icons[plan_favorite['id']].addEventListener('click', function(event) {
-                removePlanFavorite(plan_favorite['id'], plan_favorite_x_icons[plan_favorite['id']]);
-            });
-        }
-    );
+    remove_func = removePlanFavorite;
+    setClickEventToXIcon(plan_favorites, 'id', 'plan-favorite-i', remove_func, true);
+
+    // Set event listener to each my plan
+    remove_func = removeMyPlan;
+    setClickEventToXIcon(my_plans, 'id', 'my-plan-i', remove_func, true);
 
 </script>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use IntlChar;
 use Whoops\Run;
+use App\Models\Plan;
 use App\Models\User;
 use App\Models\Keyword;
 use App\Models\Interest;
@@ -24,8 +25,9 @@ class MyPageController extends Controller
         $place_favorites = Auth::user()->myPagePlaceFavorites;
         $plan_favorites = Auth::user()->myPagePlanFavorites;
         $interests = Auth::user()->myPageInterests;
+        $my_plans = Auth::user()->myPageMyPlans;
 
-        return view('users.my_page.index', compact('place_favorites', 'plan_favorites', 'interests'));
+        return view('users.my_page.index', compact('place_favorites', 'plan_favorites', 'interests', 'my_plans'));
     }
 
     // Get keywords
@@ -96,6 +98,10 @@ class MyPageController extends Controller
     // Delete interest
     public function destroyInterest($id)
     {
+        if (Interest::findOrFail($id)->user_id !== Auth::user()->id) {
+            return response()->json(['result' => 'NG']);
+        }
+
         Interest::destroy($id);
 
         return response()->json(['result' => 'OK']);
@@ -112,7 +118,23 @@ class MyPageController extends Controller
     // Delete plan favorite
     public function destroyPlanFavorite($id)
     {
+        if (PlanFavorite::findOrFail($id)->user_id !== Auth::user()->id) {
+            return response()->json(['result' => 'NG']);
+        }
+
         PlanFavorite::destroy($id);
+
+        return response()->json(['result' => 'OK']);
+    }
+
+    // Delete my plan
+    public function destroyMyPlan($id)
+    {
+        if (Plan::findOrFail($id)->user_id !== Auth::user()->id) {
+            return response()->json(['result' => 'NG']);
+        }
+
+        Plan::destroy($id);
 
         return response()->json(['result' => 'OK']);
     }
