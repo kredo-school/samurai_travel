@@ -9,7 +9,7 @@
         <div class ="col"></div>
         <div class="col-1">
         
-            <a href="{{ route('admin.planDetail.create', ['plan_details' => $plan_details[0]->plan_id ]) }}">
+            <a href="{{ route('admin.planDetail.create', ['plan_id' => $plan->id ]) }}">
                 <button type="submit"  class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i>ADD</button>
             </a>
         </div>

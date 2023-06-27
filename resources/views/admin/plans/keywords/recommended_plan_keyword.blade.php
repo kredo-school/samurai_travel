@@ -4,16 +4,14 @@
 
 @section('content')
 <div class="container">
-    {{-- @forelse($recommended_plans as $recommended_plan) --}}
-    <form action="{{ route('admin.plan_keyword.store')}}" method="post">
+    <form action="{{ route('admin.plan_keyword.store',['plan' => $recommended_plan->id ])}}" method="post">
         @csrf
     <div class="row gx-2 my-5">
         <div class="col-8"><h3>Recommended Plan Keywords List</h3></div>
     
         <div class ="col">
-            {{-- <label for="name" name="name" class="form-label text-muted mb-2">plese select a keyword</label> --}}
-            <select class="form-select" name="keyword_id" aria-label="Default select example">
-                <option selected>please select</option>
+            <select class="form-select" name="keyword_id" aria-label="Default select example" required >
+                <option selected value="">please select</option>
                 @foreach($all_keywords as $all_keyword)
                     <option value="{{ $all_keyword->id }}">{{ $all_keyword->name }}</option>
                 @endforeach
