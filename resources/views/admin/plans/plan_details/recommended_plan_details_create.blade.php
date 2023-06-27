@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title')
 
@@ -9,12 +9,12 @@
         <div class="card mx-auto col-6 my-5">
             <h1 class="mx-3 mt-3 text-bold text-center fs-3">Recommended Plan Detail</h1>
             <div class="card-body mx-5">
-                <form action="{{ route('admin.planDetail.store')}}" method="post" >
+                <form action="{{ route('planDetail.store')}}" method="post" >
                     @csrf
 
                     <div class="form-group my-4">
                         <label for="place" class="form-label text-muted">Place</label>
-                            <a href="{{ route('admin.create.place') }}">
+                            <a href="{{ route('create.place') }}">
                                 <span class ="btn btn-outline-dark btn-sm ms-2">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </span>

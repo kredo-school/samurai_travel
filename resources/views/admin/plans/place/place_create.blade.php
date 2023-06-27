@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title' , 'Admin: Place Search')
 
 @section('content')
 <div class="container my-5">
-    <form action="{{ route('admin.search')}}" method="get">
+    <form action="{{ route('search')}}" method="get">
         
     <div class="row gx-2 mb-4">
         <div class="col-3"><h3>Place Search</h3></div>
@@ -95,7 +95,7 @@
                     <td>{{ $place->updated_at }}</td>
                     <td>
                     {{-- check button --}}
-                    <a href="{{ route('admin.planDetail.create',['id' => $place->id ])  }}">
+                    <a href="{{ route('planDetail.create',['id' => $place->id ])  }}">
                         <span class ="btn btn-sm ms-2"><i class="fa-regular fa-square-check"></i>
                         </span>
                     </a>

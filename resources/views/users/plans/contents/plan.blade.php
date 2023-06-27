@@ -59,7 +59,7 @@
                         <div class="card-body">
                             @php $nextDestinationTime = null; $i = 0; @endphp
                             @foreach($places as $place)
-                            @if($place->plan->day == $key + 1)
+                            @if($place->plans->day == $key + 1)
                                 
                                 <div class="bg-plan p-2 mb-1">
                                     <div class="p-2">

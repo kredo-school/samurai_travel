@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title')
 
@@ -9,13 +9,13 @@
         <div class="card mx-auto col-6 my-5">
             <h1 class="mx-3 mt-3 text-bold text-center fs-3"> Edit Recommended Plan Detail</h1>
             <div class="card-body mx-5">
-                    <form action="{{ route('admin.planDetail.update', $plan_details->id ) }}" method="post" >
+                    <form action="{{ route('planDetail.update', $plan_details->id ) }}" method="post" >
                     @csrf
                     @method('PATCH')
 
                     <div class="form-group my-4">
                         <label for="place" class="form-label text-muted">Place</label>
-                            <a href="{{ route('admin.update.place', $plan_details->id) }}">
+                            <a href="{{ route('update.place', $plan_details->id) }}">
                                 <span class ="btn btn-outline-dark btn-sm ms-2">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </span>

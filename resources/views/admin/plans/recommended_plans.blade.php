@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title' , 'Admin: Recommended Plans')
 
 @section('content')
 <div class="container">
-    <form action="{{ route('admin.recommended_plans.store')}}" method="post">
+    <form action="{{ route('recommended_plans.store')}}" method="post">
         @csrf
     <div class="row gx-2 mb-4 my-5">
         <div class="col-8"><h3>Recommended Plans List</h3></div>
@@ -49,7 +49,7 @@
                     <td>{{ $recommended_plan->updated_at }}</td>
                     <td>
                         {{-- Key button --}}
-                        <a href="{{ route("admin.show.plan_keywords", ["plan"=>$recommended_plan->id]) }}">
+                        <a href="{{ route("show.plan_keywords", ["plan"=>$recommended_plan->id]) }}">
                             <button class="btn btn-sm btn-outline-dark me-2" >
                                 <i class="fa-solid fa-key"></i>
                             </button>
@@ -57,7 +57,7 @@
                     </td>
                     <td>
                         {{-- Details button --}}
-                        <a href="{{ route('admin.show.plan_details', $recommended_plan->id) }}">
+                        <a href="{{ route('show.plan_details', $recommended_plan->id) }}">
                         <button class="btn btn-sm btn-outline-dark me-2" >
                             <i class="fa-regular fa-rectangle-list"></i>
                         </button>

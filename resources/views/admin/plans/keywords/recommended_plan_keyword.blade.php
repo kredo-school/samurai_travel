@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title' , 'Admin: Recommended Plan Keywords')
 
 @section('content')
 <div class="container">
     {{-- @forelse($recommended_plans as $recommended_plan) --}}
-    <form action="{{ route('admin.plan_keyword.store')}}" method="post">
+    <form action="{{ route('plan_keyword.store')}}" method="post">
         @csrf
     <div class="row gx-2 my-5">
         <div class="col-8"><h3>Recommended Plan Keywords List</h3></div>
