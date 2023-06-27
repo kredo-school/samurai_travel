@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title' , 'Admin: Recommended Plan Details List')
 
@@ -9,7 +9,7 @@
         <div class ="col"></div>
         <div class="col-1">
         
-            <a href="{{ route('planDetail.create', ['plan_details' => $plan_details[0]->plan_id ]) }}">
+            <a href="{{ route('admin.planDetail.create', ['plan_details' => $plan_details[0]->plan_id ]) }}">
                 <button type="submit"  class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i>ADD</button>
             </a>
         </div>
@@ -47,7 +47,7 @@
                 
                 <td>
                     {{-- Edit button --}}
-                    <a href="{{ route('planDetail.edit', [$detail->id, 0] ) }}">
+                    <a href="{{ route('admin.planDetail.edit', [$detail->id, 0] ) }}">
                     <button class="btn btn-outline-warning btn-sm me-2" title="Edit">
                     <i class="fa-solid fa-pen text-warning"></i>
                     </button>
