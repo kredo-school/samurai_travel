@@ -2,7 +2,7 @@
 {{-- Delete --}}
 <div class="modal fade" id="delete-{{ $detail->id }}">
     <div class="modal-dialog">
-        <form action="{{ route('planDetail.destroy', $detail->id) }}" method="post">
+        <form action="{{ route('admin.planDetail.destroy', $detail->id) }}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-content border-danger">
