@@ -29,11 +29,7 @@
                 <select name="genre_id" id="genre" class="form-select">
                     <option value="hidden" disabled>Select Genre</option>
                     @foreach ($all_genres as $genre)
-                    @if ($genre->id === $answer->genre_id)
-                        <option selected value="{{ $genre->id }}">{{ $genre->name }}</option>
-                    @else
-                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                    @endif
+                        <option {{ $genre->id === $answer->genre_id ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
                     @endforeach
                 </select>
                 @error('genre_id')
@@ -47,11 +43,7 @@
                 <select name="keyword_id" id="keyword" class="form-select">
                     <option value="hidden" disabled>Select Keyword</option>
                     @foreach ($all_keywords as $keyword)
-                    @if ($keyword->id === $answer->keyword_id)
-                        <option selected value="{{ $keyword->id }}">{{ $keyword->name }}</option>
-                    @else
-                        <option value="{{ $keyword->id }}">{{ $keyword->name }}</option>
-                    @endif
+                        <option {{ $keyword->id === $answer->keyword_id ? 'selected' : '' }} value="{{ $keyword->id }}">{{ $keyword->name }}</option>
                     @endforeach
                 </select>
                 @error('keyword_id')

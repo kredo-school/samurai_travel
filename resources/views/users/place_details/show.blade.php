@@ -98,7 +98,7 @@
 
             {{-- Recommendation button to create plans --}}
             <div class="d-grid gap-2" style="margin-top: 100px; margin-bottom:100px;">
-                <a href="#" class="btn btn-light border-dark rounded-pill">
+                <a href="{{ route('suggest-plans.questions') }}" class="btn btn-light border-dark rounded-pill">
                     <h3>Let's create your plan!</h3>
                 </a>
             </div>
