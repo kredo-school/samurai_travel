@@ -1,0 +1,6 @@
+id,nick_name,first_name,last_name,age,gender,email,password,status,role_id
+1001,Tom,Tom,Cruise,52,male,tom@mail.com,passwordtom,active,1
+1002,Emma,Emma,Brown,25,female,emma@mail.com,passwordemma,active,1
+1003,Josh,Josh,Santos,32,male,josh@mail.com,passwordjosh,active,1
+1004,Mike,Mike,Hilton,68,male,mike@mail.com,passwordmike,active,1
+1005,Cathy,Cathy,Watson,19,female,cathy@mail.com,passwordcathy,active,1
