@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Edit Keyword')
     
@@ -39,7 +39,7 @@
                 {{-- Button --}}
                 <div class="d-flex justify-content-center pb-5">
                     <a href="{{ route('admin.keywords') }}" class="btn btn-outline-secondary me-5 px-5" role="button">Cancel</a>
-                    <button type="submit" class="btn btn-warning px-5">Save</button>
+                    <button type="submit" class="btn btn-warning px-5">Update</button>
                 </div>
             </form>
         
