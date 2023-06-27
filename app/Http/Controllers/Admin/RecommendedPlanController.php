@@ -48,7 +48,7 @@ class RecommendedPlanController extends Controller
     public function store(Request $request){
             $request->validate
             ([
-                'title' => 'required|max:15|unique:plans,title',
+                'title' => 'required|max:50|unique:plans,title',
             ]);
             
             $recommended_plan = new Plan;
