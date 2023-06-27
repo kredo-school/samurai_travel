@@ -59,9 +59,9 @@
                         <div class="card-body">
                             @php $nextDestinationTime = null; $i = 0; @endphp
                             @foreach($places as $place)
-                            @if($place->plans->day == $key + 1)
+                            @if($place->plan->day == $key + 1)
                                 
-                                <div class="bg-plan p-2 mb-1">
+                                <div class="bg-plan bg-light p-1 mb-1">
                                     <div class="p-2">
                                         @if($i == 0)
                                         <p><i class="fa-regular fa-clock"></i>Start 9:00</p>
@@ -80,7 +80,7 @@
                                                 <div class="px-2">
                                                     <img src="{{ asset($image->image) }}" class="img-sm" alt="{{$image->image}}">
                                                 </div>
-                                                <p class="place-desc px-2">
+                                                <p class="place-desc pe-2">
                                                     {{ $image->description }}
                                                 </p>      
                                             @endforeach                
@@ -105,7 +105,13 @@
     </div>
 
     <div class="col-md-6">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030689856!2d139.76454987550272!3d35.68123617258717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1683548732190!5m2!1sja!2sjp" width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="col map" >
+            <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
+            </script>
+        </div>
+        <script>
+            const gm_plan = {!! json_encode($gm_plan) !!};
+        </script>
     </div>
     </div>
     </div>

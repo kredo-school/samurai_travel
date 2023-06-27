@@ -49,9 +49,9 @@ class Place extends Model
         return $this->belongsToMany(Plan::class, 'plan_details', 'plan_id', 'place_id');
     }
 
-    // public function plans(){
-    //     return $this->hasOne(PlanDetail::class);
-    // }
+    public function plan(){
+        return $this->hasOne(PlanDetail::class);
+    }
 
     public function area()
     {

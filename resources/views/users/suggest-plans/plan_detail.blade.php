@@ -76,9 +76,9 @@
             <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
             </script>
         </div>
-    </div>
     <script>
         const gm_plan = {!! json_encode($gm_plan) !!};
     </script>
+    </div>
 </div>
 @endsection
