@@ -16,6 +16,8 @@ use App\Models\PlanFavorite;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class PlanController extends Controller
 
@@ -107,17 +109,54 @@ class PlanController extends Controller
 
             //testing
             $recommended_plans_test = Plan::where('user_type', '=' , 'admin')->take(3)->get();
+            
+            //ここから追加したところ
+
+            $plan = $plans;
+
+            $transfer_minute = 30;
+            $interval = CarbonInterval::minutes($transfer_minute);    // Create a 30-minute interval
+            $start_time = '9:00 AM';
+            $arrival_time = Carbon::parse($start_time);    // Set the start time
+            $pre_day = 0;
+            $top_plan = [];
+            $place_list = [];
+            $day_places = [];
+            $gm_plan = [];
         
-            $place_list = [
-                ['place_id' => 1, 'name_en' => 'Universal Studios Japan', 'prefecture_name_en' => 'Osaka', 'city_name_en' => 'Osaka-shi', 'address' => '2-1-33 Sakurajima Konohana-ku'],
-                ['place_id' => 2, 'name_en' => 'Abeno Harukas', 'prefecture_name_en' => 'Osaka', 'city_name_en' => 'Osaka-shi', 'address' => '1-1-43 Abenosuji Abeno-ku'],
-                ['place_id' => 3, 'name_en' => 'Osaksa Aquarium', 'prefecture_name_en' => 'Osaka', 'city_name_en' => 'Osaka-shi', 'address' => '1-1-10 Kaigandori Minato-ku'],
-                ['place_id' => 4, 'name_en' => 'Grand Front Osaka', 'prefecture_name_en' => 'Osaka', 'city_name_en' => 'Osaka-shi', 'address' => 'Ofukacho Kita-ku'],
-            ];
+            if ($plan) {
     
-            foreach ($place_list as $place) {
-                $gm_plan[] = $place['address']. ' '. $place['city_name_en']. ' '. $place['prefecture_name_en']. ' '. $place['name_en'];
+                foreach ($plan->planDetailsSorted as $planDetail) {
+                    // get arrival time
+                    if ($planDetail->sort_no === 1) {
+                        $arrival_time = Carbon::parse($start_time);    // Set the start time
+                    } else {
+                        $arrival_time->add($interval);
+                    }
+    
+                    $tmp_place = [
+                        'place_id' => $planDetail->place->id,
+                        'name_en' => $planDetail->place->name_en,
+                        'prefecture_name_en' => $planDetail->place->prefecture->name_en,
+                        'city_name_en' => $planDetail->place->city->name_en,
+                        'address' => $planDetail->place->address,
+                        'image' => $planDetail->place->image,
+                        'description' => $planDetail->place->description,
+                        'arrival_time' => $arrival_time->format('g:i A'),
+                    ];
+    
+                    // for google map
+                    $place_list[] = $tmp_place;
+                }
+
+                    // add place to places of day
+                    $day_places[] = $tmp_place;
             }
+    
+                // for google map
+                foreach ($place_list as $place) {
+                    $gm_plan[] = $place['address']. ' '. $place['city_name_en']. ' '. $place['prefecture_name_en']. ' '. $place['name_en'];
+                }
             
                 return view('users.plans.plan-details', [        
                     'plans' => $plans, 

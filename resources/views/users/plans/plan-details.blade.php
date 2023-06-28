@@ -2,6 +2,10 @@
 
 @section('title', 'Show Plan Detail')
 
+@section('map-js')
+    <script src="{{ asset('js/map.js') }}" defer></script>
+@endsection
+
 @section('content')
 <style>
     .background-container{
@@ -43,6 +47,7 @@
       }
 
 </style>
+
 
     <div class="background-container d-flex align-items-center">
       <img class="back-img" src="{{ asset('storage\images\bg-paper.jpg') }}" alt="back-img">

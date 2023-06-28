@@ -81,7 +81,6 @@ class TopController extends Controller
             }
         }
 
-
         return view(
             'users.top',
             compact(
