@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title' , 'Admin: Place Search')
 
@@ -8,7 +8,7 @@
     <form action="{{ route('planDetail.edit', $plan_details )}}" method="post">
     @endforeach --}}
         {{-- @csrf --}}
-    <form action="{{ route('filter', $plan_detail_id)}}" method="get">
+    <form action="{{ route('admin.filter', $plan_detail_id)}}" method="get">
         
     <div class="row gx-2 mb-4">
         <div class="col-3"><h3>Place Search</h3></div>
@@ -100,7 +100,7 @@
                     <td>{{ $place->updated_at }}</td>
                     <td>
                         {{-- check button --}}
-                        <a href="{{ route('planDetail.edit', [$plan_detail_id, $place->id]) }}">
+                        <a href="{{ route('admin.planDetail.edit', [$plan_detail_id, $place->id]) }}">
                             <span class ="btn btn-sm ms-2"><i class="fa-regular fa-square-check"></i>
                             </span>
                         </a>

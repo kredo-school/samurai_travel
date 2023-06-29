@@ -1,7 +1,7 @@
 {{-- Edit --}}
 <div class="modal fade" id="edit-recommended_plan-{{$recommended_plan->id}}">
     <div class="modal-dialog">
-        <form action="{{ route('recommended_plans.update', $recommended_plan->id)}}" method="post">
+        <form action="{{ route('admin.recommended_plans.update', $recommended_plan->id)}}" method="post">
             @csrf
             @method('PATCH')
             <div class="modal-content border-warning">
@@ -25,7 +25,7 @@
 {{-- Delete --}}
 <div class="modal fade" id="delete-recommended_plan-{{$recommended_plan->id}}">
     <div class="modal-dialog">
-        <form action="{{ route('recommended_plans.destroy', $recommended_plan->id) }}" method="post">
+        <form action="{{ route('admin.recommended_plans.destroy', $recommended_plan->id) }}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-content border-danger">

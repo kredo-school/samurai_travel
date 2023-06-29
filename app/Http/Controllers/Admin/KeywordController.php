@@ -36,10 +36,10 @@ class KeywordController extends Controller
         ]);
 
         Keyword::create([
-            'name' => $request->name,
+            'name' => ucwords(strtolower($request->name)),
             'genre_id' => $request->genre_id
         ]);
-        return redirect()->back();
+        return redirect()->route('admin.keywords');
     }
 
     public function edit($id)
@@ -62,7 +62,7 @@ class KeywordController extends Controller
         $keyword->genre_id = $request->genre_id;
         $keyword->save();
 
-        return redirect()->back();
+        return redirect()->route('admin.keywords');
     }
 
     public function destroy(Keyword $keyword, $id)

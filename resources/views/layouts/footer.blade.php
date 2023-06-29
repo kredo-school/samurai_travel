@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="col-3 d-flex justify-content-center align-items-center">
-            <img class="footer-logo" src="storage\images\Samurai Travel.png" alt="logo">
+            <img src="{{ asset('assets/logo_red_black.png')}}" alt="logo" style="width: 50px; height: 50px;">
         </div>
     </div> 
 </div>

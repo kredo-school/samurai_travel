@@ -24,17 +24,11 @@ class PlaceController extends Controller
     {
         $place = $this->place->findOrFail($id);
 
-        # Retrieve the opening and ending time(00:00 - 00:00) from timestamp.
-        // $opening_time  = date('H:i', strtotime($place->opening_time));
-        // $place->opening_time = $opening_time;
-        // $ending_time  = date('H:i', strtotime($place->ending_time));
-        // $place->ending_time = $ending_time;
-
         # Retrieve the sub-images from the Place_image table.
         $sub_imgs = DB::table('place_images')->where('place_id', $id)->get();
 
         # Retrive the recommendation
-        $recommend_places = $this->getRecommendPlace($id);
+        $recommend_places = $this->getRecommendPlace($place);
         $affiliates = $this->getAffiliate($id);
        
         return view('users.place_details.show')
@@ -44,26 +38,37 @@ class PlaceController extends Controller
             ->with('affiliates', $affiliates);
     }
 
-    public function getRecommendPlace($id)
-    {       
-        $place_keywords = DB::table('place_keywords')->where('place_id', $id)->get();
-        $tmp = [];
-
-        foreach($place_keywords as $place_keyword){
-                $tmp[] = $place_keyword->keyword_id;
+    public function getRecommendPlace(Place $place)
+    {   
+        # place_keyword tableから$idとplace_idが等しいデータを抽出
+        $place_keywords = $place->placeKeyword;
+        if(!$place_keywords){
+            $recommend_place = [];
         }
-
-        $target = DB::table('place_keywords')->whereIn('keyword_id', $tmp)->where('place_id', '<>', $id)->get();
-
-        $places = [];
-        for($i = 1; $i < 5; $i++)
-        {
-            $random_num = rand(0, $target->count()-1);
-            $record = $target[$random_num];
-            $place = DB::table('places')->where('id', $record->place_id)->first();
-            $places[] =$place;
-        }
-        return $places;
+        else{
+            $keyword_id_list = [];
+            $keyword_id_list = $place_keywords->pluck('keyword_id')->unique()->toArray();
+            $all_target_data = [];
+            $all_target_data = PlaceKeyword::whereIn('keyword_id', $keyword_id_list)->where('place_id', '<>', $place->id)->get();
+    
+            $place_id_list = $all_target_data->pluck('place_id')->unique()->toArray();
+            $target_place_id = array_unique($place_id_list);
+            $num_element = count($target_place_id);
+    
+            if($num_element < 4 ){
+                $recommend_place = DB::table('places')->whereIn('id', $target_place_id)->get();
+            }
+            else{
+                $rand_samplings = array_rand($target_place_id, 4);
+                foreach($rand_samplings as $rand_sampling_id)
+                {
+                    $recommend_place_id[] = $target_place_id[$rand_sampling_id];
+                }
+                $recommend_place = DB::table('places')->whereIn('id', $recommend_place_id)->get();
+            }
+    
+        }       
+        return $recommend_place;
     }
 
     public function getAffiliate($id)
@@ -85,7 +90,21 @@ class PlaceController extends Controller
 
         return $data;
     }
+
+    public function getRecommend($id){
+
+        # Retrieve the sub-images from the Place_image table.
+        $sub_imgs = DB::table('place_images')->where('place_id', $id)->get();
+
+        # Retrive the recommendation
+        $recommend_places = $this->getRecommendPlace($id);
+        $affiliates = $this->getAffiliate($id);
+        
+        return view('users.place_details.show')
+        ->with('sub_imgs', $sub_imgs)
+        ->with('recommend_places', $recommend_places)
+        ->with('affiliates', $affiliates);
+
+    }
 }
 
-# Display the Google maps and addresses of the places from Google API.
-# -> no need

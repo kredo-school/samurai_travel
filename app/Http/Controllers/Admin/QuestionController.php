@@ -42,7 +42,7 @@ class QuestionController extends Controller
             'genre_id'   => $request->genre_id,
             'keyword_id' => $request->keyword_id
         ]);
-        return redirect()->back();
+        return redirect()->route('admin.question');
     }
 
     public function edit(Question $question)
@@ -55,7 +55,7 @@ class QuestionController extends Controller
             ->with('all_questions', $all_questions)
             ->with('question', $question)
             ->with('all_keywords', $all_keywords)
-            ->with('all_genres', $all_genres);     
+            ->with('all_genres', $all_genres);
     }
 
 
@@ -72,7 +72,7 @@ class QuestionController extends Controller
         $question->keyword_id = $request->keyword_id;
         $question->save();
 
-        return redirect()->back();
+        return redirect()->route('admin.question');
     }
 
     public function destroy(Question $question)

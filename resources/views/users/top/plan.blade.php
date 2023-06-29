@@ -71,7 +71,7 @@
     <form class="" action="#" method="post">
         <div class="d-flex text-center mt-4 row">
             <div class="col">
-                <button class="btn btn-light btn-outline-dark rounded-pill h6">Let's create your plan!</button>
+                <a href="{{ route('suggest-plans.questions') }}" class="btn btn-light btn-outline-dark rounded-pill h6">Let's create your plan!</a>
             </div>
             <div class="col">
                 <a href="#how-to-create-plan" class="btn btn-light btn-outline-dark rounded-pill h6">How to create?</a>
