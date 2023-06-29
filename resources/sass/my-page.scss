@@ -1,0 +1,23 @@
+$plan_day_bg: #DAA4AA;
+$plan_bg: #F3F3F3;
+
+main{
+    background-image: url("/images/bg-image.jpg");
+    background-repeat: repeat;
+}
+
+.bg-plan{
+    background-color: $plan_bg;
+}
+
+/* タブの色変更 */
+.nav-pills .nav-link.active{
+    background-color: $plan_day_bg;
+    color: black;
+}
+
+/* タブの文字色変更 */
+.nav-pills .nav-link{
+    color: black;
+    font-weight: bold;
+}
