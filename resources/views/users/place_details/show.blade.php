@@ -2,6 +2,10 @@
 
 @section('title', 'Place Detail')
 
+@section('place-details-css')
+    <link href="{{ mix('css/place-details.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     {{-- Header --}}
 
