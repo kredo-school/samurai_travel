@@ -123,7 +123,7 @@ Route::group(['middleware' => 'auth'], function(){
         
         #ADMIN RECOMMENDED PLAN KEYWORDS LIST
         Route::get('/recommended/plan/keywords/{plan}',[RecommendedPlanController::class, 'showKeyword'])->name('show.plan_keywords');
-        Route::post('/recommended/plan/keywords/store/', [RecommendedPlanController::class, 'storeKeyword'])->name('plan_keyword.store');
+        Route::post('/recommended/plan/keywords/store/{plan}', [RecommendedPlanController::class, 'storeKeyword'])->name('plan_keyword.store');
         Route::patch('/recommended/plan/keywords/{keyword}/update', [RecommendedPlanController::class, 'updateKeyword'])->name('plan_keyword.update');
         Route::delete('/recommended/plan/keywords/{keyword}/destroy', [RecommendedPlanController::class, 'destroyKeyword'])->name('plan_keyword.destroy');
         
