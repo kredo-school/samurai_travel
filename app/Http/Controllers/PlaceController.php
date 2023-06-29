@@ -28,7 +28,7 @@ class PlaceController extends Controller
         $sub_imgs = DB::table('place_images')->where('place_id', $id)->get();
 
         # Retrive the recommendation
-        $recommend_places = $this->getRecommendPlace($id);
+        $recommend_places = $this->getRecommendPlace($place);
         $affiliates = $this->getAffiliate($id);
        
         return view('users.place_details.show')
@@ -38,25 +38,20 @@ class PlaceController extends Controller
             ->with('affiliates', $affiliates);
     }
 
-    public function getRecommendPlace($id)
+    public function getRecommendPlace(Place $place)
     {   
         # place_keyword tableから$idとplace_idが等しいデータを抽出
-        $place_keywords = DB::table('place_keywords')->where('place_id', $id)->get();
-        // dd(empty($place_keywords));
-        if(count($place_keywords) == 0){
+        $place_keywords = $place->placeKeyword;
+        if(!$place_keywords){
             $recommend_place = [];
         }
         else{
             $keyword_id_list = [];
-            foreach($place_keywords as $place_keyword){
-                    $keyword_id_list[] = $place_keyword->keyword_id;
-            }
+            $keyword_id_list = $place_keywords->pluck('keyword_id')->unique()->toArray();
+            $all_target_data = [];
+            $all_target_data = PlaceKeyword::whereIn('keyword_id', $keyword_id_list)->where('place_id', '<>', $place->id)->get();
     
-            $all_target_data = DB::table('place_keywords')->whereIn('keyword_id', $keyword_id_list)->where('place_id', '<>', $id)->get();
-    
-            foreach($all_target_data as $target_data){
-                $place_id_list[] = $target_data->place_id;
-            }
+            $place_id_list = $all_target_data->pluck('place_id')->unique()->toArray();
             $target_place_id = array_unique($place_id_list);
             $num_element = count($target_place_id);
     
@@ -106,13 +101,11 @@ class PlaceController extends Controller
     //     # Retrive the recommendation
     //     $recommend_places = $this->getRecommendPlace($id);
     //     $affiliates = $this->getAffiliate($id);
-        
     //     return view('users.place_details.show')
     //     ->with('place', $place)
     //     ->with('sub_imgs', $sub_imgs)
     //     ->with('recommend_places', $recommend_places)
     //     ->with('affiliates', $affiliates);
-
     // }
 }
 

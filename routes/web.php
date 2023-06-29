@@ -151,12 +151,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 
-    // for displaying ADMIN/ GENRE MANAGEMENT
-    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
-    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
-    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
-    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
-
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy'); 

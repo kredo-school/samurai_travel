@@ -2,6 +2,10 @@
 
 @section('title', 'My Page')
 
+@section('my-page-css')
+    <link href="{{ mix('css/my-page.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
 @php
