@@ -15,94 +15,61 @@
             </div>
         </div>
     </div>
-    <div class="overflow-hidden mb-4" style="height: 500px;">
-    {{-- Time, Location, Picture, Description --}}
-        <div class="row p-2">
-            <div class="d-flex justify-content-center" style="width:10%;">
-                <i class="fa-solid fa-down-long"></i>
+    <div class="overflow-auto mb-4" style="height: 500px;">
+        @if (empty($recommend_places))
+            <div class="mb-5">
+                <h3 class="text-muted text-center">Comming Soon...</h3>
             </div>
-            <div class="bg-light" style="width: 90%;">
-                <div class="p-3">
-                    {{-- Time, Location --}}
-                    <div class="row mb-3">
-                        <div class="d-flex flex-fluid-row">
-                            <div class="me-4">
-                                <h6><i class="fa-regular fa-clock"></i> 09:00</h6>
-                            </div>
-                            <div class="me-4">
-                                <h6><i class="fa-sharp fa-solid fa-location-dot"></i> Haneda Airport</h6>
+        @else
+            @foreach ($recommend_places as $recommend_place)
+                {{-- Time, Location, Picture, Description --}}
+            <div class="row p-2">
+                <div class="d-flex justify-content-center" style="width:10%;">
+                    <i class="fa-solid fa-down-long"></i>
+                </div>
+                <div class="bg-light" style="width: 90%;">
+                    <div class="p-3">
+                        {{-- Time, Location --}}
+                        <div class="row mb-3">
+                            <div class="d-flex flex-fluid-row">
+                                <div class="me-4">
+                                    <h6><i class="fa-regular fa-clock"></i> 00:00</h6>
+                                </div>
+                                <div class="me-4">
+                                    <h6><i class="fa-sharp fa-solid fa-location-dot"></i> {{$recommend_place->name_en}}</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {{-- Image, Description --}}
-                    <div class="row">
-                        <div class="d-flex flex-fluid-row">
-                            <div class="me-3" style="height: 50%;">
-                                <img src="{{asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg')}}" alt="..." class="grid-img img-fluid">
-                            </div>
-                            <div class="me-3">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Transportation --}}
-        <div class="row my-2">
-            <div class="d-flex flex-fluid-row">
-                <div class="justify-content-center me-3" style="width: 5%;">
-                    <h6><i class="fa-solid fa-car"></i></h6>
-                </div>
-                <div style="width: 95%;">
-                    <h6>30 min</h6>
-                </div>
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="d-flex justify-content-center" style="width:10%;">
-                <i class="fa-solid fa-down-long"></i>
-            </div>
-            <div class="bg-light" style="width: 90%;">
-                <div class="p-3">
-                    {{-- Time, Location --}}
-                    <div class="row mb-3">
-                        <div class="d-flex flex-fluid-row">
-                            <div class="me-4">
-                                <h6><i class="fa-regular fa-clock"></i> 09:00</h6>
-                            </div>
-                            <div class="me-4">
-                                <h6><i class="fa-sharp fa-solid fa-location-dot"></i> Haneda Airport</h6>
-                            </div>
-                        </div>
-                    </div>
-    
-                    {{-- Image, Description --}}
-                    <div class="row">
-                        <div class="d-flex flex-fluid-row">
-                            <div class="me-3" style="height: 50%;">
-                                <img src="{{asset('/storage/sample/pexels-satoshi-hirayama-7526797.jpg')}}" alt="..." class="grid-img img-fluid">
-                            </div>
-                            <div class="me-3">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                        {{-- Image, Description --}}
+                        <div class="row">
+                            <div class="d-flex flex-fluid-row">
+                                <div class="me-3" style="height: 50%;">
+                                    <a href="{{ route('placedetails',  $recommend_place->id ) }}" class="text-decoration-none text-dark">
+                                        <img src="{{asset('/storage/sample/' . $recommend_place->image)}}" alt="{{$recommend_place->name_en}}" class="grid-img img-fluid">
+                                    </a>
+                                </div>
+                                <div class="me-3">
+                                    <p>{{$recommend_place->description}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- Transportation --}}
-        <div class="row my-2">
-            <div class="d-flex flex-fluid-row">
-                <div class="justify-content-center me-3" style="width: 5%;">
-                    <h6><i class="fa-solid fa-car"></i></h6>
-                </div>
-                <div style="width: 95%;">
-                    <h6>30 min</h6>
+            {{-- Transportation --}}
+            <div class="row my-2">
+                <div class="d-flex flex-fluid-row">
+                    <div class="justify-content-center me-3" style="width: 5%;">
+                        <h6><i class="fa-solid fa-car"></i></h6>
+                    </div>
+                    <div style="width: 95%;">
+                        <h6>30 min</h6>
+                    </div>
                 </div>
             </div>
-        </div>
+            @endforeach
+        @endif
     </div>
     <div class="row mb-3">
         <div class="d-flex justify-content-center">

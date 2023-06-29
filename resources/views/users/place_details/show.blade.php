@@ -2,10 +2,14 @@
 
 @section('title', 'Place Detail')
 
+@section('place-details-css')
+    <link href="{{ mix('css/place-details.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     {{-- Header --}}
 
-    <div style="background: url({{asset('/storage/sample/topimage.png')}}); background-size:cover;">
+    <div style="background-image: url('/images/leaf-black-image.png');">
         <div class="container text-white py-5">
             {{-- Main Image --}}
             <div  style="margin-top: 150px; margin-bottom: 150px">
@@ -69,8 +73,9 @@
             @include('users.place_details.sub_items')
 
             {{-- Affiriate Links --}}
-            {{-- If this place is a hotel, activities and restrant,a table shows up --}}
-            @if (1==1)
+            @if (empty($affiliates))
+                <div class="mb-5"></div>
+            @else
                 <table class="table table-bordered bg-white mt-3">
                     <thead class="small table-secondary">
                         <tr>
@@ -80,24 +85,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- If the place has the link of affiliate, the table shows up --}}
-                            @foreach ($affiliates as $affiliate)
-                            <tr>
-                                <td>{{$affiliate['affiliate']->site_name}}</td>
-                                <td class="fw-bold text-success">
-                                    ¥{{$affiliate['price']}}～
-                                </td>
-                                <td>
-                                    <a href="{{$affiliate['affiliate']->site_url}}" class="btn btn-light border-dark btn-sm rounded-pill">Go to Site ></a>
-                                </td>
-                            </tr>
-                            @endforeach
+                        @foreach ($affiliates as $affiliate)
+                        <tr>
+                            <td>{{$affiliate['affiliate']->site_name}}</td>
+                            <td class="fw-bold text-success">
+                                ¥{{$affiliate['price']}}～
+                            </td>
+                            <td>
+                                <a href="{{$affiliate['affiliate']->site_url}}" class="btn btn-light border-dark btn-sm rounded-pill">Go to Site ></a>
+                            </td>
+                        </tr>
+                        @endforeach       
                     </tbody>
                 </table>
             @endif
+
             {{-- Recommendation button to create plans --}}
             <div class="d-grid gap-2" style="margin-top: 100px; margin-bottom:100px;">
-                <a href="#" class="btn btn-light border-dark rounded-pill">
+                <a href="{{ route('suggest-plans.questions') }}" class="btn btn-light border-dark rounded-pill">
                     <h3>Let's create your plan!</h3>
                 </a>
             </div>
@@ -131,11 +136,7 @@
 
             {{-- Map --}}
             {{-- Recommend for you --}}
-            @if ($place->recommend_places->isNotEmpty())
-                @include('users.place_details.recommend')
-            @else
-                <h3 class="text-muted text-center">No Recommend Places</h3>
-            @endif
+            @include('users.place_details.recommend')
         </div>       
     </div>
 @endsection

@@ -35,7 +35,7 @@ class AnswerController extends Controller
     {
         $request->validate([
             'question_id' => 'integer',
-            'answer_no'    => 'required|min:1',
+            'answer_no'    => 'required|unique:answers,answer_no',
             'answer'    => 'required|max:1000',
             'genre_id'    => 'required',
             'keyword_id'  => 'required'

@@ -29,7 +29,7 @@
                 <select name="genre_id" id="genre" class="form-select">
                     <option value="hidden" disabled>Select Genre</option>
                     @foreach ($all_genres as $genre)
-                        <option value="{{$genre->id}}" key={{$genre->id}}>{{$genre->name}}</option>
+                        <option {{ $genre->id === $answer->genre_id ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
                     @endforeach
                 </select>
                 @error('genre_id')
@@ -43,7 +43,7 @@
                 <select name="keyword_id" id="keyword" class="form-select">
                     <option value="hidden" disabled>Select Keyword</option>
                     @foreach ($all_keywords as $keyword)
-                        <option value="{{$keyword->id}}" key={{$keyword->id}}>{{$keyword->name}}</option>
+                        <option {{ $keyword->id === $answer->keyword_id ? 'selected' : '' }} value="{{ $keyword->id }}">{{ $keyword->name }}</option>
                     @endforeach
                 </select>
                 @error('keyword_id')
