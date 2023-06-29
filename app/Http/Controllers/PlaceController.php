@@ -91,20 +91,21 @@ class PlaceController extends Controller
         return $data;
     }
 
-    public function getRecommend($id){
 
-        # Retrieve the sub-images from the Place_image table.
-        $sub_imgs = DB::table('place_images')->where('place_id', $id)->get();
+    // Commented out as not currently used
+    // public function getRecommend($id){
 
-        # Retrive the recommendation
-        $recommend_places = $this->getRecommendPlace($id);
-        $affiliates = $this->getAffiliate($id);
-        
-        return view('users.place_details.show')
-        ->with('sub_imgs', $sub_imgs)
-        ->with('recommend_places', $recommend_places)
-        ->with('affiliates', $affiliates);
+    //     # Retrieve the sub-images from the Place_image table.
+    //     $sub_imgs = DB::table('place_images')->where('place_id', $id)->get();
 
-    }
+    //     # Retrive the recommendation
+    //     $recommend_places = $this->getRecommendPlace($id);
+    //     $affiliates = $this->getAffiliate($id);
+    //     return view('users.place_details.show')
+    //     ->with('place', $place)
+    //     ->with('sub_imgs', $sub_imgs)
+    //     ->with('recommend_places', $recommend_places)
+    //     ->with('affiliates', $affiliates);
+    // }
 }
 

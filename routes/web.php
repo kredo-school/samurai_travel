@@ -37,12 +37,17 @@ use App\Http\Controllers\SearchController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\TopController::class, 'index'])->name('top');
+
 //Search
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::get('/search/place', [SearchController::class, 'search'])->name('search.place');
 
+# Place Detail Pages
+Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
+
 # Social Login
 Route::get('/social_login', [SocialLoginController::class, 'social_login'])->name('social_login');
+Route::post('/social_login/save-in-session/ajax', [SocialLoginController::class, 'saveInSession']); 
 Route::get('/auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
 Route::get('/auth/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('auth.facebook');
@@ -146,8 +151,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 
-    # Place Detail Pages
-    Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');
     # Place Favorite
     Route::post('/favorite/{place_id}/store', [PlaceFavoriteController::class, 'store'])->name('place_favorite.store');
     Route::delete('/favorite/{place_id}/destroy', [PlaceFavoriteController::class, 'destroy'])->name('place_favorite.destroy'); 

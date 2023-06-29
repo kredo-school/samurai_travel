@@ -47,15 +47,13 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
-        $all_questions = Question::with('genre','keyword')->get();
-        $all_keywords = Keyword::all();
-        $all_genres = Genre::all();
+        $keywords = Keyword::all();
+        $genres = Genre::all();
+        $data = ['keyword' => $keywords, 'genre'=>$genres];
 
         return view('admin.questions.edit')
-            ->with('all_questions', $all_questions)
             ->with('question', $question)
-            ->with('all_keywords', $all_keywords)
-            ->with('all_genres', $all_genres);
+            ->with('data', $data);
     }
 
 

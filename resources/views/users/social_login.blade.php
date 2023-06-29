@@ -32,4 +32,29 @@
             </div>
         </div>
     </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    window.csrfToken = '{{ csrf_token() }}';
+    try {
+        // const favPlaceList = JSON.parse(localStorage.getItem('favPlaceList'));
+        const favPlaceList = localStorage.getItem('favPlaceList');
+        console.log(favPlaceList);
+        const response = await fetch('/social_login/save-in-session/ajax', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'X-CSRF-Token' : window.csrfToken,
+            },
+            body: JSON.stringify(favPlaceList),
+        });
+        const data = await response.json();
+        console.log(data['message']);
+        console.log(data['data']);
+        console.log(data['session_data']);
+    } catch (error) {
+        console.log(error);
+    }
+});
+</script>
 @endsection
