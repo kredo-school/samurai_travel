@@ -46,8 +46,8 @@
                 <tr>
                     <td class="text-start">{{ $keyword->id }}</td>
                     <td class="text-start">{{ $keyword->name }}</td>
-                    <td>{{ $keyword->getOriginal('pivot_created_at') }}</td>
-                    <td>{{ $keyword->getOriginal('pivot_updated_at') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($keyword->getOriginal('pivot_created_at'))->diffForHumans() }}</td>
+                    <td>{{ \Carbon\Carbon::parse($keyword->getOriginal('pivot_updated_at'))->diffForHumans() }}</td>
                     
                     <td>
                         {{-- Edit button --}}
