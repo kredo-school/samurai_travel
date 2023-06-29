@@ -2,8 +2,11 @@
 
 @section('title', 'Social Login')
 
+@section('social-login-css')
+    <link href="{{ mix('css/social-login.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
-<div style="background-image: url('/images/leaf-black-image.png');">
     <div class="container" style="padding: 120px 0">
         <div class="back-frame text-center d-flex align-items-center justify-content-center" style="width: 960px; height: 640px;">
             <div>
@@ -29,5 +32,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
