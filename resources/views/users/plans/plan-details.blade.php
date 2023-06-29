@@ -46,6 +46,12 @@
           font-weight: bold;
       }
 
+      .img-sm{
+          width: 200px;
+          height: 150px;
+          object-fit: contain;
+      }
+
 </style>
 
 

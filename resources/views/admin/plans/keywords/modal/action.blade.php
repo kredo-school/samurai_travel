@@ -1,7 +1,7 @@
 {{-- Edit --}}
 <div class="modal fade" id="edit-plan_keyword-{{ $keyword->id }}">
     <div class="modal-dialog">
-        <form action="{{ route('plan_keyword.update', $keyword->id) }}" method="post">
+        <form action="{{ route('admin.plan_keyword.update', $keyword->id) }}" method="post">
             @csrf
             @method('PATCH')
             
@@ -34,7 +34,7 @@
 {{-- Delete --}}
 <div class="modal fade" id="delete-plan_keyword-{{ $keyword->id }}">
     <div class="modal-dialog">
-        <form action="{{ route('plan_keyword.destroy', $keyword->id) }}" method="post">
+        <form action="{{ route('admin.plan_keyword.destroy', $keyword->id) }}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-content border-danger">

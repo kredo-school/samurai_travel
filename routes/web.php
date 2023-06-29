@@ -142,15 +142,9 @@ Route::group(['middleware' => 'auth'], function(){
     // for displaying PLAN DETAILS(for LOGGED IN USER)
     Route::get('/myplans', [PlanController::class, 'showMyPlan'])->name('plans');
     //for displaying PLAN DETAILS(for GUEST USER)
-    Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
+    Route::get('/plan/details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
-
-    // for displaying ADMIN/ GENRE MANAGEMENT
-    Route::get('/genres', [GenreController::class, 'index'])->name('genres');
-    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
-    Route::patch('/genres/{genre}/update', [GenreController::class, 'update'])->name('genres.update');
-    Route::delete('/genres/{genre}/destroy', [GenreController::class, 'destroy'])->name('genres.destroy');
 
     # Place Detail Pages
     Route::get('/{id}/placedetails',[PlaceController::class, 'index'])->name('placedetails');

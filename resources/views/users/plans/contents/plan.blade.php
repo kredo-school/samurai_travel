@@ -75,14 +75,16 @@
                                                 @endif
                                                 <p><i class="fa-solid fa-location-dot"></i> {{ $place->name_en }}</p>
                                                 
-                                                <div class="d-flex">
+                                                <div class="row">
                                                     @foreach($place->placeImages as $image)
-                                                        <div class="px-2">
+                                                        <div class="col">
                                                             <img src="{{ asset($image->image) }}" class="img-sm" alt="{{$image->image}}">
                                                         </div>
-                                                        <p class="place-desc pe-2">
-                                                            {{ $image->description }}
-                                                        </p>      
+                                                        <div class ="col">
+                                                            <p class="place-desc">
+                                                                {{ $image->description }}
+                                                            </p>  
+                                                        </div>    
                                                     @endforeach                
                                                 </div>
                                             </div>
@@ -105,9 +107,10 @@
             </div>
 
             <div class="col-md-6">
-                <div class="col map" id="map_123" style="height:700px; width:100%;"></div>
+                <div class="col map" id="map_123" style="height:100%; width:100%;">
                         <script src="https://maps.googleapis.com/maps/api/js?key={{ config('api.google_map_api_key') }}&callback=initMap" defer>
                         </script>
+                </div>
                 <script>
                     const gm_plan = {!! json_encode($gm_plan) !!};
                 </script>
