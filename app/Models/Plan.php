@@ -66,8 +66,12 @@ class Plan extends Model
         return $this;
     }
 
+    // public function keywords(){
+    //     return $this->belongsToMany(Keyword::class, 'plan_keywords', 'plan_id', 'keyword_id');
+    // }
+    
     public function keywords(){
-        return $this->belongsToMany(Keyword::class, 'plan_keywords', 'plan_id', 'keyword_id');
+        return $this->belongsToMany(Keyword::class, 'plan_keywords', 'plan_id', 'keyword_id')->withPivot('created_at', 'updated_at');
     }
 
     # 月・日・年・時間表示を行う場合はこのフォーマットを使う
