@@ -24,19 +24,13 @@ class PlaceController extends Controller
     {
         $place = $this->place->findOrFail($id);
 
-        # Retrieve the opening and ending time(00:00 - 00:00) from timestamp.
-        // $opening_time  = date('H:i', strtotime($place->opening_time));
-        // $place->opening_time = $opening_time;
-        // $ending_time  = date('H:i', strtotime($place->ending_time));
-        // $place->ending_time = $ending_time;
-
         # Retrieve the sub-images from the Place_image table.
         $sub_imgs = DB::table('place_images')->where('place_id', $id)->get();
 
         # Retrive the recommendation
         $recommend_places = $this->getRecommendPlace($id);
         $affiliates = $this->getAffiliate($id);
-       
+    
         return view('users.place_details.show')
             ->with('place', $place)
             ->with('sub_imgs', $sub_imgs)
