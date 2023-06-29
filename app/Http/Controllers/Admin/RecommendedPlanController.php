@@ -284,12 +284,6 @@ class RecommendedPlanController extends Controller
             'plan_id' => 'required'
         ]);
 
-        // $planKeyword = new PlanKeyword();
-        // $planKeyword->plan_id = $plan->id;
-        // $planKeyword->keyword_id = $request->plan_id;
-        // $planKeyword->save();
-        $plan = Plan::find($request->plan_id);
-        // $plan->keywords()->attach($request->keyword_id);
         $plan->keywords()->attach($request->keyword_id, ['created_at' => now(), 'updated_at' => now()]);
 
         return redirect()->back();
