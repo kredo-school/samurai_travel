@@ -1,4 +1,9 @@
 /* All */
+main{
+    background-image: url("/images/bg-image.jpg");
+    background-repeat: repeat;
+}
+
 .title {
     display: flex;
     align-items: center;
@@ -110,6 +115,12 @@
     text-align: center;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    cursor: pointer;
+}
+
+.prefecture-nav-label:hover {
+    font-weight: bolder;
+    background: gold;
 }
 
 .prefecture-content {
@@ -206,6 +217,12 @@
     text-align: center;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    cursor: pointer;
+}
+
+.keyword-nav-label:hover {
+    font-weight: bolder;
+    background:mediumseagreen;
 }
 
 .keyword-content {
@@ -263,14 +280,13 @@
 .cancel-button {
     color: #eee;
     background: rgb(140, 138, 138);
-    border-radius: 0px;
+    border-radius: 20px;
     padding: 8px 20px;
 }
 
 .cancel-button:hover {
     background:rgb(218, 214, 214); 
     color: black;
-    transition: 0.3s ease-in-out;
 }
 
 .submit-button {

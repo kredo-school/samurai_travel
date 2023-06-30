@@ -31,16 +31,21 @@ class PlaceImageController extends Controller
     public function store(Request $request, Place $place)
     {
         $request->validate([
-            'image_no'     =>  'required|integer',
+            // 'image_no'     =>  'required|integer',
             'image'        =>  'required|mimes:jpg,png,jpeg,gif|max:10000',
             'description'  =>  'required|max:1000',
             'name_en'        =>  'required|max:1000',
             'name_jp'        =>  'required|max:1000'
         ]);
-        
+
+        $latestImage = PlaceImage::where('place_id',$place->id)->max('image_no');
+
+        $ImageNo = $latestImage ? $latestImage + 1 : 1;
+
         PlaceImage::create([
             'place_id'    => $place->id,
-            'image_no'    => $request->image_no,
+            'image_no'    => $ImageNo,
+            // 'image_no'    => $request->image_no,
             'image'       => $this->saveImage($request),
             'description' => $request->description,
             'name_en'        =>  $request->name_en,
