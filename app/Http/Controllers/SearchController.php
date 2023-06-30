@@ -70,7 +70,7 @@ class SearchController extends Controller
             });
         }
 
-        $places = $query->paginate(10);
+        $places = $query->get();
         // dd($s_area, $s_prefecture, $s_genre, $s_keyword);
 
         return view('users.search.search')

@@ -51,7 +51,7 @@ class PlaceController extends Controller
             'address'        =>  'nullable|min:1|max:1000',
             'spend_time'     =>  'nullable|integer',
             'image'        =>  'required|mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|max:100',
+            'description'  =>  'required|max:1000',
             'open_ampm'    =>  'nullable|in:am,pm',
             'end_ampm'    =>  'nullable|in:am,pm'
         ]);
@@ -118,7 +118,7 @@ class PlaceController extends Controller
             'address'        =>  'nullable|min:1|max:1000',
             'spend_time'     =>  'nullable|integer',
             'image'        =>  'mimes:jpg,png,jpeg,gif|max:10000',
-            'description'  =>  'required|max:100',
+            'description'  =>  'required|max:1000',
             'open_ampm'    =>  'nullable|in:am,pm',
             'end_ampm'    =>  'nullable|in:am,pm'
         ]);

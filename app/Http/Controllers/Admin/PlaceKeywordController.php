@@ -28,7 +28,7 @@ class PlaceKeywordController extends Controller
     public function store(Request $request, Place $place)
     {
         $request->validate([
-            'keyword_id' => 'required'
+            'keyword_id' => 'required|unique:keywords,id'
         ]);
 
         $place->keywords()->attach($request->keyword_id);
@@ -39,7 +39,7 @@ class PlaceKeywordController extends Controller
     public function update(Request $request, Place $place, Keyword $keyword)
     {
         $request->validate([
-            'keyword_id' => 'required'
+            'keyword_id' => 'required|unique:keywords,id'
         ]);
 
         $place->keywords()->detach($keyword->id);

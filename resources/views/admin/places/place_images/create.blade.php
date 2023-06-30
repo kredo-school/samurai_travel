@@ -12,13 +12,13 @@
                 <form action="{{ route('admin.place_image.store', $place) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{-- image_no --}}
-                    <div class="form-group mb-3">
+                    {{-- <div class="form-group mb-3">
                         <label for="image_no" class="form-label text-muted mb-2">Image No.</label>
                         <input type="number" name="image_no" class="form-control" style="width: 25%">
                         @error('image_no')
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     {{-- Name --}}
                     <div class="row mb-3">
