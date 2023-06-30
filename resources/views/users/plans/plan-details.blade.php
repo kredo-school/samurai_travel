@@ -2,6 +2,10 @@
 
 @section('title', 'Show Plan Detail')
 
+@section('map-js')
+    <script src="{{ asset('js/map.js') }}" defer></script>
+@endsection
+
 @section('content')
 <style>
     .background-container{
@@ -12,7 +16,6 @@
     .plan-container{
         position: relative;
         overflow: auto;
-        max-height: 500px;
         }
     
     .plan-container::-webkit-scrollbar{
@@ -32,16 +35,23 @@
         z-index: -1;
         }
 
+         /* タブの色変更 */
+      .nav-pills .nav-link.active{
+          background-color: #DAA4AA;
+          color: black;
+      }
 
-    .googlemap iframe {
-        position: absolute;
-        margin: 2rem;
-        padding: 2rem;
-        top: 0; 
-        left: 0; 
-        width: 600px; 
-        height: 500px;
-    }
+     /* タブの文字色変更 */
+    .nav-pills .nav-link{
+          color: black;
+          font-weight: bold;
+      }
+    
+      .img-sm{
+          width: 200px;
+          height: 150px;
+          object-fit: contain;
+      }
 
     
 

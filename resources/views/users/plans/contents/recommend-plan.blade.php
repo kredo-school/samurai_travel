@@ -28,7 +28,7 @@
                         @if ($k == $recoPlanDetails->day)
                           <div class="float-start"><i class="fa-solid fa-arrow-down-long"></i></div>
                             <div class="bg-plan p-1 mb-1">
-                              <div class="p-2">
+                              <div class="p-2 bg-light">
                                 @if($i == 0)
                                   <p><i class="fa-regular fa-clock"></i>Start 9:00</p>
                                   @php $nextDestinationTime = strtotime('+' . $recoPlanDetails->place->spend_time . ' minutes', strtotime('9:00')); @endphp
