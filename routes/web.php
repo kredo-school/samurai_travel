@@ -147,7 +147,7 @@ Route::group(['middleware' => 'auth'], function(){
     // for displaying PLAN DETAILS(for LOGGED IN USER)
     Route::get('/myplans', [PlanController::class, 'showMyPlan'])->name('plans');
     //for displaying PLAN DETAILS(for GUEST USER)
-    Route::get('/plan-details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
+    Route::get('/plan/details/{id}', [PlanController::class, 'showPlan'])->name('show.plan');
     Route::post('/plans/store/{planId}',[PlanFavoriteController::class, 'store'])->name('store.plan');
     Route::delete('/plans/destroy/{planId}',[PlanFavoriteController::class,'destroy'])->name('destroy.plan');
 

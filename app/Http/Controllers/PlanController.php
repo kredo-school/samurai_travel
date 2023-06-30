@@ -16,6 +16,8 @@ use App\Models\PlanFavorite;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class PlanController extends Controller
 
@@ -109,16 +111,60 @@ class PlanController extends Controller
             $recommended_plans_test = Plan::where('user_type', '=' , 'admin')->take(3)->get();
         
             
+            $plan = $plans;
+
+            $transfer_minute = 30;
+            $interval = CarbonInterval::minutes($transfer_minute);    // Create a 30-minute interval
+            $start_time = '9:00 AM';
+            $arrival_time = Carbon::parse($start_time);    // Set the start time
+            $pre_day = 0;
+            $top_plan = [];
+            $place_list = [];
+            $day_places = [];
+            $gm_plan = [];
+
+            if ($plan) {
+
+                foreach ($plan->planDetailsSorted as $planDetail) {
+                    // get arrival time
+                    if ($planDetail->sort_no === 1) {
+                        $arrival_time = Carbon::parse($start_time);    // Set the start time
+                    } else {
+                        $arrival_time->add($interval);
+                    }
+
+                    $tmp_place = [
+                        'place_id' => $planDetail->place->id,
+                        'name_en' => $planDetail->place->name_en,
+                        'prefecture_name_en' => $planDetail->place->prefecture->name_en,
+                        'city_name_en' => $planDetail->place->city->name_en,
+                        'address' => $planDetail->place->address,
+                        'image' => $planDetail->place->image,
+                        'description' => $planDetail->place->description,
+                        'arrival_time' => $arrival_time->format('g:i A'),
+                    ];
+
+                    // for google map
+                    $place_list[] = $tmp_place;
+                }
+
+                    // add place to places of day
+                    $day_places[] = $tmp_place;
+                }
+
+                // for google map
+                foreach ($place_list as $place) {
+                    $gm_plan[] = $place['address']. ' '. $place['city_name_en']. ' '. $place['prefecture_name_en']. ' '. $place['name_en'];
+                }
+
                 return view('users.plans.plan-details', [        
                     'plans' => $plans, 
                     'places' => $places,
                     'plan_details' => $plan_details,
                     'placeForPlanGroups' => $placeForPlanGroups,
-                    'recommended_plans'=>$recommended_plans_test
+                    'recommended_plans'=>$recommended_plans_test,
+                    'gm_plan' => $gm_plan
                 ]); 
             }
-
-        
-    
 
     }
