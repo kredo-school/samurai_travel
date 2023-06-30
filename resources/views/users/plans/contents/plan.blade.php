@@ -62,7 +62,7 @@
                                 @if($place->plan->day == $key + 1)
                                     
                                     <div class="bg-plan p-2 mb-1">
-                                        <div class="p-2">
+                                        <div class="p-2 bg-light">
                                             @if($i == 0)
                                             <p><i class="fa-regular fa-clock"></i>Start 9:00</p>
                                             <?php $nextDestinationTime = strtotime('+' . $place->spend_time . ' minutes', strtotime('9:00')); ?>
