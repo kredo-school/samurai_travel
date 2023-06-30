@@ -28,7 +28,7 @@
                 <label for="genre" class="form-label">Genre</label>
                 <select name="genre_id" id="genre" class="form-select">
                     <option value="hidden" disabled>Select Genre</option>
-                    @foreach ($all_genres as $genre)
+                    @foreach ($data['genre'] as $genre)
                     @if ($genre->id === $question->genre_id)
                         <option selected value="{{ $genre->id }}">{{ $genre->name }}</option>
                     @else
@@ -46,7 +46,7 @@
                 <label for="keyword" class="form-label">Keyword</label>
                 <select name="keyword_id" id="keyword" class="form-select">
                     <option value="hidden" disabled>Select Keyword</option>
-                    @foreach ($all_keywords as $keyword)
+                    @foreach ($data['keyword'] as $keyword)
                     @if ($keyword->id === $question->keyword_id)
                         <option selected value="{{ $keyword->id }}">{{ $keyword->name }}</option>
                     @else

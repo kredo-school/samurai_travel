@@ -81,12 +81,11 @@ class RecommendedPlanController extends Controller
     # -----FOR PLAN DETAILS PAGE-----
     public function showDetail(Plan $plan){
         $all_places = Place::all();
-        $plans = Plan::all();
     
         return view('admin.plans.plan_details.recommended_plan_details')        
             ->with('plan_details', $plan->details)
             ->with('all_places', $all_places)
-            ->with('plans', $plans);
+            ->with('plan', $plan);
     }
 
     #----- FOR CREATE PAGE -----
@@ -274,18 +273,18 @@ class RecommendedPlanController extends Controller
         'plan_keywords' => $planKeywords,
         'recommended_plan' => $plan,
         'all_keywords' => $all_keywords,
+        
         ]); 
     }
 
-    public function storeKeyword(Request $request){
+    public function storeKeyword(Request $request, Plan $plan){
         $request->validate
         ([
             'keyword_id' => 'required',
             'plan_id' => 'required'
         ]);
 
-        $plan = Plan::find($request->plan_id);
-        $plan->keywords()->attach($request->keyword_id);
+        $plan->keywords()->attach($request->keyword_id, ['created_at' => now(), 'updated_at' => now()]);
 
         return redirect()->back();
     }

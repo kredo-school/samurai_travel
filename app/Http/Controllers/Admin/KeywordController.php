@@ -9,9 +9,6 @@ use App\Models\Genre;
 
 class KeywordController extends Controller
 {
-    private $keyword;
-    private $genre;
-
     public function index()
     {
         $all_keywords = Keyword::paginate(10);
