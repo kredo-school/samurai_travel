@@ -58,7 +58,7 @@
 </style>
 
     <div class="background-container d-flex align-items-center">
-      <img class="back-img" src="{{ asset('storage\images\bg-paper.jpg') }}" alt="back-img">
+      <img class="back-img" src="{{ asset('images\bg-image.jpg') }}" alt="back-img">
 
       @include('users.plans.contents.plan', ['id', request()->route('id')])
 
