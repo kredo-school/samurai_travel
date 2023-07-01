@@ -23,7 +23,7 @@
                         </div>
                     </a>
                     <a href="{{ route('search.index') }}" class="mx-5 text-decoration-none text-white nav-box border border-white d-flex align-items-center justify-content-center">
-                        <div class="">Search by category
+                        <div class="">Search by Category
                             <div class="text-center mt-1">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </div>
