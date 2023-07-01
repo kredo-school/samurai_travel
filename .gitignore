@@ -13,7 +13,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-composer.json
-composer.lock
-composer.lock
-/public/mix-manifest.json
+# composer.json
+# composer.lock
+# composer.lock
+# /public/mix-manifest.json
