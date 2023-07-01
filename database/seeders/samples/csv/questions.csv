@@ -1,0 +1,11 @@
+id,question,genre_id,keyword_id
+1001,"Which do you prefer?",1005,1013
+1002,"What are you interested in Japan?",1008,1025
+1003,"Where would you like to go?",1008,1025
+1004,"Where would you like to go?",1001,1001
+1005,"What do you want to try?",1005,1013
+1006,"Where would you like to go?",1011,1035
+1007,"Which do you prefer?",1006,1017
+1008,"What kind of Japanese food would you like to eat?",1006,1020
+1009,"Which hotel do you prefer?",1012,1040
+1010,"What is important to stay in the hotel?",1003,1007

@@ -1,0 +1,51 @@
+id,genre_id,name
+1001,1001,Castle
+1002,1001,Temple Shrine
+1003,1001,Tower
+1004,1002,Painting
+1005,1002,Music
+1006,1002,Movie
+1007,1003,Carefree
+1008,1003,Good view
+1009,1003,Relaxation
+1010,1004,Fireworks
+1011,1004,Wedding
+1012,1004,For children
+1013,1005,Cooking
+1014,1005,Crafts
+1015,1005,History
+1016,1006,Buckwheat noodle
+1017,1006,Eel
+1018,1006,Fried dumplings
+1019,1006,Ramen
+1020,1006,Sushi
+1021,1007,Design
+1022,1007,Anime
+1023,1007,Technology
+1024,1008,Lake
+1025,1008,Mountain
+1026,1008,Plateau
+1027,1008,river
+1028,1009,Expensive
+1029,1009,Reasonable
+1030,1009,Free
+1031,1010,Climbing
+1032,1010,Paragliding
+1033,1010,Diving
+1034,1010,Sumo
+1035,1011,Zoo
+1036,1011,Amusement
+1037,1011,Ferris wheel
+1038,1011,Aquarium
+1039,1012,Hot spring
+1040,1012,Japanese Inn
+1041,1012,Long-established
+1042,1012,Ryotei
+1043,1013,Hamburger steak
+1044,1013,Pizza
+1045,1013,Pasta
+1046,1014,Fried rice
+1047,1014,Dim sum
+1048,1014,Mapo tofu
+1049,1014,Peking roasted duck
+1050,1014,Pepper steak
