@@ -43,7 +43,7 @@
                                   <div class="d-flex">
                                 @foreach($recoPlanDetails->place->placeImages as $image)
                                   <div class="px-2">
-                                  <img src="{{ asset($image->image) }}" class="img-xs" alt="{{$image->image}}">
+                                  <img src="{{ asset("/storage/sample/$image->image") }}" class="img-xs" alt="{{$image->image}}">
                                   </div>
                                   <p class="place-desc px-2">{{ $image->description }}</p>
                                 @endforeach

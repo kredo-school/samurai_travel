@@ -49,7 +49,7 @@
 </style>
 
 <div class="background-container recommended ">
-    <img class="back-img" src="{{ asset('storage\images\bg-paper.jpg') }}" alt="">
+    <img class="back-img" src="{{ asset('images\bg-image.jpg') }}" alt="">
     <div class="row">
         <div class="my-4">
             <p class="h3 title text-center my-1 py-5">Recommend for you</p>
